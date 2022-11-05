@@ -32,8 +32,8 @@ async def jozve_darkhast_handler(client, message):
 async def jozve_darkhast_text_handler(client, message):
     await methods.send_message_to_admin(client,message)
 @Client.on_message(jozve_search)
-async def jozve_darkhast_text_handler(client, message):
+async def jozve_search_text_handler(client, message):
     await methods.send_message_to_admin(client,message)
 @Client.on_message(jozve_sabt)
-async def jozve_darkhast_text_handler(client, message):
+async def jozve_sabt_text_handler(client, message):
     await methods.send_message_to_admin(client,message)
