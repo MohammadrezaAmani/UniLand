@@ -1,4 +1,5 @@
-def send_message_to_addmin(user_id, message):
+async def send_message_to_admin(client,message):
+    print('send_message_to_admin')
     """send user messages to addmin
 
     Args:
