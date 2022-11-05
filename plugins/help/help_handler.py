@@ -4,7 +4,7 @@ from uniland.utils import messages,pages
 
 @Client.on_message(filters.regex(messages.HELP) | filters.command('help'))
 async def jozve_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
-    """handling back button in bot
+    """handling help button in bot
             for editing shown text in this method, 
             edit uniland/utils/messages.py
         Args:
