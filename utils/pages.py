@@ -6,7 +6,7 @@ HOME = ReplyKeyboardMarkup(
                 [
                     [messages.JOZVE_TITLE,messages.SOURCE],
                     [messages.RECORDED_CLASSES,messages.MY_PROFILE],
-                    [messages.ABOUT,messages.ERTEBAT]  # Second row
+                    [messages.HELP,messages.ERTEBAT]  # Second row
                 ],
                 resize_keyboard=True 
             )

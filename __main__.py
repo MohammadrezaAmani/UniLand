@@ -8,7 +8,8 @@ if __name__ == "__main__":
         include=[
             'jozve.jozve_handler',
             'start.start_handler',
-            'back.back_handler'
+            'back.back_handler',
+            'help.help_handler'
             ]
         )
     Client(
