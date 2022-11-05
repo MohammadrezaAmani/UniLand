@@ -55,6 +55,17 @@ async def recorded_search_check(self, client, message):
 	if last_step == steps.RECORDED_SEARCH:
 		return True
 	return False
+
+async def jozve_func_check(self, client, message):
+	return message.text.startswith('/bo')
+
+async def recorded_func_check(self, client, message):
+	return message.text.startswith('/re')
+
+async def source_func_check(self, client, message):
+	return message.text.startswith('/so')
+
+# async def recorded_search_check(self, client, message):
 admin_only = filters.create(admin_check)
 jozve_darkhast = filters.create(jozve_darkhast_check)
 jozve_sabt = filters.create(jozve_sabt_check)
@@ -65,3 +76,7 @@ source_search = filters.create(source_search_check)
 recorded_darkhast = filters.create(recorded_darkhast_check)
 recorded_sabt = filters.create(recorded_sabt_check)
 recorded_search = filters.create(recorded_search_check)
+jozve_check = filters.create(jozve_func_check)
+recorded_check = filters.create(recorded_func_check)
+source_check = filters.create(source_func_check)
+
