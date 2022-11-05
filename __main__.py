@@ -11,7 +11,7 @@ if __name__ == "__main__":
             'back.back_handler',
             'help.help_handler',
             'ostad.ostad_handler',
-            
+            'apply.apply_handler'
 
             ]
         )
