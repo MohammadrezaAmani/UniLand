@@ -7,7 +7,8 @@ if __name__ == "__main__":
         root='uniland.plugins',
         include=[
             'jozve.jozve_handler',
-            'start.start_handler'
+            'start.start_handler',
+            'back.back_handler'
             ]
         )
     Client(
