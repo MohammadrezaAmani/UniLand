@@ -1,2 +1,4 @@
 uniland.session
 uniland.session-jornal
+config.py
+*.pyc
