@@ -17,10 +17,10 @@ for i in range(4):
 # save changes in database
 session.commit()
 
-# All data
-for s in session.query(db.Admin).all():
-    print(s.name, s.family)
+# # All data
+# for s in session.query(db.Admin).all():
+#     print(s.name, s.family)
     
-# Selected data
-for s in session.query(db.Admin).filter(db.Admin.user_id>300):
-    print(s.name, s.family)
+# # Selected data
+# for s in session.query(db.Admin).filter(db.Admin.user_id>300):
+#     print(s.name, s.family)
