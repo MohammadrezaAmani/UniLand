@@ -9,7 +9,10 @@ if __name__ == "__main__":
             'jozve.jozve_handler',
             'start.start_handler',
             'back.back_handler',
-            'help.help_handler'
+            'help.help_handler',
+            'ostad.ostad_handler',
+            
+
             ]
         )
     Client(
