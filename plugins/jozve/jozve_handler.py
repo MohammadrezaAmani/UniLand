@@ -22,7 +22,7 @@ async def jozve_sabt_handler(client, message):
         )
 
 @Client.on_message(filters.regex(messages.JOZVE_DARKHASTI))
-async def jozve_handler(client, message):
+async def jozve_darkhast_handler(client, message):
     await message.reply(
             text=messages.JOZVE_DARKHASTI_DESCRIPTION,
             reply_markup=pages.BACK
