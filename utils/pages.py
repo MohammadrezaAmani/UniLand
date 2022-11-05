@@ -95,7 +95,7 @@ def FACULITY_CREATOR(use):
                 )
      for i in range(4)] for j in range(5)]
     )
-print(messages.FACULTIES)
+    
 JOZVE_YEAR = YEAR_CREATOR(messages.JOZVE_TITLE)
 JOZVE_FACULTY = FACULITY_CREATOR(messages.JOZVE_TITLE)
 
