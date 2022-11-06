@@ -59,7 +59,7 @@ def search_jozve(id:int):
     Returns:
         tuple: search result
     """
-    return (1,'BQACAgQAAxkBAAIDymNm5VBIii8fsU5U5HikFG5__eCuAALaDAACJbbhUU8quAABkUBkSR4E','درس1','professor1','writer1',0,0)
+    return (1,'BQACAgQAAxkBAAIDymNm5VBIii8fsU5U5HikFG5__eCuAALaDAACJbbhUU8quAABkUBkSR4E','پایتون','محمدرضا امانی','متردد',1000,0)
 def change_last_step(user_id:int, step:str):
     """this function change last step of user in database
 
@@ -78,3 +78,5 @@ def get_last_step(user_id:int):
     """
     step = 'start'
     return step
+def add_like(typed,id):
+    pass

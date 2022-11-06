@@ -40,26 +40,26 @@ JOZVE_SABT = InlineKeyboardMarkup(
                     [
                         [InlineKeyboardButton(
                             messages.JOZVE_SABT_NO,
-                            callback_data=messages.JOZVE_SABT_NO + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_NO  + ':jozve'
                         )],
                         [InlineKeyboardButton(
                             messages.JOZVE_SABT_FACULTY,
-                            callback_data=messages.JOZVE_SABT_FACULTY + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_FACULTY  + ':jozve'
                         ), InlineKeyboardButton(
                             messages.JOZVE_SABT_NAME,
-                            callback_data=messages.JOZVE_SABT_NAME + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_NAME  + ':jozve'
                         )],[InlineKeyboardButton(
                             messages.JOZVE_SABT_FACULTY,
-                            callback_data=messages.JOZVE_SABT_OSTAD + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_OSTAD  + ':jozve'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_NAME,
-                            callback_data=messages.JOZVE_SABT_YEAR + messages.JOZVE_TITLE
+                            messages.JOZVE_SABT_YEAR,
+                            callback_data=messages.JOZVE_SABT_YEAR + ':jozve'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_NAME,
-                            callback_data=messages.JOZVE_SABT_WRITER + messages.JOZVE_TITLE
+                            messages.JOZVE_SABT_WRITER,
+                            callback_data=messages.JOZVE_SABT_WRITER  + ':jozve'
                         )],[InlineKeyboardButton(
-                            messages.JOZVE_SABT_NAME,
-                            callback_data=messages.JOZVE_SABT_CONFIRM + messages.JOZVE_TITLE
+                            messages.JOZVE_SABT_CONFIRM,
+                            callback_data=messages.JOZVE_SABT_CONFIRM  + ':jozve'
                         )],
                     ]
                 )
@@ -67,13 +67,13 @@ JOZVE_SABT_NO = InlineKeyboardMarkup(
                     [
                         [InlineKeyboardButton(
                             messages.JOZVE_SABT_NO_JOZVE,
-                            callback_data=messages.JOZVE_SABT_NO_JOZVE + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_NO_JOZVE  + ':jozve'
                         ), InlineKeyboardButton(
                             messages.JOZVE_SABT_NO_NEMONE_SOAL,
-                            callback_data=messages.JOZVE_SABT_NO_NEMONE_SOAL + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_NO_NEMONE_SOAL  + ':jozve'
                         ), InlineKeyboardButton(
                             messages.JOZVE_SABT_NO_KHOLASE,
-                            callback_data=messages.JOZVE_SABT_NO_KHOLASE + messages.JOZVE_TITLE
+                            callback_data=messages.JOZVE_SABT_NO_KHOLASE  + ':jozve'
                         )],
                     ]
 )
@@ -122,3 +122,15 @@ PROFILE = ReplyKeyboardMarkup(
                 ],
                 resize_keyboard=True 
             )
+def LIKE_OR_DISLIKE(part:str, id:int,likes:int,dislikes:int):
+    return InlineKeyboardMarkup(
+                    [
+                        [InlineKeyboardButton(
+                            str(likes) + ' ' + messages.LIKE,
+                            callback_data= 'like' + ':'  + part + ':' + str(id)
+                        ), InlineKeyboardButton(
+                            str(dislikes)  + ' ' + messages.DISLIKE,
+                            callback_data='dislike'+ ':' + part + ':' + str(id)
+                        )],
+                    ]
+)

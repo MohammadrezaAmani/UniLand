@@ -66,6 +66,9 @@ async def recorded_func_check(self, client, message):
 async def source_func_check(self, client, message):
 	return message.text.startswith('/so')
 
+async def jozve_react_check(self, client, message):
+	return message.data.startswith('like:jozve') or message.data.startswith('dislike:jozve')
+
 # async def recorded_search_check(self, client, message):
 admin_only = filters.create(admin_check)
 jozve_darkhast = filters.create(jozve_darkhast_check)
@@ -80,4 +83,4 @@ recorded_search = filters.create(recorded_search_check)
 jozve_check = filters.create(jozve_func_check)
 recorded_check = filters.create(recorded_func_check)
 source_check = filters.create(source_func_check)
-
+jozve_react = filters.create(jozve_react_check)
