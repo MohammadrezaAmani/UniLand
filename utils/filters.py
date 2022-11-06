@@ -24,7 +24,8 @@ async def jozve_search_check(self, client, message):
 	last_step = get_last_step(message.from_user.id)
 	if last_step == steps.JOZVE_SEARCH:
 		return True
-	return False
+	if message.text == 'سلام':
+		return True
 async def source_darkhast_check(self, client, message):
 	last_step = get_last_step(message.from_user.id)
 	if last_step == steps.SOURCE_DARKHAST:
@@ -54,7 +55,7 @@ async def recorded_search_check(self, client, message):
 	last_step = get_last_step(message.from_user.id)
 	if last_step == steps.RECORDED_SEARCH:
 		return True
-	return False
+	
 
 async def jozve_func_check(self, client, message):
 	return message.text.startswith('/bo')

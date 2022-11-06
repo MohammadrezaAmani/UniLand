@@ -13,6 +13,6 @@ async def start_handler(client:pyrogram.client.Client, message:pyrogram.types.me
         """
         await client.send_message(
             message.from_user.id,
-            messages.START%(message.from_user.first_name,message.from_user.id),
+            messages.START%(message.from_user.first_name),
             reply_markup=pages.HOME
         )

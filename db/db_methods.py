@@ -14,7 +14,52 @@ def add_user(user_id:int, name:str, family:str = '', student_number:int = 0, maj
     """
     is_success = False
     return is_success
+def search_jozve_by_name(text:str):
+    """search jozves name in database and return a tuple of results
+        contains:
+            id:int
+            dars:str
+            professor:str
+            writer:str
+            likes:int
+            dislikes:int
+        example:
+            (
+                (1,'dars1','professor1','writer1',0,0),
+                (2,'dars2','professor2','writer2',0,0),
+                (3,'dars3','professor3','writer3',0,0),
+            )
 
+    Args:
+        text (str): name
+
+    Returns:
+        tuple: search results
+    """
+    return (
+                (1,'dars1','professor1','writer1',0,0),
+                (2,'dars2','professor2','writer2',0,0),
+                (3,'dars3','professor3','writer3',0,0),
+            )
+def search_jozve(id:int):
+    """search jozves name in database and return a tuple of results
+        contains:
+            id:int
+            file_id:int
+            dars:str
+            professor:str
+            writer:str
+            likes:int
+            dislikes:int
+        example:
+                (1,'ascascascascascasc','dars1','professor1','writer1',0,0),
+    Args:
+        id (str): name
+
+    Returns:
+        tuple: search result
+    """
+    return (1,'BQACAgQAAxkBAAIDymNm5VBIii8fsU5U5HikFG5__eCuAALaDAACJbbhUU8quAABkUBkSR4E','درس1','professor1','writer1',0,0)
 def change_last_step(user_id:int, step:str):
     """this function change last step of user in database
 
