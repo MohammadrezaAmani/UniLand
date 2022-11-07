@@ -80,3 +80,55 @@ def get_last_step(user_id:int):
     return step
 def add_like(typed,id):
     pass
+
+# TODO! hazf dislike
+# users, requests, document, profile, media
+# users: 
+"""
+    user_id int pk, 
+    access_level,
+    book_marks(many to many),
+    user_documents(one to many),
+
+"""
+# requests
+"""
+    id pk,
+    submition_date time(utcnow),
+    is_confirmed bool,
+    Correspondent_admin many_to_one,
+    Correspondent_user many_to_one nullable = False,
+    liked_users (many to many, book_mark users)
+    search_text str,
+
+"""
+# documents (requests)
+"""
+   file_id str pk,
+   course str,
+   professor str,
+   writer str,
+   semester_year int,
+   type (jozve,kholase,ketab,nemone_soal,...) Enum, 
+   faculty Enum,
+"""
+# profile (requests)
+"""
+    id int pk,
+    title str,
+    email unique str,
+    phone_number str,
+    image_link str null True,
+    image_id str null True,
+    resume_link str null True,
+    resume_id str null True,
+"""
+# media (requests)
+"""
+    id int pk,
+    type enum (link, nima, lmshome, mp4)
+    course str,
+    professor str,
+    semester_year int,
+    faculity Enum,
+"""

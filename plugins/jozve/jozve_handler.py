@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from uniland.utils import messages,pages,methods
 from uniland.utils.filters import (
     jozve_darkhast, jozve_sabt, jozve_search,
-    jozve_check, jozve_react
+    jozve_check, jozve_react,jozve_sabt_no
 )
 import pyrogram
 from uniland.db.db_methods import search_jozve_by_name,search_jozve,add_like
@@ -85,6 +85,11 @@ async def jozve_dl_handler(client:pyrogram.client.Client, message:pyrogram.types
 async def jozve_dl3_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
     typed,_,id = message.data.split(':')
     add_like(typed,id)
+
+@Client.on_callback_query(jozve_sabt_no)
+async def jozve_sabt_no_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
+    print(message)
+
 # TODO!: this must me completed
 @Client.on_message(jozve_sabt)
 async def jozve_sabt_text_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
