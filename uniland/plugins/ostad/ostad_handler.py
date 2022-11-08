@@ -4,8 +4,8 @@ from pyrogram import Client, filters
 import pyrogram
 from uniland.utils import messages,pages
 
-@Client.on_message(filters.regex(messages.OSTAD))
-async def ostad_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
+@Client.on_message(filters.regex(messages.PROFESSOR))
+async def professor_handler(client:pyrogram.client.Client, message:pyrogram.types.messages_and_media.message.Message):
     """handling professor button in bot
             for editing shown text in this method, 
             edit uniland/utils/messages.py

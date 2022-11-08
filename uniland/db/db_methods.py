@@ -14,8 +14,8 @@ def add_user(user_id:int, name:str, family:str = '', student_number:int = 0, maj
     """
     is_success = False
     return is_success
-def search_jozve_by_name(text:str):
-    """search jozves name in database and return a tuple of results
+def search_document_by_name(text:str):
+    """search documents name in database and return a tuple of results
         contains:
             id:int
             dars:str
@@ -41,8 +41,8 @@ def search_jozve_by_name(text:str):
                 (2,'dars2','professor2','writer2',0,0),
                 (3,'dars3','professor3','writer3',0,0),
             )
-def search_jozve(id:int):
-    """search jozves name in database and return a tuple of results
+def search_document(id:int):
+    """search documents name in database and return a tuple of results
         contains:
             id:int
             file_id:int
@@ -109,7 +109,7 @@ def add_like(typed,id):
    professor str,
    writer str,
    semester_year int,
-   type (jozve,kholase,ketab,nemone_soal,...) Enum, 
+   type (document,kholase,ketab,nemone_soal,...) Enum, 
    faculty Enum,
 """
 # profile (requests)

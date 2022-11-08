@@ -1,4 +1,5 @@
-uniland.session
-uniland.session-journal
-config.py
+uniland/config.py
+uniland/__pycache__
+*.sqlite
+*.session
 *.pyc

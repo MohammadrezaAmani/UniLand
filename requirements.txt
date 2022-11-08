@@ -1,0 +1,7 @@
+# --- For-Telegram-Bot --------- #
+pyrogram
+# --- For-Database --------- #
+sqlalchemy
+# --- For-Bot-Speedup --------- #
+tgcrypto
+uvloop

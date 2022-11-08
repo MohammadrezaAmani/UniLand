@@ -4,7 +4,7 @@ from pyrogram.types import (ReplyKeyboardMarkup, InlineKeyboardMarkup,
                              InputTextMessageContent)
 HOME = ReplyKeyboardMarkup(
                 [
-                    [messages.JOZVE_TITLE,messages.SOURCE],
+                    [messages.DOCUMENT_TITLE,messages.SOURCE],
                     [messages.RECORDED_CLASSES,messages.MY_PROFILE],
                     [messages.HELP,messages.ERTEBAT]  # Second row
                 ],
@@ -28,52 +28,52 @@ CONFIRM_OR_BACK = ReplyKeyboardMarkup(
                 ],
                 resize_keyboard=True 
             )
-JOZVE = ReplyKeyboardMarkup(
+DOCUMENT = ReplyKeyboardMarkup(
                 [
-                    [messages.JOZVE_SEARCH,messages.JOZVE_SABT],
-                    [messages.JOZVE_DARKHASTI,messages.BACK]
+                    [messages.DOCUMENT_SEARCH,messages.DOCUMENT_SUBMISSION],
+                    [messages.DOCUMENT_REQUESTED,messages.BACK]
                 ],
                 resize_keyboard=True 
             )
 
-JOZVE_SABT = InlineKeyboardMarkup(
+DOCUMENT_SUBMISSION = InlineKeyboardMarkup(
                     [
                         [InlineKeyboardButton(
-                            messages.JOZVE_SABT_NO,
-                            callback_data=messages.JOZVE_SABT_NO  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_NO,
+                            callback_data=messages.DOCUMENT_SUBMISSION_NO  + ':document'
                         )],
                         [InlineKeyboardButton(
-                            messages.JOZVE_SABT_FACULTY,
-                            callback_data=messages.JOZVE_SABT_FACULTY  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_FACULTY,
+                            callback_data=messages.DOCUMENT_SUBMISSION_FACULTY  + ':document'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_NAME,
-                            callback_data=messages.JOZVE_SABT_NAME  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_NAME,
+                            callback_data=messages.DOCUMENT_SUBMISSION_NAME  + ':document'
                         )],[InlineKeyboardButton(
-                            messages.JOZVE_SABT_FACULTY,
-                            callback_data=messages.JOZVE_SABT_OSTAD  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_FACULTY,
+                            callback_data=messages.DOCUMENT_SUBMISSION_PROFESSOR  + ':document'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_YEAR,
-                            callback_data=messages.JOZVE_SABT_YEAR + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_YEAR,
+                            callback_data=messages.DOCUMENT_SUBMISSION_YEAR + ':document'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_WRITER,
-                            callback_data=messages.JOZVE_SABT_WRITER  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_WRITER,
+                            callback_data=messages.DOCUMENT_SUBMISSION_WRITER  + ':document'
                         )],[InlineKeyboardButton(
-                            messages.JOZVE_SABT_CONFIRM,
-                            callback_data=messages.JOZVE_SABT_CONFIRM  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_CONFIRM,
+                            callback_data=messages.DOCUMENT_SUBMISSION_CONFIRM  + ':document'
                         )],
                     ]
                 )
-JOZVE_SABT_NO = InlineKeyboardMarkup(
+DOCUMENT_SUBMISSION_NO = InlineKeyboardMarkup(
                     [
                         [InlineKeyboardButton(
-                            messages.JOZVE_SABT_NO_JOZVE,
-                            callback_data=messages.JOZVE_SABT_NO_JOZVE  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_NO_DOCUMENT,
+                            callback_data=messages.DOCUMENT_SUBMISSION_NO_DOCUMENT  + ':document'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_NO_NEMONE_SOAL,
-                            callback_data=messages.JOZVE_SABT_NO_NEMONE_SOAL  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_NO_NEMONE_SOAL,
+                            callback_data=messages.DOCUMENT_SUBMISSION_NO_NEMONE_SOAL  + ':document'
                         ), InlineKeyboardButton(
-                            messages.JOZVE_SABT_NO_KHOLASE,
-                            callback_data=messages.JOZVE_SABT_NO_KHOLASE  + ':jozve'
+                            messages.DOCUMENT_SUBMISSION_NO_KHOLASE,
+                            callback_data=messages.DOCUMENT_SUBMISSION_NO_KHOLASE  + ':document'
                         )],
                     ]
 )
@@ -96,21 +96,21 @@ def FACULITY_CREATOR(use):
      for i in range(4)] for j in range(5)]
     )
     
-JOZVE_YEAR = YEAR_CREATOR(messages.JOZVE_TITLE)
-JOZVE_FACULTY = FACULITY_CREATOR(messages.JOZVE_TITLE)
+DOCUMENT_YEAR = YEAR_CREATOR(messages.DOCUMENT_TITLE)
+DOCUMENT_FACULTY = FACULITY_CREATOR(messages.DOCUMENT_TITLE)
 
 SOURCE = ReplyKeyboardMarkup(
                 [
-                    [messages.SOURCE_SEARCH,messages.SOURCE_SABT],
-                    [messages.SOURCE_DARKHASTI,messages.BACK]
+                    [messages.SOURCE_SEARCH,messages.SOURCE_SUBMISSION],
+                    [messages.SOURCE_REQUESTED,messages.BACK]
                 ],
                 resize_keyboard=True 
             )
 
 RECORDED = ReplyKeyboardMarkup(
                 [
-                    [messages.RECORDED_SEARCH,messages.RECORDED_SABT],
-                    [messages.RECORDED_DARKHASTI,messages.BACK]
+                    [messages.RECORDED_SEARCH,messages.RECORDED_SUBMISSION],
+                    [messages.RECORDED_REQUESTED,messages.BACK]
                 ],
                 resize_keyboard=True 
             )
