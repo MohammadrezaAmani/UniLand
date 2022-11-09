@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 # from uniland.utils.filters import access_level
 # from uniland.db.tables import User
+from uniland.db import tables
 # from uniland.db import user_methods as user_db
 
 # This file tests bot uptime
