@@ -8,9 +8,9 @@ from uniland.utils.enums import UserLevel, DocType
 bookmarks_association = Table(
     'bookmarks_association', BASE.metadata,
     Column('user_id', Integer,
-           ForeignKey('example.sqlalchemy_tutorial_players.team_id')),
+           ForeignKey('users.user_id')),
     Column('submission_id', Integer,
-           ForeignKey('example.sqlalchemy_tutorial_teams.id')))
+           ForeignKey('submissions.id')))
 
 
 # TODO! handle ON DELETE cascade in relationships
@@ -24,7 +24,7 @@ class User(BASE):
                            secondary=bookmarks_association,
                            back_populates='liked_users')
   # one-to_many with Submission.owner
-  user_submissions = relationship('Submission', back_populates='owner')
+  user_submissions = relationship('Submission',back_populates='owner')
 
   def __init__(self, user_id):
     self.user_id = user_id
@@ -44,9 +44,10 @@ class Submission(BASE):
                                ForeignKey('users.user_id'),
                                default=None)
   # many-to-one with User.user_submissions
-  owner_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+  # owner_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+  owner = relationship('User', back_populates='user_submissions')
   # many-to-many with User.bookmarks
-  liked_users = relationship('Submission',
+  liked_users = relationship('User',
                              secondary=bookmarks_association,
                              back_populates='bookmarks')
 
@@ -63,7 +64,7 @@ class Submission(BASE):
   }
 
   def __init(self, owner_id):
-    self.owner_id = owner_id
+    self.owner = owner
 
   def confirm(self):
     self.is_confirmed = True
@@ -79,8 +80,8 @@ class Document(Submission):
   writer = Column(String(30), default='نامشخص')
   semester_year = Column(Integer, default=None)
 
-  def __init__(self, owner_id, file_id):
-    super().__init__(owner_id)
+  def __init__(self, owner, file_id):
+    super().__init__(owner)
     self.file_id = file_id
 
   __mapper_args__ = {
@@ -99,8 +100,8 @@ class Profile(Submission):
   resume_link = Column(String, default='')
   resume_id = Column(String(30), default='')
 
-  def __init__(self, owner_id, title):
-    super().__init__(owner_id)
+  def __init__(self, owner, title):
+    super().__init__(owner)
     self.title = title
 
   __mapper_args__ = {
@@ -117,8 +118,8 @@ class Media(Submission):
   professor = Column(String(30), nullable=False)  # Necessary field
   semester_year = Column(Integer, default=None)
 
-  def __init__(self, owner_id, url):
-    super().__init__(owner_id)
+  def __init__(self, owner, url):
+    super().__init__(owner)
     self.url = url
 
   __mapper_args__ = {
