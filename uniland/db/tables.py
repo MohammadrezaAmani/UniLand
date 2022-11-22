@@ -34,11 +34,7 @@ class User(BASE):
   def __repr__(self):
     return f'User {self.user_id} has access level {self.access_level}'
 
-
-
-
-
-
+# ---------------------------------------------------------------------
 
 class Submission(BASE):
   __tablename__ = "submissions"
@@ -87,15 +83,7 @@ class Submission(BASE):
   def confirm(self):
     self.is_confirmed = True
 
-
-
-
-
-
-
-
-
-
+# ---------------------------------------------------------------------
 
 class Document(Submission):
   __tablename__ = "documents"
@@ -146,16 +134,7 @@ class Document(Submission):
       "polymorphic_identity": "document",
   }
 
-
-
-
-
-
-
-
-
-
-
+# ---------------------------------------------------------------------
 
 class Profile(Submission):
   __tablename__ = "profiles"
@@ -206,14 +185,7 @@ class Profile(Submission):
       "polymorphic_identity": "profile",
   }
 
-
-
-
-
-
-
-
-
+# ---------------------------------------------------------------------
 
 class Media(Submission):
   __tablename__ = "medias"
