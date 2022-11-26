@@ -6,12 +6,19 @@ from uniland.db import user_methods as user_db
 from uniland.db import doc_methods as doc_db
 from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
+from uniland import search_engine
 
 # This file tests bot uptime
 
 @Client.on_message(filters.text & filters.regex('echo'))
 async def echo(client, message):
-    await message.reply(message.text)
+  await message.reply(message.text)
+
+@Client.on_message(filters.text & filters.regex('search'))
+async def search(client, message):
+  text = message.text.replace('search', '')
+  for record in search_engine.search(text):
+    await message.reply(str(record))
 
 @Client.on_message(filters.text & filters.command('add_me'))
 async def addme(client, message):

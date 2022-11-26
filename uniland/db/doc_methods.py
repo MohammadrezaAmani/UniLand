@@ -39,17 +39,12 @@ def add_document(user_id):
             'unique_id': f'{str(cnt)}', 'file_type': DocType.Exercises, 'course': 'Riaza1', 'professor': 'Dehqan'}
 	cnt += 1
 	with DOCUMENT_INSERTION_LOCK:
-		# document = SESSION.query(User).filter(User.user_id == user_id).first()
-		# if user:
-		# 	SESSION.close()
-		# 	return
 		doc = Document(user, new_doc['file_id'], new_doc['unique_id'])
 		doc.file_type = new_doc['file_type']
 		doc.course = new_doc['course']
 		doc.professor = new_doc['professor']
-		# user = User(user_id)
 		print(f'add document: {str(doc)}')
-		SESSION.merge(doc)
+		SESSION.add(doc)
 		SESSION.commit()
 		SESSION.close()
 

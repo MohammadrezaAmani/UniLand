@@ -28,14 +28,9 @@ def add_media(user_id):
 	user = user_db.add_user(user_id)
 
 	with MEDIA_INSERTION_LOCK:
-		# document = SESSION.query(User).filter(User.user_id == user_id).first()
-		# if user:
-		# 	SESSION.close()
-		# 	return
 		media = Media(user, url='some title')
-		# user = User(user_id)
 		print(f'add media: {str(media)}')
-		SESSION.merge(media)
+		SESSION.add(media)
 		SESSION.commit()
 		SESSION.close()
 
