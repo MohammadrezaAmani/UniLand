@@ -1,9 +1,10 @@
-from uniland import BASE, SESSION
 from sqlalchemy import (Column, Integer, String, DateTime, Enum, Table,
                         Boolean, ForeignKey)
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
 from uniland.utils.enums import UserLevel, DocType
+
+BASE = declarative_base()
 
 bookmarks_association = Table(
     'bookmarks_association', BASE.metadata,
@@ -14,17 +15,23 @@ bookmarks_association = Table(
 
 
 # TODO! handle ON DELETE cascade in relationships
+# When a user is deleted, not null constraint for submissions.owner_id
+# will raise error
 class User(BASE):
   __tablename__ = "users"
+  
   user_id = Column(Integer, nullable=False, primary_key=True)  # user_id in telegram
   access_level = Column(Enum(UserLevel), nullable=False, default=UserLevel.Ordinary)
   last_step = Column(String(50), default='')
+
+  # user_submissions : list -> one-to_many with Submission.owner
+
+  # confirmations : list -> one-to-many with Submission.admin
+
   # many-to-many with Submission.liked_users
   bookmarks = relationship('Submission',
                            secondary=bookmarks_association,
                            back_populates='liked_users')
-  # one-to_many with Submission.owner
-  user_submissions = relationship('Submission', back_populates='owner')
 
   def __init__(self, user_id, last_step=''):
     self.user_id = user_id
@@ -42,13 +49,15 @@ class Submission(BASE):
   id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
   submission_date = Column(DateTime, default=datetime.utcnow)
   is_confirmed = Column(Boolean, default=False)
-  # many-to-one
-  correspondent_admin = Column(Integer,
-                               ForeignKey('users.user_id'),
-                               default=None)
+
   # many-to-one with User.user_submissions
-  # owner_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
-  owner = relationship('User', back_populates='user_submissions')
+  owner_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+  owner = relationship('User', backref='user_submissions', foreign_keys=[owner_id])
+
+  # many-to-one with User.confirmations
+  admin_id = Column(Integer, ForeignKey('users.user_id'), default=None)
+  admin = relationship('User', backref='confirmations', foreign_keys=[admin_id])
+
   # many-to-many with User.bookmarks
   liked_users = relationship('User',
                              secondary=bookmarks_association,
@@ -80,8 +89,16 @@ class Submission(BASE):
     self.search_text = search_text
     self.description = description
 
-  def confirm(self):
+  def update_search_text(self):
+    # This method is implemented in each subclass of Submission
+    raise NotImplementedError("This method should not be called from Submission class")
+  
+  def confirm(self, user: User):
+    if user == None or user.access_level.value <= 2: # 2 is Editor access
+      raise RuntimeError("User doesn't have permission to confirm this submission")
+    self.admin = user
     self.is_confirmed = True
+    self.update_search_text()
 
 # ---------------------------------------------------------------------
 
@@ -110,7 +127,7 @@ class Document(Submission):
                course='نامشخص',
                professor='نامشخص',
                writer='نامشخص',
-               semester_year=None):
+               semester_year=None): # TODO! How to handle semester_year?
     
     self.owner = owner
     self.is_confirmed = is_confirmed
@@ -126,6 +143,9 @@ class Document(Submission):
     self.professor = professor
     self.writer = writer
     self.semester_year = semester_year
+    
+  def update_search_text(self):
+    self.search_text = f'{self.file_type} درس {self.course} استاد {self.professor} نویسنده {self.writer} سال {self.semester_year}'
     
   def __repr__(self):
     return f'Document {self.unique_id} from {self.owner}'
@@ -178,6 +198,9 @@ class Profile(Submission):
     self.resume_link = resume_link
     self.resume_id = resume_id
     
+  def update_search_text(self):
+    self.search_text = f'اطلاعات {self.title} دانشکده {self.faculty}'
+    
   def __repr__(self):
     return f'Profile {self.title} from {self.owner}'
 
@@ -221,6 +244,9 @@ class Media(Submission):
     self.course = course
     self.professor = professor
     self.semester_year = semester_year
+   
+  def update_search_text(self):
+    self.search_text = f'فیلم درس {self.course} استاد {self.professor} سال {self.semester_year} دانشکده {self.faculty}'
     
   def __repr__(self):
     return f'Media {self.url} from {self.owner}'
@@ -229,8 +255,12 @@ class Media(Submission):
       "polymorphic_identity": "media",
   }
 
-User.__table__.create(checkfirst=True)
-Submission.__table__.create(checkfirst=True)
-Document.__table__.create(checkfirst=True)
-Profile.__table__.create(checkfirst=True)
-Media.__table__.create(checkfirst=True)
+def create_tables(engine):
+  BASE.metadata.bind = engine
+  BASE.metadata.create_all(engine, checkfirst=True)
+
+# User.__table__.create(checkfirst=True)
+# Submission.__table__.create(checkfirst=True)
+# Document.__table__.create(checkfirst=True)
+# Profile.__table__.create(checkfirst=True)
+# Media.__table__.create(checkfirst=True)

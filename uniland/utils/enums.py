@@ -8,8 +8,8 @@ class UserLevel(enum.Enum):
 
 
 class DocType(enum.Enum):
-    Pamphlet = 1
-    Summary = 2
-    Exercises = 3
-    ExampleProblems = 4
-    CompressedFile = 5
+    Pamphlet = 'جزوه'
+    Summary = 'خلاصه'
+    Exercises = 'تمرینات'
+    ExampleProblems = 'نمونه سوالات'
+    CompressedFile = 'فایل فشرده'

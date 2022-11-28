@@ -1,26 +1,33 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy import Column, TEXT, Numeric
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from uniland.utils.search import SearchEngine
+from uniland.db.tables import User, Submission, create_tables
+from uniland.utils.search import UserPermission, SearchEngine
 from .config import DB_URI
 
 def start() -> scoped_session:
     # Creating db engine and session
     engine = create_engine(DB_URI)
-    BASE.metadata.bind = engine
-    BASE.metadata.create_all(engine)
+    create_tables(engine)
     session = scoped_session(sessionmaker(bind=engine, autoflush=False))
     
     # Indexing all submissions
     search_engine = SearchEngine()
-    for sub in engine.execute('SELECT id, search_text, submission_type FROM submissions'):
-        search_engine.index_record(*sub)
+    for submission in session.query(Submission).all():
+        search_engine.index_record(id=submission.id,
+                                   search_text=submission.search_text,
+                                   sub_type=submission.submission_type,
+                                   likes = len(submission.liked_users))
         
-    return (session, search_engine)
+    # adding users
+    permissions = UserPermission()
+    for user in session.query(User).all():
+        permissions.add_user(user_id = user.user_id, 
+                             permission = user.access_level.value)
+        
+    return (session, search_engine, permissions)
 
-BASE = declarative_base()
-SESSION, search_engine = start()
+SESSION, search_engine, permissions = start()
 
 print(search_engine)
 print(search_engine.keywords.keys())
