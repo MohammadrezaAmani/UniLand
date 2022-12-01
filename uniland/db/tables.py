@@ -63,6 +63,7 @@ class Submission(BASE):
                              secondary=bookmarks_association,
                              back_populates='bookmarks')
 
+  university = Column(String(50))
   faculty = Column(String(30))
   search_text = Column(String(200))
   description = Column(String(500))
@@ -75,16 +76,18 @@ class Submission(BASE):
   }
 
   def __init__(self, 
-             owner,
-             is_confirmed=False, 
-             correspondent_admin=None,
-             faculty='نامشخص',
-             search_text='',
-             description='توضیحاتی برای این فایل ثبت نشده است.'):
+              owner,
+              is_confirmed=False, 
+              correspondent_admin=None,
+              university='نامشخص',
+              faculty='نامشخص',
+              search_text='',
+              description='توضیحاتی برای این فایل ثبت نشده است.'):
     
     self.owner = owner
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
+    self.university = university
     self.faculty = faculty
     self.search_text = search_text
     self.description = description
@@ -110,9 +113,9 @@ class Document(Submission):
   unique_id = Column(String(30), nullable=False, unique=True)
   file_type = Column(Enum(DocType), nullable=False)  # Necessary field
   course = Column(String(30), nullable=False)  # Necessary field
-  professor = Column(String(30), nullable=False)  # Necessary field
+  professor = Column(String(30), default='نامشخص')
   writer = Column(String(30), default='نامشخص')
-  semester_year = Column(Integer, default=None)
+  semester_year = Column(Integer, default=0)
 
   def __init__(self,
                owner,
@@ -120,6 +123,7 @@ class Document(Submission):
                unique_id,
                is_confirmed=False,
                correspondent_admin=None,
+               university='نامشخص',
                faculty='نامشخص',
                search_text='',
                description='توضیحاتی برای این فایل ثبت نشده است.',
@@ -127,11 +131,12 @@ class Document(Submission):
                course='نامشخص',
                professor='نامشخص',
                writer='نامشخص',
-               semester_year=None): # TODO! How to handle semester_year?
+               semester_year=0):
     
     self.owner = owner
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
+    self.university = university
     self.faculty = faculty
     self.search_text = search_text
     self.description = description
@@ -145,7 +150,15 @@ class Document(Submission):
     self.semester_year = semester_year
     
   def update_search_text(self):
-    self.search_text = f'{self.file_type} درس {self.course} استاد {self.professor} نویسنده {self.writer} سال {self.semester_year}'
+    self.search_text = f'{self.file_type.value} درس {self.course}'
+    if self.professor != 'نامشخص':
+      self.search_text += f' استاد {self.professor}'
+    if self.writer != 'نامشخص':
+      self.search_text += f' نویسنده {self.writer}'
+    if self.semester_year != 0:
+      self.search_text += f' سال {self.semester_year}'
+    if self.university != 'نامشخص':
+      self.search_text += f' دانشگاه {self.university}'
     
   def __repr__(self):
     return f'Document {self.unique_id} from {self.owner}'
@@ -179,12 +192,14 @@ class Profile(Submission):
                resume_id='',
                is_confirmed=False, 
                correspondent_admin=None,
+               university='نامشخص',
                faculty='نامشخص',
                search_text='',
                description='توضیحاتی برای این فایل ثبت نشده است.'):
     
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
+    self.university = university
     self.faculty = faculty
     self.search_text = search_text
     self.description = description
@@ -200,6 +215,10 @@ class Profile(Submission):
     
   def update_search_text(self):
     self.search_text = f'اطلاعات {self.title} دانشکده {self.faculty}'
+    if self.faculty != 'نامشخص':
+      self.search_text += f' دانشکده {self.faculty}'
+    if self.university != 'نامشخص':
+      self.search_text += f' دانشگاه {self.university}'
     
   def __repr__(self):
     return f'Profile {self.title} from {self.owner}'
@@ -218,7 +237,7 @@ class Media(Submission):
   media_type = Column(String(20), default=None)
   course = Column(String(30), nullable=False)  # Necessary field
   professor = Column(String(30), nullable=False)  # Necessary field
-  semester_year = Column(Integer, default=None)
+  semester_year = Column(Integer, default=0)
 
   def __init__(self, 
                owner, 
@@ -226,15 +245,17 @@ class Media(Submission):
                media_type='',
                course='نامشخص',
                professor='نامشخص',
-               semester_year=None,
+               semester_year=0,
                is_confirmed=False, 
                correspondent_admin=None,
+               university='نامشخص',
                faculty='نامشخص',
                search_text='',
                description='توضیحاتی برای این فایل ثبت نشده است.'):
     self.owner = owner
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
+    self.university = university
     self.faculty = faculty
     self.search_text = search_text
     self.description = description
@@ -246,7 +267,13 @@ class Media(Submission):
     self.semester_year = semester_year
    
   def update_search_text(self):
-    self.search_text = f'فیلم درس {self.course} استاد {self.professor} سال {self.semester_year} دانشکده {self.faculty}'
+    self.search_text = f'فیلم درس {self.course} استاد {self.professor}'
+    if self.faculty != 'نامشخص':
+      self.search_text += f' دانشکده {self.faculty}'
+    if self.semester_year != 0:
+      self.search_text += f' سال {self.semester_year}'
+    if self.university != 'نامشخص':
+      self.search_text += f' دانشگاه {self.university}'
     
   def __repr__(self):
     return f'Media {self.url} from {self.owner}'
@@ -258,9 +285,3 @@ class Media(Submission):
 def create_tables(engine):
   BASE.metadata.bind = engine
   BASE.metadata.create_all(engine, checkfirst=True)
-
-# User.__table__.create(checkfirst=True)
-# Submission.__table__.create(checkfirst=True)
-# Document.__table__.create(checkfirst=True)
-# Profile.__table__.create(checkfirst=True)
-# Media.__table__.create(checkfirst=True)

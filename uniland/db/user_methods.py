@@ -1,6 +1,7 @@
 import threading
 from uniland import SESSION
 from uniland.db.tables import User, Submission
+from uniland import usercache
 from uniland.utils.enums import UserLevel
 
 USER_INSERTION_LOCK = threading.RLock()  # neccessay for add, remove & update
@@ -14,6 +15,7 @@ def add_user(user_id: int, last_step: str = ''):
       return user
     user = User(user_id, last_step=last_step)
     print(f'add user: {str(user)}')
+    usercache.add_user(user_id, 1, 'start')
     SESSION.add(user)
     SESSION.commit()
     SESSION.close()

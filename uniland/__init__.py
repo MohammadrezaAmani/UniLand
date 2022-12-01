@@ -1,8 +1,10 @@
+import logging
 from sqlalchemy import create_engine, select
 from sqlalchemy import Column, TEXT, Numeric
 from sqlalchemy.orm import sessionmaker, scoped_session
-from uniland.db.tables import User, Submission, create_tables
-from uniland.utils.search import UserPermission, SearchEngine
+from uniland.db.tables import User, Submission, create_tables, Document
+from uniland.utils.search import SearchEngine
+from uniland.utils.usercache import UserCache
 from .config import DB_URI
 
 def start() -> scoped_session:
@@ -20,14 +22,18 @@ def start() -> scoped_session:
                                    likes = len(submission.liked_users))
         
     # adding users
-    permissions = UserPermission()
+    usercache = UserCache()
     for user in session.query(User).all():
-        permissions.add_user(user_id = user.user_id, 
-                             permission = user.access_level.value)
+        usercache.add_user(user_id = user.user_id, 
+                            permission = user.access_level.value,
+                            last_step = user.last_step)
         
-    return (session, search_engine, permissions)
+    return (session, search_engine, usercache)
 
-SESSION, search_engine, permissions = start()
+SESSION, search_engine, usercache = start()
 
 print(search_engine)
 print(search_engine.keywords.keys())
+
+print(usercache)
+print(usercache.users)

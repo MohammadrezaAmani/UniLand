@@ -1,6 +1,6 @@
 import asyncio
 # from uniland.db import user_methods as user_db
-from uniland import permissions
+from uniland import usercache
 from uniland.db.db_methods import get_last_step
 from uniland.db.tables import User
 from uniland.utils import messages, steps
@@ -14,14 +14,19 @@ async def admin_checker(self, client, message):
 
 admin_only = filters.create(admin_checker)
 
-def access_level(min=1, max=3):
+def access_level(min: int = 1, max: int = 3):
 	async def func(self, client, message):
-		return permissions.has_permission(message.from_user.id, 
+		return usercache.has_permission(message.from_user.id, 
                                       min_permission=min,
                                       max_permission=max)
 
 	return filters.create(func)
 
+def user_step(step: str):
+  async def func(self, client, message):
+    return usercache.match_step(message.from_user.id, step)
+
+  return filters.create(func)
 
 async def document_submission_check(
         self, client: pyrogram.client.Client,

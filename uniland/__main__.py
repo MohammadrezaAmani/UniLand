@@ -1,6 +1,3 @@
-# from uniland import UniLand
-from uniland import search_engine, SESSION
-from uniland.db.tables import Submission
 from pyrogram import Client
 from .config import API_ID, API_HASH, BOT_TOKEN
 

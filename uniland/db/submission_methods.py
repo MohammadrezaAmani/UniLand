@@ -17,6 +17,3 @@ Submission Class Properties:
 '''
 
 SUBMISSION_INSERTION_LOCK = threading.RLock()
-
-# Functionality: Search by keyworkds and paging and sort by likes
-# TODO! Search: FTS5؟

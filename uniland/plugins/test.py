@@ -7,13 +7,17 @@ from uniland.db import doc_methods as doc_db
 from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
 from uniland import search_engine
-from uniland.utils.filters import access_level
+from uniland.utils.filters import access_level, user_step
 
 # This file tests bot uptime
 
 @Client.on_message(filters.text & filters.regex('admin') & access_level(min=3))
 async def admin_check(client, message):
   await message.reply("You are admin")
+
+@Client.on_message(filters.text & filters.regex('step') & user_step('test'))
+async def step_check(client, message):
+  await message.reply("You are in test step")
 
 @Client.on_message(filters.text & filters.regex('echo'))
 async def echo(client, message):
