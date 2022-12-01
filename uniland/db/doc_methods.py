@@ -4,7 +4,6 @@ from uniland.db.tables import Document, DocType
 from uniland.db import user_methods as user_db
 from uniland.utils.enums import UserLevel
 from random import randint
-from numpy.random import choice
 
 '''
 	Submission Class Properties:
@@ -32,6 +31,7 @@ DOCUMENT_INSERTION_LOCK = threading.RLock()
 
 cnt = 1
 
+
 def add_document(user_id):
 	global cnt
 	cnt = randint(1, 1e9)
@@ -44,11 +44,11 @@ def add_document(user_id):
 	writers = ['محمدی', 'زارع', 'غیبی', 'شیری']
 	universities = ['صنعتی شریف', 'صنعتی امیرکبیر', 'صنعتی اصفهان', 'امیرکبیر']
 	with DOCUMENT_INSERTION_LOCK:
-		doc = Document(user, new_doc['file_id'], new_doc['unique_id'],                         
-                course=choice(courses),
-                professor=choice(professors),
-                writer=choice(writers),
-                university=choice(universities),)
+		doc = Document(user, new_doc['file_id'], new_doc['unique_id'],
+					course=courses[randint(0, 3)],
+					professor=professors[randint(0, 3)],
+					writer=writers[randint(0, 3)],
+					university=universities[randint(0, 3)])
 		doc.file_type = new_doc['file_type']
 		doc.course = new_doc['course']
 		doc.professor = new_doc['professor']
