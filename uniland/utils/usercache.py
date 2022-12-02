@@ -58,6 +58,9 @@ class UserCache:
         user = self.users[user_id]
         del self.users[user_id]
         return user
+    
+    def has_user(self, user_id: int):
+        return user_id in self.users
         
     def match_step(self, user_id: int, step: str):
         if user_id not in self.users:

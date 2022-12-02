@@ -3,19 +3,20 @@ from uniland import SESSION
 from uniland.db.tables import User, Submission
 from uniland import usercache
 from uniland.utils.enums import UserLevel
+from uniland.utils.steps import UserSteps
 
-USER_INSERTION_LOCK = threading.RLock()  # neccessay for add, remove & update
+USER_INSERTION_LOCK = threading.RLock()
 
 
-def add_user(user_id: int, last_step: str = ''):
+def add_user(user_id: int, last_step: str = UserSteps.START.value):
   with USER_INSERTION_LOCK:
     user = SESSION.query(User).filter(User.user_id == user_id).first()
     if user:
       SESSION.close()
       return user
     user = User(user_id, last_step=last_step)
-    print(f'add user: {str(user)}')
-    usercache.add_user(user_id, 1, 'start')
+    usercache.add_user(user_id, 1, last_step)
+    print(f'added user: {str(user)}')
     SESSION.add(user)
     SESSION.commit()
     SESSION.close()

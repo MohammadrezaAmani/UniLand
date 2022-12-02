@@ -5,16 +5,27 @@ if __name__ == "__main__":
     
     plugins = dict(
         root='uniland.plugins',
-        # include=[
-        #     'jozve.jozve_handler',
-        #     'start.start_handler',
-        #     'back.back_handler',
-        #     'help.help_handler',
-        #     'ostad.ostad_handler',
-        #     'apply.apply_handler',
-        #     'reserve.reserve_handler',
-        #     'test'
-        #     ]
+        include = [
+            # Test plugin for testing functionalities
+            'fortest',
+            
+            # 'uniland.plugins.start folder'
+            'start.start',
+            
+            # 'uniland.plugins.submission folder'
+            'submission.document',
+            'submission.media',
+            'submission.profile',
+            
+            # 'uniland.plugins.search folder'
+            'search.inlinesearch',
+            'search.pvsearch',
+            
+            # 'uniland.plugins.admin folder'
+            'admin.access',
+            'admin.confirmation',
+            'admin.access',
+            ]
         )
     
     Client(
@@ -22,5 +33,6 @@ if __name__ == "__main__":
         api_id = API_ID,
         api_hash = API_HASH,
         bot_token = BOT_TOKEN,
-        plugins = plugins
+        plugins = plugins,
+        proxy=dict(scheme='socks5', hostname='127.0.0.1', port=7777)
     ).run()

@@ -63,8 +63,9 @@ class Submission(BASE):
                              secondary=bookmarks_association,
                              back_populates='bookmarks')
 
-  university = Column(String(50))
+  university = Column(String(30))
   faculty = Column(String(30))
+  owner_title = Column(String(20))
   search_text = Column(String(200))
   description = Column(String(500))
 
@@ -81,7 +82,7 @@ class Submission(BASE):
               correspondent_admin=None,
               university='نامشخص',
               faculty='نامشخص',
-              search_text='',
+              owner_title='ناشناس',
               description='توضیحاتی برای این فایل ثبت نشده است.'):
     
     self.owner = owner
@@ -89,7 +90,7 @@ class Submission(BASE):
     self.correspondent_admin = correspondent_admin
     self.university = university
     self.faculty = faculty
-    self.search_text = search_text
+    self.owner_title = owner_title
     self.description = description
 
   def update_search_text(self):
@@ -125,7 +126,7 @@ class Document(Submission):
                correspondent_admin=None,
                university='نامشخص',
                faculty='نامشخص',
-               search_text='',
+               owner_title='ناشناس',
                description='توضیحاتی برای این فایل ثبت نشده است.',
                file_type=None,
                course='نامشخص',
@@ -138,7 +139,7 @@ class Document(Submission):
     self.correspondent_admin = correspondent_admin
     self.university = university
     self.faculty = faculty
-    self.search_text = search_text
+    self.owner_title = owner_title
     self.description = description
     
     self.file_id = file_id
@@ -194,14 +195,14 @@ class Profile(Submission):
                correspondent_admin=None,
                university='نامشخص',
                faculty='نامشخص',
-               search_text='',
+               owner_title='ناشناس',
                description='توضیحاتی برای این فایل ثبت نشده است.'):
     
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
     self.university = university
     self.faculty = faculty
-    self.search_text = search_text
+    self.owner_title = owner_title
     self.description = description
     
     self.owner = owner
@@ -214,7 +215,7 @@ class Profile(Submission):
     self.resume_id = resume_id
     
   def update_search_text(self):
-    self.search_text = f'اطلاعات {self.title} دانشکده {self.faculty}'
+    self.search_text = f'اطلاعات {self.title}'
     if self.faculty != 'نامشخص':
       self.search_text += f' دانشکده {self.faculty}'
     if self.university != 'نامشخص':
@@ -250,14 +251,14 @@ class Media(Submission):
                correspondent_admin=None,
                university='نامشخص',
                faculty='نامشخص',
-               search_text='',
+               owner_title='ناشناس',
                description='توضیحاتی برای این فایل ثبت نشده است.'):
     self.owner = owner
     self.is_confirmed = is_confirmed
     self.correspondent_admin = correspondent_admin
     self.university = university
     self.faculty = faculty
-    self.search_text = search_text
+    self.owner_title = owner_title
     self.description = description
     
     self.url = url
