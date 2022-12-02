@@ -1,7 +1,7 @@
 import threading
 from uniland import SESSION
 from uniland.db.tables import User, Submission
-from uniland import usercache
+from uniland import usercache, search_engine
 from uniland.utils.enums import UserLevel
 from uniland.utils.steps import UserSteps
 
@@ -36,22 +36,8 @@ def add_user_object(user: User):
 
 
 def get_user(user_id: int):
-  with USER_INSERTION_LOCK:
-    user = SESSION.query(User).get(user_id)
-    if user:
-      return user
-    SESSION.close()
-    return None
-
-
-def check_admin(user_id: int):
-  with USER_INSERTION_LOCK:
-    user = SESSION.query(User).get(user_id)
-    if user:
-      return user.level == UserLevel.Admin
-    SESSION.close()
-    return False
-
+    return SESSION.query(User).filter(User.user_id == user_id).first()
+    
 
 def filter_users_by_access_level(
   access_levels: list = [
@@ -70,6 +56,7 @@ def add_bookmark(user_id: int, submission: Submission) -> bool:
     user.bookmarks.append(submission)
     SESSION.commit()
     SESSION.close()
+    search_engine.increase_likes(submission.id)
 
 
 def remove_bookmark(user_id: int, submission: Submission) -> bool:
@@ -81,6 +68,7 @@ def remove_bookmark(user_id: int, submission: Submission) -> bool:
     user.bookmarks.remove(submission)
     SESSION.commit()
     SESSION.close()
+    search_engine.decrease_likes(submission.id)
 
 
 def add_user_submission(user_id: int, submission: Submission) -> bool:
@@ -104,10 +92,16 @@ def remove_user_submission(user_id: int, submission: Submission) -> bool:
     SESSION.commit()
     SESSION.close()
 
+def update_user_step(user_id: int, last_step: str):
+    if usercache.has_user(user_id):
+        SESSION.query(User).filter(User.user_id == user_id).\
+          update({User.last_step: last_step}, synchronize_session=False)
+        SESSION.commit()
+        SESSION.close()
+        usercache.update_user_step(user_id, last_step)
 
 def list_users():
   return SESSION.query(User).all()
-
 
 def count_users():
   return SESSION.query(User).count()

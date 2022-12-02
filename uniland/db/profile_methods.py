@@ -39,6 +39,8 @@ def add_profile(user_id):
 		SESSION.commit()
 		SESSION.close()
 
+def get_profile(id:int):
+  return SESSION.query(Profile).filter(Profile.id == id).first()
 
 def list_profiles():
     return SESSION.query(Profile).all()

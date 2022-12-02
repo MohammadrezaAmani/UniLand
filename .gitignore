@@ -4,3 +4,4 @@ uniland/__pycache__
 *.session-journal
 *.session
 *.pyc
+test.py

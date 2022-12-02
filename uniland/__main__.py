@@ -25,6 +25,7 @@ if __name__ == "__main__":
             'admin.access',
             'admin.confirmation',
             'admin.access',
+            'back.back_handler'
             ]
         )
     

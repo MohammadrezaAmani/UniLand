@@ -58,6 +58,8 @@ def add_document(user_id):
 		SESSION.commit()
 		SESSION.close()
 
+def get_document(id:int):
+  return SESSION.query(Document).filter(Document.id == id).first()
 
 def list_documents():
-    return SESSION.query(Document).all()
+  return SESSION.query(Document).all()
