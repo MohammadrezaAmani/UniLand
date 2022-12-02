@@ -33,6 +33,5 @@ if __name__ == "__main__":
         api_id = API_ID,
         api_hash = API_HASH,
         bot_token = BOT_TOKEN,
-        plugins = plugins,
-        proxy=dict(scheme='socks5', hostname='127.0.0.1', port=7777)
+        plugins = plugins
     ).run()
