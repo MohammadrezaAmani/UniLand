@@ -1,9 +1,11 @@
 from pyrogram import Client, filters
 from uniland.utils.filters import admin_only
 
-@Client.on_message(filters.private & admin_only & filters.command('start'))
+
+@Client.on_message(filters.private & admin_only & filters.command("start"))
 async def start(client, message):
     await message.reply("You are admin!")
+
 
 # from pyrogram.handlers import MessageHandler
 # import pandas as pd
@@ -21,7 +23,7 @@ async def start(client, message):
 #     await message.reply(f'message: {message.text}')
 #     await message.reply(f'chat id: {message.chat.id}')
 #     await message.reply(f'user id: {message.from_user.id}')
-    
+
 
 # @app.on_message(filters.private & filters.command('keyboard') & filters.user(admins_id))
 # async def admin_start(client, message):
@@ -30,7 +32,7 @@ async def start(client, message):
 #     await message.reply(f'message: {message.text}')
 #     await message.reply(f'chat id: {message.chat.id}')
 #     await message.reply(f'user id: {message.from_user.id}')
-    
+
 
 # @app.on_message(filters.private & filters.text & filters.user(admins_id))
 # async def keyboard_test(client, message):
@@ -77,4 +79,3 @@ async def start(client, message):
 #             ]
 #         )
 #     )
-
