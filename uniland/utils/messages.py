@@ -63,7 +63,15 @@ class Messages(enum.Enum):
     DOCUMENT = 'DOCUMENT'
     PROFILE = 'PROFILE'
     MEDIA = 'MEDIA'
-    
+    SUBMISSION_TAG = 'SUBMISSION_TAG'
+    DOCUMENT_TYPE = 'DOCUMENT_TYPE'
+    UNIVERSITY = 'UNIVERSITY'
+    FACULTY = 'FACULTY'
+    MASTER = 'MASTER'
+    COURSE_NAME = 'COURSE_NAME'
+    YEAR = 'YEAR'
+    WRITER = 'WRITER'
+    FINISH = 'FINISH'
   
     
     
