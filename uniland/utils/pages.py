@@ -6,7 +6,7 @@ from pyrogram.types import (ReplyKeyboardMarkup, InlineKeyboardMarkup,
                              InputTextMessageContent)
 
 
-class Pages(enum.Enum):
+class Pages:
   HOME = ReplyKeyboardMarkup(
                 [
                     [Messages.MY_BOOKMARKS.value,Messages.SUBMIT.value],
@@ -27,8 +27,8 @@ class Pages(enum.Enum):
             )
   SUBMIT = ReplyKeyboardMarkup(
                 [
-                    [Messages.DOCUMENT.value,Messages.PROFILE.value,Messages.MEDIA],
-                  [Messages.BACK]
+                    [Messages.DOCUMENT.value,Messages.PROFILE.value,Messages.MEDIA.value],
+                  [Messages.BACK.value]
                 ],
                 resize_keyboard=True 
             )

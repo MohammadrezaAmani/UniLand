@@ -35,7 +35,7 @@ class UXTree():
       # ----------------- START -----------------
       nodes[UserSteps.START.value] = UXNode(
           UserSteps.START.value,
-        keyboard = Pages.HOME.value)
+        keyboard = Pages.HOME)
       
       # ----------------- PV Search -----------------
       nodes[UserSteps.SEARCH.value] = \
@@ -47,7 +47,7 @@ class UXTree():
       nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value] = \
           UXNode(step = UserSteps.CHOOSE_SUBMISSION_TYPE.value,
                  parent = nodes[UserSteps.START.value],
-                 keyboard=Pages.SUBMIT.value,
+                 keyboard=Pages.SUBMIT,
                  trigger='ارسال محتوا')
       
       # ----------------- Document Submission -----------------
