@@ -45,6 +45,27 @@ def filter_users_by_access_level(
     with USER_INSERTION_LOCK:
         return SESSION.query(User).filter(User.level in access_levels).all()
 
+def toggle_bookmark(user_id: int, submission: Submission) -> int:
+    # return 1 if added, 0 if something went wrong and 1 if removed
+    with USER_INSERTION_LOCK:
+        user = SESSION.query(User).filter(User.user_id == user.user_id).first()
+        if user == None:
+            SESSION.close()
+            return 0
+        if submission in user.bookmarks:
+            user.bookmarks.remove(submission)
+            submission.liked_users.remove(user)
+            SESSION.commit()
+            SESSION.close()
+            search_engine.decrease_likes(submission.id)
+            return -1
+        if not submission in user.bookmarks:
+            user.bookmarks.append(submission)
+            submission.liked_users.append(user)
+            SESSION.commit()
+            SESSION.close()
+            search_engine.increase_likes(submission.id)
+            return 1
 
 def add_bookmark(user_id: int, submission: Submission) -> bool:
     with USER_INSERTION_LOCK:
@@ -65,6 +86,7 @@ def remove_bookmark(user_id: int, submission: Submission) -> bool:
             SESSION.close()
             return False
         user.bookmarks.remove(submission)
+        
         SESSION.commit()
         SESSION.close()
         search_engine.decrease_likes(submission.id)
@@ -77,11 +99,13 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
             SESSION.close()
             return False
         submission.owner = user
-        submission.admin = user # TODO! REMOVE THIS LINE
-        submission.is_confirmed = True # TODO! REMOVE THIS LINE
-        submission.update_search_text() # TODO! REMOVE THIS LINE
         user.user_submissions.append(submission)
-        user.confirmations.append(submission) # TODO! REMOVE THIS LINE
+        if user.access_level == UserLevel.Admin:
+            submission.confirm(user)
+            search_engine.index_record(submission.id,
+                                       submission.search_text,
+                                       submission.submission_type,
+                                       likes = 0)
         SESSION.commit()
         SESSION.close()
         return True

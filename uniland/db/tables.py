@@ -117,6 +117,7 @@ class Submission(BASE):
                 "User doesn't have permission to confirm this submission"
             )
         self.admin = user
+        user.confirmations.append(self)
         self.is_confirmed = True
         self.update_search_text()
 
@@ -181,6 +182,26 @@ class Document(Submission):
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
+    def user_display(self):
+        out = f'نوع فایل: {self.file_type.value}\n'
+        if self.course != "نامشخص":
+            out += f'درس: {self.course}\n'
+        if self.professor != "نامشخص":
+            out += f'استاد: {self.professor}\n'
+        if self.faculty != "نامشخص":
+            out += f'دانشکده: {self.faculty}\n'
+        if self.university != "نامشخص":
+            out += f'دانشگاه: {self.university}\n'
+        if self.writer != "نامشخص":
+            out += f'نویسنده: {self.writer}\n'
+        if self.semester_year != 0:
+            out += f'سال: {self.semester_year}\n'
+        if self.owner_title != "ناشناس":
+            out += f'نام ثبت کننده: {self.owner_title}\n'
+        out += f'توضیحات:\n {self.description}\n'
+        out += f'شماره فایل: {self.id}\n'
+        return out
+
     def __repr__(self):
         out = f'نوع فایل: {self.file_type.value}\n'
         out += f'درس: {self.course}\n'
@@ -188,6 +209,7 @@ class Document(Submission):
         out += f'دانشکده: {self.faculty}\n'
         out += f'دانشگاه: {self.university}\n'
         out += f'نویسنده: {self.writer}\n'
+        out += f'نام ثبت کننده: {self.owner_title}\n'
         out += f'سال: {self.semester_year}\n'
         out += f'توضیحات:\n {self.description}\n'
         return out
@@ -253,12 +275,29 @@ class Profile(Submission):
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
+    def user_display(self):
+        out = f'عنوان: {self.title}\n'
+        if self.email != "":
+            out += f'ایمیل: {self.email}\n'
+        if self.phone_number != "":
+            out += f'شماره تماس: {self.phone_number}\n'
+        if self.faculty != "نامشخص":
+            out += f'دانشکده: {self.faculty}\n'
+        if self.university != "نامشخص":
+            out += f'دانشگاه: {self.university}\n'
+        if self.owner_title != "ناشناس":
+            out += f'نام ثبت کننده: {self.owner_title}\n'
+        out += f'توضیحات:\n {self.description}\n'
+        out += f'شماره پروفایل: {self.id}\n'
+        return out
+
     def __repr__(self):
         out = f'عنوان: {self.title}\n'
         out += f'ایمیل: {self.email}\n'
         out += f'شماره تماس: {self.phone_number}\n'
         out += f'دانشکده: {self.faculty}\n'
         out += f'دانشگاه: {self.university}\n'
+        out += f'نام ثبت کننده: {self.owner_title}\n'
         out += f'توضیحات:\n {self.description}\n'
         return out
 
@@ -318,13 +357,29 @@ class Media(Submission):
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
+    def user_display(self):
+        out = f'عنوان: {self.course} استاد {self.professor}\n'
+        if self.semester_year != 0:
+            out += f'سال: {self.semester_year}\n'
+        if self.faculty != "نامشخص":
+            out += f'دانشکده: {self.faculty}\n'
+        if self.university != "نامشخص":
+            out += f'دانشگاه: {self.university}\n'
+        if self.owner_title != "ناشناس":
+            out += f'نام ثبت کننده: {self.owner_title}\n'
+        out += f'توضیحات:\n {self.description}\n'
+        out += f'شماره رسانه: {self.id}\n'
+        return out  
+
     def __repr__(self):
         out = f'لینک: {self.url}\n' 
         out += f'نوع: {self.media_type}\n'
         out += f'درس: {self.course}\n'
         out += f'استاد: {self.professor}\n'
         out +=  f'سال: {self.semester_year}\n'
+        out += f'نام ثبت کننده: {self.owner_title}\n'
         out += f'توضیحات:\n {self.description}\n'
+        return out
 
     __mapper_args__ = {
         "polymorphic_identity": "media",

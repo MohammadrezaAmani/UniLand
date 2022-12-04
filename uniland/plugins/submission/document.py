@@ -1,7 +1,6 @@
 # Implementing finctionality of users' document submission
 
 from pyrogram import Client, filters
-import pyrogram
 from uniland.utils.messages import Messages
 import uniland.db.user_methods as user_db
 import uniland.db.doc_methods as doc_db

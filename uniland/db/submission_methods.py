@@ -1,6 +1,6 @@
 import threading
 from uniland import SESSION
-from uniland.db.tables import Media
+from uniland.db.tables import Submission
 from uniland.db import user_methods as user_db
 from uniland.utils.enums import UserLevel
 
@@ -17,3 +17,6 @@ Submission Class Properties:
 """
 
 SUBMISSION_INSERTION_LOCK = threading.RLock()
+
+def get_submission(submission_id: int):
+	return SESSION.query(Submission).filter(Submission.id == submission_id).first()

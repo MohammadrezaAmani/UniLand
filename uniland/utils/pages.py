@@ -74,7 +74,8 @@ class Pages:
         [
             [DocType.Pamphlet.value, DocType.Summary.value],
             [DocType.Exercises.value, DocType.ExampleProblems.value],
-            [DocType.CompressedFile.value, Messages.BACK.value],
+            [DocType.CompressedFile.value],
+            [Messages.BACK.value]
         ]
     )
     
