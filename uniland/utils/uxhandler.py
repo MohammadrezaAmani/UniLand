@@ -1,6 +1,6 @@
 from uniland.utils.steps import UserSteps
 from uniland.utils.pages import Pages
-
+from uniland.utils.messages import Messages
 
 class UXNode:
     def __init__(
@@ -17,13 +17,13 @@ class UXNode:
         self.keyboard = keyboard
         self.required_permission = required_permission
         self.description = description
-        self.parents = set()
+        self.parent = None
         if parent:
-            self.parents.add(parent)
+            self.set_parent(parent)
         self.children = set()
 
-    def add_parent(self, parent: "UXNode"):
-        self.parents.add(parent)
+    def set_parent(self, parent: "UXNode"):
+        self.parent = parent
         parent.children.add(self)
 
     def __repr__(self):
@@ -41,69 +41,98 @@ class UXTree:
 
     # initializing ux nodes
     # ----------------- START -----------------
-    nodes[UserSteps.START.value] = UXNode(UserSteps.START.value, keyboard=Pages.HOME)
+    nodes[UserSteps.START.value] = UXNode(
+        UserSteps.START.value,
+        keyboard=Pages.HOME,
+        description='This is uniland bot for testing purposes',
+        trigger='/start',
+    )
 
     # ----------------- PV Search -----------------
     nodes[UserSteps.SEARCH.value] = UXNode(
         step=UserSteps.SEARCH.value,
         parent=nodes[UserSteps.START.value],
-        trigger="جستجو",
+        trigger=Messages.SEARCH.value,
     )
 
     # ----------------- Starting Submission -----------------
     nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value] = UXNode(
         step=UserSteps.CHOOSE_SUBMISSION_TYPE.value,
         parent=nodes[UserSteps.START.value],
-        keyboard=Pages.SUBMIT,
-        trigger="ارسال محتوا",
+        description='لطفا نوع محتوای ارسالی خود را مشخص کنید:',
+        keyboard=Pages.CHOOSE_SUBMISSION_TYPE,
+        trigger=Messages.CHOOSE_SUBMISSION_TYPE.value,
     )
 
     # ----------------- Document Submission -----------------
+    nodes[UserSteps.DOCUMENT_SUBMISSION_FILE.value] = UXNode(
+        step=UserSteps.DOCUMENT_SUBMISSION_FILE.value,
+        keyboard=Pages.BACK,
+        description='لطفا فایل مورد نظر خود را ارسال کنید:',
+        parent=nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value],
+        trigger=Messages.DOCUMENT_SUBMISSION_FILE.value
+    )
     nodes[UserSteps.DOCUMENT_SUBMISSION.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION.value,
         keyboard=Pages.DOCUMENT_SUBMISSION,
-        parent=nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value],
-        trigger="ارسال فایل",
+        parent=nodes[UserSteps.DOCUMENT_SUBMISSION_FILE.value],
+        description='مشخصاتی که می‌خواهید تغییر دهید را انتخاب کنید',
+    )
+    nodes[UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value] = UXNode(
+        step=UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value,
+        parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
+        description='لطفا نوع فایل مورد نظر خود را انتخاب کنید',
+        keyboard=Pages.DOCUMENT_SUBMISSION_FILE_TYPE,
+        trigger=Messages.DOCUMENT_SUBMISSION_FILE_TYPE.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="دانشگاه",
+        description='لطفا نام دانشگاه مربوطه را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_UNIVERSITY.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_FACULTY.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_FACULTY.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="دانشکده",
+        description='لطفا دانشکده مربوطه را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_FACULTY.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="نام ثبت کننده",
+        description='می خواهید نام ثبت کننده فایل چه باشد؟'\
+            'می توانید نام کامل یا مستعار خود را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="توضیحات",
+        description='لطفا توضیحات مورد نظرتان را در مورد فایل خود وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_DESCRIPTION.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_COURSE.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_COURSE.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="درس",
+        description='لطفا نام درس مربوطه را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_COURSE.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="استاد",
+        description='لطفا نام استاد درس را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_PROFESSOR.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_WRITER.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_WRITER.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="نویسنده",
+        description='لطفا نام تهیه کننده یا نویسنده فایل را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_WRITER.value,
     )
     nodes[UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        trigger="سال ترم",
+        description='لطفا سال تهیه فایل را وارد کنید',
+        trigger=Messages.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value,
     )
 
     # ----------------- Media Submission -----------------

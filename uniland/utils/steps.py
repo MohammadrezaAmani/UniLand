@@ -11,7 +11,10 @@ class UserSteps(enum.Enum):
     # ----------------- Submit Branch -----------------
     CHOOSE_SUBMISSION_TYPE = 'submission_type_stage'
     
+    DOCUMENT_SUBMISSION_FILE = 'document_submission_file_stage'
     DOCUMENT_SUBMISSION = 'document_submission_process'
+    DOCUMENT_SUBMISSION_CANCEL = 'document_submission_cancel'
+    DOCUMENT_SUBMISSION_FILE_TYPE = 'document_submission_type_stage'
     DOCUMENT_SUBMISSION_UNIVERSITY = 'document_submission_university'
     DOCUMENT_SUBMISSION_FACULTY = 'document_submission_faculty'
     DOCUMENT_SUBMISSION_OWNER_TITLE = 'document_submission_owner_title'
@@ -20,6 +23,7 @@ class UserSteps(enum.Enum):
     DOCUMENT_SUBMISSION_PROFESSOR = 'document_submission_professor_stage'
     DOCUMENT_SUBMISSION_WRITER = 'document_submission_writer_stage'
     DOCUMENT_SUBMISSION_SEMESTER_YEAR = 'document_submission_semester_year_stage'
+    DOCUMENT_SUBMISSION_END = 'document_submission_end_stage'
 
     PROFILE_SUBMISSION = 'profile_submission_process'
     PROFILE_SUBMISSION_UNIVERSITY = 'profile_submission_university'

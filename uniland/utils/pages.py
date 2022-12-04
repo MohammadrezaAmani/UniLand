@@ -1,5 +1,6 @@
 import enum
 from uniland.utils.messages import Messages
+from uniland.utils.enums import DocType
 
 from pyrogram.types import (
     ReplyKeyboardMarkup,
@@ -20,7 +21,7 @@ from pyrogram.types import (
 class Pages:
     HOME = ReplyKeyboardMarkup(
         [
-            [Messages.MY_BOOKMARKS.value, Messages.SUBMIT.value],
+            [Messages.MY_BOOKMARKS.value, Messages.CHOOSE_SUBMISSION_TYPE.value],
             [Messages.SEARCH.value, Messages.MY_PROFILE.value],
             [Messages.HELP.value, Messages.ABOUT_US.value],
         ],
@@ -31,58 +32,98 @@ class Pages:
         [],
         resize_keyboard=True,
     )
-    SUBMIT = ReplyKeyboardMarkup(
+    CHOOSE_SUBMISSION_TYPE = ReplyKeyboardMarkup(
         [
-            [Messages.DOCUMENT.value, Messages.PROFILE.value, Messages.MEDIA.value],
+            [Messages.DOCUMENT_SUBMISSION_FILE.value],
+            [Messages.PROFILE_SUBMISSION.value],
+            [Messages.MEDIA_SUBMISSION.value],
             [Messages.BACK.value],
         ],
-        resize_keyboard=True,
+        resize_keyboard=True
     )
-    DOCUMENT_SUBMISSION = InlineKeyboardMarkup(
+
+    DOCUMENT_SUBMISSION = ReplyKeyboardMarkup(
         [
             [
-                IKB(
-                    text=Messages.DOCUMENT_SUBMISSION.value,
-                    switch_inline_query_current_chat="",
-                )
+                Messages.DOCUMENT_SUBMISSION_FILE_TYPE.value, 
+                Messages.DOCUMENT_SUBMISSION_COURSE.value,
+                Messages.DOCUMENT_SUBMISSION_PROFESSOR.value
             ],
-            [IKB(text=Messages.BACK.value, switch_inline_query_current_chat="")],
+            
             [
-                IKB(
-                    text=Messages.DOCUMENT_TYPE.value,
-                    switch_inline_query_current_chat="",
-                )
+                Messages.DOCUMENT_SUBMISSION_UNIVERSITY.value,
+                Messages.DOCUMENT_SUBMISSION_FACULTY.value,
+                Messages.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value
             ],
+            
             [
-                IKB(
-                    text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
-                ),
-                IKB(text=Messages.FACULTY.value, switch_inline_query_current_chat=""),
+                Messages.DOCUMENT_SUBMISSION_WRITER.value,
+                Messages.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
+                Messages.DOCUMENT_SUBMISSION_DESCRIPTION.value
             ],
-            [IKB(text=Messages.COURSE_NAME.value, switch_inline_query_current_chat="")],
+            
             [
-                IKB(text=Messages.MASTER.value, switch_inline_query_current_chat=""),
-                IKB(text=Messages.YEAR.value, switch_inline_query_current_chat=""),
-                IKB(text=Messages.WRITER.value, switch_inline_query_current_chat=""),
-            ],
-            [
-                IKB(text=Messages.FINISH.value, switch_inline_query_current_chat=""),
-                IKB(text=Messages.BACK.value, switch_inline_query_current_chat=""),
-            ],
-            #     [
-            #         IKB(
-            #             text=Messages.BACK.value, switch_inline_query_current_chat=""
-            #         ),IKB(
-            #             text=Messages.DOCUMENT_TYPE.value, switch_inline_query_current_chat=""
-            #         ),
-            #     ],
-            #     [
-            #         IKB(
-            #             text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
-            #         ),
-            #         IKB()
+                Messages.DOCUMENT_SUBMISSION_DONE.value,
+                Messages.DOCUMENT_SUBMISSION_CANCEL.value
+            ]
+        ],
+        resize_keyboard=True
+    )
+    
+    DOCUMENT_SUBMISSION_FILE_TYPE = ReplyKeyboardMarkup(
+        [
+            [DocType.Pamphlet.value, DocType.Summary.value],
+            [DocType.Exercises.value, DocType.ExampleProblems.value],
+            [DocType.CompressedFile.value, Messages.BACK.value],
         ]
     )
+    
+    # Mohmmadreza's previous buttion
+    # DOCUMENT_SUBMISSION = InlineKeyboardMarkup(
+    #     [
+    #         [
+    #             IKB(
+    #                 text=Messages.DOCUMENT_SUBMISSION.value,
+    #                 switch_inline_query_current_chat="",
+    #             )
+    #         ],
+    #         [IKB(text=Messages.BACK.value, switch_inline_query_current_chat="")],
+    #         [
+    #             IKB(
+    #                 text=Messages.DOCUMENT_TYPE.value,
+    #                 switch_inline_query_current_chat="",
+    #             )
+    #         ],
+    #         [
+    #             IKB(
+    #                 text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
+    #             ),
+    #             IKB(text=Messages.FACULTY.value, switch_inline_query_current_chat=""),
+    #         ],
+    #         [IKB(text=Messages.COURSE_NAME.value, switch_inline_query_current_chat="")],
+    #         [
+    #             IKB(text=Messages.MASTER.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Messages.YEAR.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Messages.WRITER.value, switch_inline_query_current_chat=""),
+    #         ],
+    #         [
+    #             IKB(text=Messages.FINISH.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Messages.BACK.value, switch_inline_query_current_chat=""),
+    #         ],
+    #         #     [
+    #         #         IKB(
+    #         #             text=Messages.BACK.value, switch_inline_query_current_chat=""
+    #         #         ),IKB(
+    #         #             text=Messages.DOCUMENT_TYPE.value, switch_inline_query_current_chat=""
+    #         #         ),
+    #         #     ],
+    #         #     [
+    #         #         IKB(
+    #         #             text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
+    #         #         ),
+    #         #         IKB()
+    #     ]
+    # )
     PROFILE_SUBMISSION = InlineKeyboardMarkup(
         [
             [

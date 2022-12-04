@@ -58,6 +58,12 @@ class SearchEngine:
 
     def index_record(self, id: int, search_text: str, sub_type: str, likes: int = 0):
 
+        if search_text is None:
+            self.subs[id] = SubmissionRecord(
+                id, search_text=search_text, type=sub_type.strip(), likes=likes
+            )
+            return
+
         search_text = self.__clean_text(search_text)
 
         record = SubmissionRecord(

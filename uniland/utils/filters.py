@@ -20,3 +20,11 @@ def user_step(step: str):
         return usercache.match_step(message.from_user.id, step)
 
     return filters.create(func)
+
+def exact_match(txt: str):
+    async def func(self, client, message):
+        if message.text is None:
+            return False
+        return message.text.strip() == txt.strip()
+
+    return filters.create(func)

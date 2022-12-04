@@ -11,6 +11,7 @@ if __name__ == "__main__":
             # 'uniland.plugins.start folder'
             "start.start",
             # 'uniland.plugins.submission folder'
+            "submission.choose",
             "submission.document",
             "submission.media",
             "submission.profile",
@@ -22,7 +23,8 @@ if __name__ == "__main__":
             "admin.access",
             "admin.confirmation",
             "admin.access",
-            "back.back_handler",
+            # 'uniland.plugins.navigation folder'
+            "navigation.back_handler",
         ],
     )
 
@@ -31,6 +33,5 @@ if __name__ == "__main__":
         api_id=API_ID,
         api_hash=API_HASH,
         bot_token=BOT_TOKEN,
-        plugins=plugins,
-        proxy=dict(scheme="socks5", hostname="127.0.0.1", port=1089),
+        plugins=plugins
     ).run()

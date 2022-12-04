@@ -4,25 +4,29 @@ import enum
 class Messages(enum.Enum):
 
     # ----------------- Start -----------------
-    START = "start_stage"
-    BACK = "BACK"
+    START = "/start"
+    BACK = "برگشت"
 
     # ----------------- Search Branch -----------------
 
     # ----------------- Submit Branch -----------------
-    CHOOSE_SUBMISSION_TYPE = "submission_type_stage"
+    CHOOSE_SUBMISSION_TYPE = "ارسال محتوا"
 
-    DOCUMENT_SUBMISSION = "document_submission_process"
-    DOCUMENT_SUBMISSION_UNIVERSITY = "document_submission_university"
-    DOCUMENT_SUBMISSION_FACULTY = "document_submission_faculty"
-    DOCUMENT_SUBMISSION_OWNER_TITLE = "document_submission_owner_title"
-    DOCUMENT_SUBMISSION_DESCRIPTION = "document_submission_description"
-    DOCUMENT_SUBMISSION_COURSE = "document_submission_course_stage"
-    DOCUMENT_SUBMISSION_PROFESSOR = "document_submission_professor_stage"
-    DOCUMENT_SUBMISSION_WRITER = "document_submission_writer_stage"
-    DOCUMENT_SUBMISSION_SEMESTER_YEAR = "document_submission_semester_year_stage"
+    DOCUMENT_SUBMISSION_FILE = 'ارسال فایل'
+    DOCUMENT_SUBMISSION = "ارسال فایل"
+    DOCUMENT_SUBMISSION_CANCEL = 'لغو'
+    DOCUMENT_SUBMISSION_FILE_TYPE = 'نوع فایل'
+    DOCUMENT_SUBMISSION_UNIVERSITY = "دانشگاه"
+    DOCUMENT_SUBMISSION_FACULTY = "دانشکده"
+    DOCUMENT_SUBMISSION_OWNER_TITLE = "نام ثبت کننده"
+    DOCUMENT_SUBMISSION_DESCRIPTION = "توضیحات"
+    DOCUMENT_SUBMISSION_COURSE = "نام درس"
+    DOCUMENT_SUBMISSION_PROFESSOR = "استاد درس"
+    DOCUMENT_SUBMISSION_WRITER = "نویسنده"
+    DOCUMENT_SUBMISSION_SEMESTER_YEAR = "سال تهیه"
+    DOCUMENT_SUBMISSION_DONE = "اتمام"
 
-    PROFILE_SUBMISSION = "profile_submission_process"
+    PROFILE_SUBMISSION = "ارسال اطلاعات"
     PROFILE_SUBMISSION_UNIVERSITY = "profile_submission_university"
     PROFILE_SUBMISSION_FACULTY = "profile_submission_faculty"
     PROFILE_SUBMISSION_OWNER_TITLE = "profile_submission_owner_title"
@@ -31,7 +35,7 @@ class Messages(enum.Enum):
     PROFILE_SUBMISSION_EMAIL = "profile_submission_email"
     PROFILE_SUBMISSION_PHONE = "profile_submission_phone"
 
-    MEDIA_SUBMISSION = "media_submission_process"
+    MEDIA_SUBMISSION = "ارسال لینک"
     MEDIA_SUBMISSION_UNIVERSITY = "media_submission_university"
     MEDIA_SUBMISSION_FACULTY = "media_submission_faculty"
     MEDIA_SUBMISSION_OWNER_TITLE = "media_submission_owner_title"
@@ -54,12 +58,12 @@ class Messages(enum.Enum):
     CHOOSE_USER_TO_UPDATE = "choose_user_to_update"
     CHOOSE_USER_ACCESS_LEVEL = "choose_user_access_level"
     # ----------------- Home -----------------
-    MY_BOOKMARKS = "BOOKMARKS"
-    SEARCH = "SEARCH"
-    SUBMIT = "SUBMIT"
-    MY_PROFILE = "MY_PROFILE"
-    HELP = "HELP"
-    ABOUT_US = "ABOUT_US"
+    MY_BOOKMARKS = "پسندهای من"
+    SEARCH = "جستجو"
+    SUBMIT = "ارسال محتوا"
+    MY_PROFILE = "پروفایل من"
+    HELP = "راهنما"
+    ABOUT_US = "درباره ما"
     # SUBMIT
     DOCUMENT = "DOCUMENT"
     PROFILE = "PROFILE"

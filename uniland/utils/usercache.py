@@ -72,6 +72,9 @@ class UserCache:
         if user_id not in self.users:
             return False
         return self.users[user_id].has_permission(min_permission, max_permission)
+    
+    def get_last_step(self, user_id: int):
+        return self.users[user_id].last_step
 
     def __repr__(self):
         return f"UserCache with {len(self.users)} users"

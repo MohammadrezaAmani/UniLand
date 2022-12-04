@@ -128,8 +128,8 @@ class Document(Submission):
     __tablename__ = "documents"
 
     id = Column(Integer, ForeignKey("submissions.id"), primary_key=True)
-    file_id = Column(String(30), nullable=False, unique=True)
-    unique_id = Column(String(30), nullable=False, unique=True)
+    file_id = Column(String(30), nullable=False)
+    unique_id = Column(String(30), nullable=False)
     file_type = Column(Enum(DocType), nullable=False)  # Necessary field
     course = Column(String(30), nullable=False)  # Necessary field
     professor = Column(String(30), default="نامشخص")
@@ -147,7 +147,7 @@ class Document(Submission):
         faculty="نامشخص",
         owner_title="ناشناس",
         description="توضیحاتی برای این فایل ثبت نشده است.",
-        file_type=None,
+        file_type=DocType.Pamphlet,
         course="نامشخص",
         professor="نامشخص",
         writer="نامشخص",
@@ -182,7 +182,15 @@ class Document(Submission):
             self.search_text += f" دانشگاه {self.university}"
 
     def __repr__(self):
-        return f"Document {self.unique_id} from {self.owner}"
+        out = f'نوع فایل: {self.file_type.value}\n'
+        out += f'درس: {self.course}\n'
+        out += f'استاد: {self.professor}\n' 
+        out += f'دانشکده: {self.faculty}\n'
+        out += f'دانشگاه: {self.university}\n'
+        out += f'نویسنده: {self.writer}\n'
+        out += f'سال: {self.semester_year}\n'
+        out += f'توضیحات:\n {self.description}\n'
+        return out
 
     __mapper_args__ = {
         "polymorphic_identity": "document",
@@ -246,7 +254,13 @@ class Profile(Submission):
             self.search_text += f" دانشگاه {self.university}"
 
     def __repr__(self):
-        return f"Profile {self.title} from {self.owner}"
+        out = f'عنوان: {self.title}\n'
+        out += f'ایمیل: {self.email}\n'
+        out += f'شماره تماس: {self.phone_number}\n'
+        out += f'دانشکده: {self.faculty}\n'
+        out += f'دانشگاه: {self.university}\n'
+        out += f'توضیحات:\n {self.description}\n'
+        return out
 
     __mapper_args__ = {
         "polymorphic_identity": "profile",
@@ -305,7 +319,12 @@ class Media(Submission):
             self.search_text += f" دانشگاه {self.university}"
 
     def __repr__(self):
-        return f"Media {self.url} from {self.owner}"
+        out = f'لینک: {self.url}\n' 
+        out += f'نوع: {self.media_type}\n'
+        out += f'درس: {self.course}\n'
+        out += f'استاد: {self.professor}\n'
+        out +=  f'سال: {self.semester_year}\n'
+        out += f'توضیحات:\n {self.description}\n'
 
     __mapper_args__ = {
         "polymorphic_identity": "media",

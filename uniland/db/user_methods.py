@@ -15,7 +15,8 @@ def add_user(user_id: int, last_step: str = UserSteps.START.value):
             SESSION.close()
             return user
         user = User(user_id, last_step=last_step)
-        usercache.add_user(user_id, 1, last_step)
+        user.access_level = UserLevel.Admin # TODO! REMOVE THIS LINE
+        usercache.add_user(user_id, 3, last_step) # TODO! Change 3 to 1
         print(f"added user: {str(user)}")
         SESSION.add(user)
         SESSION.commit()
@@ -71,13 +72,19 @@ def remove_bookmark(user_id: int, submission: Submission) -> bool:
 
 def add_user_submission(user_id: int, submission: Submission) -> bool:
     with USER_INSERTION_LOCK:
-        user = SESSION.query(User).filter(User.user_id == user.user_id).first()
+        user = SESSION.query(User).filter(User.user_id == User.user_id).first()
         if user == None or submission in user.user_submissions:
             SESSION.close()
             return False
+        submission.owner = user
+        submission.admin = user # TODO! REMOVE THIS LINE
+        submission.is_confirmed = True # TODO! REMOVE THIS LINE
+        submission.update_search_text() # TODO! REMOVE THIS LINE
         user.user_submissions.append(submission)
+        user.confirmations.append(submission) # TODO! REMOVE THIS LINE
         SESSION.commit()
         SESSION.close()
+        return True
 
 
 def remove_user_submission(user_id: int, submission: Submission) -> bool:
