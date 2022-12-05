@@ -8,8 +8,25 @@ from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
 from uniland import search_engine
 from uniland.utils.filters import access_level, user_step
+from uniland.config import STORAGE_CHAT_ID
 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 # This file tests bot uptime
+
+# @Client.on_message(filters.photo)
+# async def mime_type(client, message):
+#     photo = await message.download(in_memory=True)
+#     sent_message = await client.send_document(
+#         chat_id=STORAGE_CHAT_ID,
+#         document=photo
+#     )
+#     image_id = sent_message.document.file_id
+#     await message.reply_document(image_id)
+
+@Client.on_message(filters.command('chat_details'))
+async def display_details(client, message):
+    await message.reply_text(f'Chat ID: {message.chat.id}, Chat Type: {message.chat.type}')
+    await message.reply_text(f'User ID: {message.from_user.id}')
 
 @Client.on_message(filters.text & filters.regex('admin') & access_level(min=3))
 async def admin_check(client, message):

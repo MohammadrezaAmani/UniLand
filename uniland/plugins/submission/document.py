@@ -9,6 +9,7 @@ from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
 from uniland.utils.enums import DocType
+from uniland.config import STORAGE_CHAT_ID
 
 staged_docs = {}
 
@@ -62,7 +63,12 @@ async def choose_doc_field(client, message):
     if message.text.strip() == Triggers.DOCUMENT_SUBMISSION_DONE.value:
         # User has finished the submission process
         doc = staged_docs.pop(message.from_user.id)
-        result = user_db.add_user_submission(message.from_user.id, doc)
+        sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID,
+                                                  document=doc.file_id,
+                                                  caption=doc.user_display())
+        result = None
+        if sent_message != None:
+            result = user_db.add_user_submission(message.from_user.id, doc)
         if result:
             await message.reply(text='فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت. \nبا تشکر از شما بابت ارسال محتوای خود')
         else:

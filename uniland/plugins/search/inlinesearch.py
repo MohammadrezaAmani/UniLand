@@ -28,6 +28,8 @@ async def answer(client, inline_query):
         # ---------------------- Document ----------------------
         if record.type == 'document':
             document = doc_db.get_document(record.id)
+            if document == None:
+                continue
             results.append(
                 InlineQueryResultCachedDocument(
                     document_file_id = document.file_id,
@@ -47,11 +49,13 @@ async def answer(client, inline_query):
         # ---------------------- Profile ----------------------
         elif record.type == 'profile':
             profile = profile_db.get_profile(record.id)
+            if profile == None:
+                continue
             # ------------- Profile with Photo -------------
             if profile.image_id != None and profile.image_id != '':
                 results.append(
-                    InlineQueryResultCachedPhoto(
-                        photo_file_id = profile.image_id,
+                    InlineQueryResultCachedDocument(
+                        document_file_id = profile.image_id,
                         title = record.search_text,
                         caption = profile.user_display(),
                         description = f'مورد علاقه {record.likes} نفر',
@@ -88,6 +92,8 @@ async def answer(client, inline_query):
         
         elif record.type == 'media':
             media = media_db.get_media(record.id)
+            if media == None:
+                continue
             results.append(
                     InlineQueryResultArticle(
                         title=record.search_text,

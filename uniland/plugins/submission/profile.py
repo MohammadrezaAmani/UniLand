@@ -9,8 +9,7 @@ from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
 from uniland.utils.enums import DocType
-import re
-import requests
+from uniland.config import STORAGE_CHAT_ID
 
 staged_profs = {}
 
@@ -35,7 +34,7 @@ async def display_profile(client, message, profile):
     if profile.image_id == None or profile.image_id == '':
         await message.reply(text=str(profile))
     else:
-        await message.reply_photo(photo=profile.image_id, caption=str(profile))
+        await message.reply_document(document=profile.image_id, caption=str(profile))
 
 @Client.on_message(filters.text & ~filters.me & exact_match(Triggers.PROFILE_SUBMISSION_INPUT_TITLE.value)
                    & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value))
@@ -207,9 +206,9 @@ async def profile_description(client, message,):
 async def delete_profile_photo(client, message):
     if not await check_profile(client, message):
         return
+    global staged_profs
     if message.text == Triggers.PROFILE_SUBMISSION_DELETE_PHOTO.value:
         # Deleting profile photo
-        global staged_profs
         profile = staged_profs[message.from_user.id]
         profile.image_id = ''
         await message.reply('عکس پروفایل با موفقیت حذف شد.')
@@ -217,10 +216,10 @@ async def delete_profile_photo(client, message):
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
         return
     
-    return # TODO! delete this line when implemented
+    # return # TODO! delete this line when implemented
     
     # TODO! delete this line when implemented
-    await message.reply('لطفا تصویر جدید را ارسال کنید یا یکی از دکمه‌های زیر را بزنید.')
+    # await message.reply('لطفا تصویر جدید را ارسال کنید یا یکی از دکمه‌های زیر را بزنید.')1
     
     # TODO! Complete this part
     # Inputting profile photo
@@ -228,29 +227,53 @@ async def delete_profile_photo(client, message):
     # Download photo if input is a link
     # Upload photo to telegram
     # Set profile photo to uploaded photo
-    # global staged_profs
-    # profile = staged_profs[message.from_user.id]
-    # if re.match(r'^https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+$', message.text.strip()):
-    #     # Download photo using request library
-    #     photo = requests.get(message.text.strip())
-    #     # Upload photo to telegram
-    #     photo = await client.send_photo(message.chat.id, photo)
-    #     # Set profile photo to uploaded photo
-    #     profile.photo = photo.photo.file_id
-    #     await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
-    #     await display_profile(client, message, profile)
-    #     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
+    profile = staged_profs[message.from_user.id]
+    sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID,
+                                              document=message.text.strip())
+    if sent_message:
+        profile.image_id = sent_message.document.file_id
+        await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
+        await display_profile(client, message, profile)
+        await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
         
-    # await message.reply('لینک عکس پروفایل نامعتبر است.')
+    await message.reply('لینک عکس پروفایل نامعتبر است.')
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
                    & ~filters.me & filters.photo & ~exact_match(Triggers.BACK.value))
 async def profile_photo(client, message):
     if not await check_profile(client, message):
         return
-    image_id = message.photo.file_id
+    # Downloading photo and uploading as document on telegram
+    # To get file_id as document
+    await message.reply('در حال تبدیل به فایل...')
+    photo = await message.download(in_memory=True)
+    sent_message = await client.send_document(
+        chat_id=STORAGE_CHAT_ID,
+        document=photo
+    )
+    if sent_message == None:
+        await message.reply('دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد.\n لطفا مجددا تلاش کنید.')
+        return
+    # image_id is file_id of document
+    image_id = sent_message.document.file_id
     global staged_profs
     staged_profs[message.from_user.id].image_id = image_id
     await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
     await display_profile(client, message, staged_profs[message.from_user.id])
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
+
+
+@Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
+                   & ~filters.me & filters.document & ~exact_match(Triggers.BACK.value))
+async def profile_photo_document(client, message):
+    if not await check_profile(client, message):
+        return
+    if 'image' in message.document.mime_type:
+        image_id = message.document.file_id
+        global staged_profs
+        staged_profs[message.from_user.id].image_id = image_id
+        await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
+        await display_profile(client, message, staged_profs[message.from_user.id])
+        await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
+    else:
+        await message.reply('لطفا فایلی با فرمت تصویر ارسال کنید.')

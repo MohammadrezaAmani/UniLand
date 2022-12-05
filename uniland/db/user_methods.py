@@ -30,7 +30,7 @@ def add_user_object(user: User):
         if prev_user:
             SESSION.close()
             return
-        SESSION.merge(user)
+        SESSION.add(user)
         SESSION.commit()
         SESSION.close()
 
