@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from uniland.utils import messages, pages, methods
+from uniland.utils import triggers, pages, methods
 from uniland.utils.filters import (
     document_submission,
     document_submission,
@@ -12,60 +12,60 @@ import pyrogram
 from uniland.db.db_methods import search_document_by_name, search_document, add_like
 
 
-@Client.on_message(filters.regex(messages.DOCUMENT_TITLE))
+@Client.on_message(filters.regex(triggers.DOCUMENT_TITLE))
 async def document_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
-    await message.reply(text=messages.DOCUMENT_DESCRIPTION, reply_markup=pages.DOCUMENT)
+    await message.reply(text=triggers.DOCUMENT_DESCRIPTION, reply_markup=pages.DOCUMENT)
 
 
-@Client.on_message(filters.regex(messages.DOCUMENT_SEARCH))
+@Client.on_message(filters.regex(triggers.DOCUMENT_SEARCH))
 async def document_search_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     await message.reply(
-        text=messages.DOCUMENT_SEARCH_DESCRIPTION, reply_markup=pages.BACK
+        text=triggers.DOCUMENT_SEARCH_DESCRIPTION, reply_markup=pages.BACK
     )
 
 
-@Client.on_message(filters.regex(messages.DOCUMENT_SUBMISSION))
+@Client.on_message(filters.regex(triggers.DOCUMENT_SUBMISSION))
 async def document_submission_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     await message.reply(
-        text=messages.DOCUMENT_SUBMISSION_DESCRIPTION,
+        text=triggers.DOCUMENT_SUBMISSION_DESCRIPTION,
         reply_markup=pages.DOCUMENT_SUBMISSION,
     )
 
 
-@Client.on_message(filters.regex(messages.DOCUMENT_REQUESTED))
+@Client.on_message(filters.regex(triggers.DOCUMENT_REQUESTED))
 async def document_submission_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     await message.reply(
-        text=messages.DOCUMENT_REQUESTED_DESCRIPTION, reply_markup=pages.BACK
+        text=triggers.DOCUMENT_REQUESTED_DESCRIPTION, reply_markup=pages.BACK
     )
 
 
 @Client.on_message(document_submission)
 async def document_submission_text_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     await methods.send_message_to_admin(client, message)
     await message.reply(
-        text=messages.DOCUMENT_REQUESTED_CONFIRMATION, reply_markup=pages.HOME
+        text=triggers.DOCUMENT_REQUESTED_CONFIRMATION, reply_markup=pages.HOME
     )
 
 
 @Client.on_message(document_search)
 async def document_search_text_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     files = search_document_by_name(message.text)
     text = """🔎 نتایج جستجو برای: %s""" % message.text
@@ -91,7 +91,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _
 @Client.on_message(document_check)
 async def document_dl_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     id = int(message.text.split("bo")[-1])
     file = search_document(id)
@@ -118,7 +118,7 @@ async def document_dl_handler(
 @Client.on_callback_query(document_react)
 async def document_dl3_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     typed, _, id = message.data.split(":")
     add_like(typed, id)
@@ -127,7 +127,7 @@ async def document_dl3_handler(
 @Client.on_callback_query(document_submission_no)
 async def document_submission_no_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     print(message)
 
@@ -136,6 +136,6 @@ async def document_submission_no_handler(
 @Client.on_message(document_submission)
 async def document_submission_text_handler(
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     await methods.send_message_to_admin(client, message)

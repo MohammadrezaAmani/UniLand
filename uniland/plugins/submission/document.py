@@ -1,7 +1,7 @@
 # Implementing finctionality of users' document submission
 
 from pyrogram import Client, filters
-from uniland.utils.messages import Messages
+from uniland.utils.triggers import Triggers
 import uniland.db.user_methods as user_db
 import uniland.db.doc_methods as doc_db
 from uniland.db.tables import Document
@@ -17,7 +17,7 @@ async def goto_start(client, message):
     await message.reply(text=start_step.description, reply_markup=start_step.keyboard)
     user_db.update_user_step(message.from_user.id, start_step.step)
 
-@Client.on_message(filters.text & ~filters.me & exact_match(Messages.DOCUMENT_SUBMISSION_FILE.value)
+@Client.on_message(filters.text & ~filters.me & exact_match(Triggers.DOCUMENT_SUBMISSION_FILE.value)
                    & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value))
 async def get_file(client, message):
     # Getting file from user
@@ -47,19 +47,20 @@ async def choose_doc_field(client, message):
     # Routing the user to input file data fields
     user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION.value]
     global staged_docs
+    if message.from_user.id not in staged_docs:
+        await message.reply(text='خطای گم شدن فایل، لطفا مجددا تلاش کنید.')
+        await goto_start(client, message)
+        return
+    # Data Fields
     for child in user_step.children:
         if message.text.strip() == child.trigger:
             await message.reply(text=child.description, reply_markup=child.keyboard)
             user_db.update_user_step(message.from_user.id, child.step)
             return
     
-    if message.text.strip() == Messages.DOCUMENT_SUBMISSION_DONE.value:
+    # Done Button
+    if message.text.strip() == Triggers.DOCUMENT_SUBMISSION_DONE.value:
         # User has finished the submission process
-        if not message.from_user.id in staged_docs:
-            await message.reply(text='خطایی رخ داده است. لطفا دوباره امتحان کنید.')
-            await goto_start(client, message)
-            return 
-        
         doc = staged_docs.pop(message.from_user.id)
         result = user_db.add_user_submission(message.from_user.id, doc)
         if result:
@@ -68,7 +69,8 @@ async def choose_doc_field(client, message):
             await message.reply('متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید.')
         await goto_start(client, message)
 
-    elif message.text.strip() == Messages.DOCUMENT_SUBMISSION_CANCEL.value:
+    # Cancel Button
+    elif message.text.strip() == Triggers.DOCUMENT_SUBMISSION_CANCEL.value:
         # User has canceled the submission process
         await message.reply('عملیات ارسال فایل لغو شد.')
         if message.from_user.id in staged_docs:
@@ -88,7 +90,7 @@ async def go_back(client, message, step):
     user_db.update_user_step(message.from_user.id, user_step.parent.step)
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_COURSE.value) 
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_course(client, message,):
     # Inputting course name
     global staged_docs
@@ -100,7 +102,7 @@ async def doc_course(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_professor(client, message,):
     # Inputting professor name
     global staged_docs
@@ -112,7 +114,7 @@ async def doc_professor(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_WRITER.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_writer(client, message,):
     # Inputting the writer of the document
     global staged_docs
@@ -124,7 +126,7 @@ async def doc_writer(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_faculty(client, message,):
     # Inputting the faculty of the document
     global staged_docs
@@ -136,7 +138,7 @@ async def doc_faculty(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_university(client, message,):
     # Inputting the university of the document
     global staged_docs
@@ -148,7 +150,7 @@ async def doc_university(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_owner_title(client, message,):
     # Inputting the owner title of the document
     global staged_docs
@@ -160,7 +162,7 @@ async def doc_owner_title(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_description(client, message,):
     # Inputting the description of the document
     global staged_docs
@@ -172,7 +174,7 @@ async def doc_description(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_year(client, message,):
     # Inputting the semester if its number, show error otherwise
     sem = 0
@@ -189,7 +191,7 @@ async def doc_year(client, message,):
     await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
-                   & ~filters.me & filters.text & ~exact_match(Messages.BACK.value))
+                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_file_type(client, message,):
     # Inputting the faculty of the document
     global staged_docs

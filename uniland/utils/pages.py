@@ -1,5 +1,5 @@
 import enum
-from uniland.utils.messages import Messages
+from uniland.utils.triggers import Triggers
 from uniland.utils.enums import DocType
 
 from pyrogram.types import (
@@ -21,23 +21,23 @@ from pyrogram.types import (
 class Pages:
     HOME = ReplyKeyboardMarkup(
         [
-            [Messages.MY_BOOKMARKS.value, Messages.CHOOSE_SUBMISSION_TYPE.value],
-            [Messages.SEARCH.value, Messages.MY_PROFILE.value],
-            [Messages.HELP.value, Messages.ABOUT_US.value],
+            [Triggers.MY_BOOKMARKS.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
+            [Triggers.SEARCH.value, Triggers.MY_PROFILE.value],
+            [Triggers.HELP.value, Triggers.ABOUT_US.value],
         ],
         resize_keyboard=True,
     )
-    BACK = ReplyKeyboardMarkup([[Messages.BACK.value]], resize_keyboard=True)
+    BACK = ReplyKeyboardMarkup([[Triggers.BACK.value]], resize_keyboard=True)
     EMPTY = ReplyKeyboardMarkup(
         [],
         resize_keyboard=True,
     )
     CHOOSE_SUBMISSION_TYPE = ReplyKeyboardMarkup(
         [
-            [Messages.DOCUMENT_SUBMISSION_FILE.value],
-            [Messages.PROFILE_SUBMISSION.value],
-            [Messages.MEDIA_SUBMISSION.value],
-            [Messages.BACK.value],
+            [Triggers.DOCUMENT_SUBMISSION_FILE.value],
+            [Triggers.PROFILE_SUBMISSION_INPUT_TITLE.value],
+            [Triggers.MEDIA_SUBMISSION.value],
+            [Triggers.BACK.value],
         ],
         resize_keyboard=True
     )
@@ -45,26 +45,26 @@ class Pages:
     DOCUMENT_SUBMISSION = ReplyKeyboardMarkup(
         [
             [
-                Messages.DOCUMENT_SUBMISSION_FILE_TYPE.value, 
-                Messages.DOCUMENT_SUBMISSION_COURSE.value,
-                Messages.DOCUMENT_SUBMISSION_PROFESSOR.value
+                Triggers.DOCUMENT_SUBMISSION_FILE_TYPE.value, 
+                Triggers.DOCUMENT_SUBMISSION_COURSE.value,
+                Triggers.DOCUMENT_SUBMISSION_PROFESSOR.value
             ],
             
             [
-                Messages.DOCUMENT_SUBMISSION_UNIVERSITY.value,
-                Messages.DOCUMENT_SUBMISSION_FACULTY.value,
-                Messages.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value
+                Triggers.DOCUMENT_SUBMISSION_UNIVERSITY.value,
+                Triggers.DOCUMENT_SUBMISSION_FACULTY.value,
+                Triggers.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value
             ],
             
             [
-                Messages.DOCUMENT_SUBMISSION_WRITER.value,
-                Messages.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
-                Messages.DOCUMENT_SUBMISSION_DESCRIPTION.value
+                Triggers.DOCUMENT_SUBMISSION_WRITER.value,
+                Triggers.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
+                Triggers.DOCUMENT_SUBMISSION_DESCRIPTION.value
             ],
             
             [
-                Messages.DOCUMENT_SUBMISSION_DONE.value,
-                Messages.DOCUMENT_SUBMISSION_CANCEL.value
+                Triggers.DOCUMENT_SUBMISSION_DONE.value,
+                Triggers.DOCUMENT_SUBMISSION_CANCEL.value
             ]
         ],
         resize_keyboard=True
@@ -75,65 +75,102 @@ class Pages:
             [DocType.Pamphlet.value, DocType.Summary.value],
             [DocType.Exercises.value, DocType.ExampleProblems.value],
             [DocType.CompressedFile.value],
-            [Messages.BACK.value]
+            [Triggers.BACK.value]
         ]
     )
     
-    # Mohmmadreza's previous buttion
+    # Mohmmadreza's previous button
     # DOCUMENT_SUBMISSION = InlineKeyboardMarkup(
     #     [
     #         [
     #             IKB(
-    #                 text=Messages.DOCUMENT_SUBMISSION.value,
+    #                 text=Triggers.DOCUMENT_SUBMISSION.value,
     #                 switch_inline_query_current_chat="",
     #             )
     #         ],
-    #         [IKB(text=Messages.BACK.value, switch_inline_query_current_chat="")],
+    #         [IKB(text=Triggers.BACK.value, switch_inline_query_current_chat="")],
     #         [
     #             IKB(
-    #                 text=Messages.DOCUMENT_TYPE.value,
+    #                 text=Triggers.DOCUMENT_TYPE.value,
     #                 switch_inline_query_current_chat="",
     #             )
     #         ],
     #         [
     #             IKB(
-    #                 text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
+    #                 text=Triggers.UNIVERSITY.value, switch_inline_query_current_chat=""
     #             ),
-    #             IKB(text=Messages.FACULTY.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.FACULTY.value, switch_inline_query_current_chat=""),
     #         ],
-    #         [IKB(text=Messages.COURSE_NAME.value, switch_inline_query_current_chat="")],
+    #         [IKB(text=Triggers.COURSE_NAME.value, switch_inline_query_current_chat="")],
     #         [
-    #             IKB(text=Messages.MASTER.value, switch_inline_query_current_chat=""),
-    #             IKB(text=Messages.YEAR.value, switch_inline_query_current_chat=""),
-    #             IKB(text=Messages.WRITER.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.MASTER.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.YEAR.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.WRITER.value, switch_inline_query_current_chat=""),
     #         ],
     #         [
-    #             IKB(text=Messages.FINISH.value, switch_inline_query_current_chat=""),
-    #             IKB(text=Messages.BACK.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.FINISH.value, switch_inline_query_current_chat=""),
+    #             IKB(text=Triggers.BACK.value, switch_inline_query_current_chat=""),
     #         ],
     #         #     [
     #         #         IKB(
-    #         #             text=Messages.BACK.value, switch_inline_query_current_chat=""
+    #         #             text=Triggers.BACK.value, switch_inline_query_current_chat=""
     #         #         ),IKB(
-    #         #             text=Messages.DOCUMENT_TYPE.value, switch_inline_query_current_chat=""
+    #         #             text=Triggers.DOCUMENT_TYPE.value, switch_inline_query_current_chat=""
     #         #         ),
     #         #     ],
     #         #     [
     #         #         IKB(
-    #         #             text=Messages.UNIVERSITY.value, switch_inline_query_current_chat=""
+    #         #             text=Triggers.UNIVERSITY.value, switch_inline_query_current_chat=""
     #         #         ),
     #         #         IKB()
     #     ]
     # )
-    PROFILE_SUBMISSION = InlineKeyboardMarkup(
+
+    PROFILE_SUBMISSION = ReplyKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    text="📂 Select File", switch_inline_query_current_chat=""
-                ),
+                Triggers.PROFILE_SUBMISSION_EMAIL.value,
+                Triggers.PROFILE_SUBMISSION_PHONE.value,
+                Triggers.PROFILE_SUBMISSION_EDIT_TITLE.value
+            ],
+
+            [
+                Triggers.PROFILE_SUBMISSION_FACULTY.value,
+                Triggers.PROFILE_SUBMISSION_UNIVERSITY.value,
+                Triggers.PROFILE_SUBMISSION_PHOTO.value
+            ],
+
+            [
+                Triggers.PROFILE_SUBMISSION_DESCRIPTION.value,
+                Triggers.PROFILE_SUBMISSION_OWNER_TITLE.value
+            ],
+
+            [
+                Triggers.DOCUMENT_SUBMISSION_DONE.value,
+                Triggers.DOCUMENT_SUBMISSION_CANCEL.value
             ]
-        ]
+        ],
+        resize_keyboard=True
     )
+    
+    EDIT_PROFILE_SUBMISSION_PHOTO = ReplyKeyboardMarkup(
+        [
+            [Triggers.PROFILE_SUBMISSION_DELETE_PHOTO.value],
+            [Triggers.BACK.value]
+        ],
+        resize_keyboard=True
+    )
+
+    # Mohmmadreza's previous button
+    # PROFILE_SUBMISSION = InlineKeyboardMarkup(
+    #     [
+    #         [
+    #             InlineKeyboardButton(
+    #                 text="📂 Select File", switch_inline_query_current_chat=""
+    #             ),
+    #         ]
+    #     ]
+    # )
     MEDIA_SUBMISSION = InlineKeyboardMarkup(
         [
             IKB(text="📂 Select File", switch_inline_query_current_chat=""),

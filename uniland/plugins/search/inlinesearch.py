@@ -1,6 +1,6 @@
 # Implementing functionality of bot's inline search
 # Implementing functionality of bot's inline search
-from pyrogram import Client
+from pyrogram import Client, filters
 from pyrogram.types import (InlineQueryResultArticle, InputTextMessageContent,
                             InlineKeyboardMarkup, InlineKeyboardButton,
           InlineQueryResultCachedDocument, InlineQueryResultCachedPhoto)
@@ -37,8 +37,8 @@ async def answer(client, inline_query):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [InlineKeyboardButton(
-                                text = '👍',
-                                callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}:{record.type}"
+                                text = f'👍 {record.likes}',
+                                callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}"
                             )]
                         ]
                     )
@@ -48,7 +48,7 @@ async def answer(client, inline_query):
         elif record.type == 'profile':
             profile = profile_db.get_profile(record.id)
             # ------------- Profile with Photo -------------
-            if profile.image_id != '':
+            if profile.image_id != None and profile.image_id != '':
                 results.append(
                     InlineQueryResultCachedPhoto(
                         photo_file_id = profile.image_id,
@@ -58,8 +58,8 @@ async def answer(client, inline_query):
                         reply_markup=InlineKeyboardMarkup(
                             [
                                 [InlineKeyboardButton(
-                                    text = '👍',
-                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}:{record.type}"
+                                    text = f'👍 {record.likes}',
+                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}"
                                 )]
                             ]
                         )
@@ -77,13 +77,13 @@ async def answer(client, inline_query):
                         reply_markup=InlineKeyboardMarkup(
                             [
                                 [InlineKeyboardButton(
-                                    text = '👍',
-                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}:{record.type}"
-                                )
+                                    text = f'👍 {record.likes}',
+                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}"
+                                    )
+                                ]
                             ]
-                       ]
+                        )
                     )
-                )
                 )
         
         elif record.type == 'media':
@@ -98,8 +98,8 @@ async def answer(client, inline_query):
                         reply_markup=InlineKeyboardMarkup(
                             [
                                 [InlineKeyboardButton(
-                                    text = '👍',
-                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}:{record.type}"
+                                    text = f'👍 {media.likes}',
+                                    callback_data = f"bookmark:{inline_query.from_user.id}:{record.id}"
                                 )
                             ]
                             ]
@@ -116,12 +116,8 @@ async def answer(client, inline_query):
 @Client.on_callback_query(filters.regex('^bookmark:'))
 async def toggle_user_bookmark(client, callback_query):
     args = callback_query.data.split(':')
-    # ['bookmark', user_id, record.id, record.type]
-    submission = sub_db.get_submission(submission_id = args[2])
-    if not submission:
-        await callback_query.answer('Invalid Submission!')
-        return False
-    result = user_db.toggle_bookmark(int(args[1]), submission)
+    # ['bookmark', user_id, record.id]
+    result = user_db.toggle_bookmark(int(args[1]), int(args[2]))
     if result == 1: # Submission is bookmarked
         await callback_query.answer(f'Added to bookmarks')
         return True
@@ -131,4 +127,5 @@ async def toggle_user_bookmark(client, callback_query):
     elif result == -1: # Submission removed from bookmards
         await callback_query.answer(f'Removed from bookmarks')
         return True
+    # TODO! Change bookmark counts after like button pressed
         

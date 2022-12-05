@@ -4,15 +4,21 @@ import random
 import time
 import requests
 import logging
+from uniland import usercache, search_engine
 
 app = Flask('')
 
+
 @app.route('/')
 def home():
-  return "You have found the home of a Python program!"
+  return \
+      f"Current Amount of users: {len(usercache.users)}<br>" \
+      f"Amount of confirmed Submissions: {len(search_engine.subs)}"
+
 
 def run():
-  app.run(host='0.0.0.0', port=random.randint(2000, 9000))
+  app.run(host='0.0.0.0', port=8080)
+
 
 def ping(target, debug):
   while (True):
@@ -21,6 +27,7 @@ def ping(target, debug):
       print("Status Code: " + str(r.status_code))
     time.sleep(random.randint(
         180, 300))  # alternate ping time between 3 and 5 minutes
+
 
 def awake(target, debug=False):
   log = logging.getLogger('werkzeug')

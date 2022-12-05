@@ -45,31 +45,30 @@ def filter_users_by_access_level(
     with USER_INSERTION_LOCK:
         return SESSION.query(User).filter(User.level in access_levels).all()
 
-def toggle_bookmark(user_id: int, submission: Submission) -> int:
+def toggle_bookmark(user_id: int, submission_id: int) -> int:
     # return 1 if added, 0 if something went wrong and 1 if removed
     with USER_INSERTION_LOCK:
-        user = SESSION.query(User).filter(User.user_id == user.user_id).first()
-        if user == None:
+        user = SESSION.query(User).filter(User.user_id == user_id).first()
+        submission = SESSION.query(Submission).filter(Submission.id == submission_id).first()
+        if user == None or submission == None:
             SESSION.close()
             return 0
         if submission in user.bookmarks:
             user.bookmarks.remove(submission)
-            submission.liked_users.remove(user)
+            search_engine.decrease_likes(submission.id)
             SESSION.commit()
             SESSION.close()
-            search_engine.decrease_likes(submission.id)
             return -1
         if not submission in user.bookmarks:
             user.bookmarks.append(submission)
-            submission.liked_users.append(user)
+            search_engine.increase_likes(submission.id)
             SESSION.commit()
             SESSION.close()
-            search_engine.increase_likes(submission.id)
             return 1
 
 def add_bookmark(user_id: int, submission: Submission) -> bool:
     with USER_INSERTION_LOCK:
-        user = SESSION.query(User).filter(User.user_id == user.user_id).first()
+        user = SESSION.query(User).filter(User.user_id == user_id).first()
         if user == None or submission in user.boomarks:
             SESSION.close()
             return False

@@ -5,7 +5,7 @@ import pyrogram
 async def document_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.DOCUMENT_SUBMISSION:
@@ -16,7 +16,7 @@ async def document_submission_check(
 async def document_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.DOCUMENT_SUBMISSION:
@@ -27,7 +27,7 @@ async def document_submission_check(
 async def document_search_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.DOCUMENT_SEARCH:
@@ -39,7 +39,7 @@ async def document_search_check(
 async def source_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.SOURCE_SUBMISSION:
@@ -50,7 +50,7 @@ async def source_submission_check(
 async def source_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.SOURCE_SUBMISSION:
@@ -61,7 +61,7 @@ async def source_submission_check(
 async def source_search_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.SOURCE_SEARCH:
@@ -72,7 +72,7 @@ async def source_search_check(
 async def recorded_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.RECORDED_SUBMISSION:
@@ -83,7 +83,7 @@ async def recorded_submission_check(
 async def recorded_submission_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.RECORDED_SUBMISSION:
@@ -94,7 +94,7 @@ async def recorded_submission_check(
 async def recorded_search_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     last_step = get_last_step(message.from_user.id)
     if last_step == steps.RECORDED_SEARCH:
@@ -104,7 +104,7 @@ async def recorded_search_check(
 async def document_func_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     return message.text.startswith("/bo")
 
@@ -112,7 +112,7 @@ async def document_func_check(
 async def recorded_func_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     return message.text.startswith("/re")
 
@@ -120,7 +120,7 @@ async def recorded_func_check(
 async def source_func_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     return message.text.startswith("/so")
 
@@ -128,7 +128,7 @@ async def source_func_check(
 async def document_react_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     return message.data.startswith("like:document") or message.data.startswith(
         "dislike:document"
@@ -138,11 +138,11 @@ async def document_react_check(
 async def document_submission_no_check(
     self,
     client: pyrogram.client.Client,
-    message: pyrogram.types.messages_and_media.message.Message,
+    message: pyrogram.types.triggers_and_media.message.Message,
 ):
     print(message.data)
-    print(messages.DOCUMENT_SUBMISSION_NO + ":document")
-    return messages.DOCUMENT_SUBMISSION_NO + ":document" == message.data
+    print(triggers.DOCUMENT_SUBMISSION_NO + ":document")
+    return triggers.DOCUMENT_SUBMISSION_NO + ":document" == message.data
 
 
 document_submission = filters.create(document_submission_check)

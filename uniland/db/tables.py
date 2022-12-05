@@ -129,8 +129,8 @@ class Document(Submission):
     __tablename__ = "documents"
 
     id = Column(Integer, ForeignKey("submissions.id"), primary_key=True)
-    file_id = Column(String(30), nullable=False)
-    unique_id = Column(String(30), nullable=False)
+    file_id = Column(String(50), nullable=False)
+    unique_id = Column(String(50), nullable=False)
     file_type = Column(Enum(DocType), nullable=False)  # Necessary field
     course = Column(String(30), nullable=False)  # Necessary field
     professor = Column(String(30), default="نامشخص")
@@ -172,7 +172,9 @@ class Document(Submission):
         self.semester_year = semester_year
 
     def update_search_text(self):
-        self.search_text = f"{self.file_type.value} درس {self.course}"
+        self.search_text = f"{self.file_type.value}"
+        if self.course != "نامشخص":
+            self.search_text += f" درس {self.course}"
         if self.professor != "نامشخص":
             self.search_text += f" استاد {self.professor}"
         if self.writer != "نامشخص":
@@ -230,7 +232,7 @@ class Profile(Submission):
     email = Column(String(50), default="")
     phone_number = Column(String(25), default="")
     image_link = Column(String, default="")
-    image_id = Column(String(30), default="")
+    image_id = Column(String(50), default="")
     resume_link = Column(String, default="")
     resume_id = Column(String(30), default="")
 

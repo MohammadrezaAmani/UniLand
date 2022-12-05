@@ -1,7 +1,7 @@
 import enum
 
 
-class Messages(enum.Enum):
+class Triggers(enum.Enum):
 
     # ----------------- Start -----------------
     START = "/start"
@@ -14,7 +14,7 @@ class Messages(enum.Enum):
 
     DOCUMENT_SUBMISSION_FILE = 'ارسال فایل'
     DOCUMENT_SUBMISSION = "ارسال فایل"
-    DOCUMENT_SUBMISSION_CANCEL = 'لغو'
+    DOCUMENT_SUBMISSION_CANCEL = '🔴 لغو 🔴'
     DOCUMENT_SUBMISSION_FILE_TYPE = 'نوع فایل'
     DOCUMENT_SUBMISSION_UNIVERSITY = "دانشگاه"
     DOCUMENT_SUBMISSION_FACULTY = "دانشکده"
@@ -24,16 +24,21 @@ class Messages(enum.Enum):
     DOCUMENT_SUBMISSION_PROFESSOR = "استاد درس"
     DOCUMENT_SUBMISSION_WRITER = "نویسنده"
     DOCUMENT_SUBMISSION_SEMESTER_YEAR = "سال تهیه"
-    DOCUMENT_SUBMISSION_DONE = "اتمام"
+    DOCUMENT_SUBMISSION_DONE = "🟢 اتمام 🟢"
 
+    PROFILE_SUBMISSION_INPUT_TITLE = "ارسال اطلاعات"
     PROFILE_SUBMISSION = "ارسال اطلاعات"
-    PROFILE_SUBMISSION_UNIVERSITY = "profile_submission_university"
-    PROFILE_SUBMISSION_FACULTY = "profile_submission_faculty"
-    PROFILE_SUBMISSION_OWNER_TITLE = "profile_submission_owner_title"
-    PROFILE_SUBMISSION_DESCRIPTION = "profile_submission_description"
-    PROFILE_SUBMISSION_TITLE = "profile_submission_title"
-    PROFILE_SUBMISSION_EMAIL = "profile_submission_email"
-    PROFILE_SUBMISSION_PHONE = "profile_submission_phone"
+    PROFILE_SUBMISSION_CANCEL = '🔴 لغو 🔴'
+    PROFILE_SUBMISSION_EDIT_TITLE = "عنوان"
+    PROFILE_SUBMISSION_PHOTO = 'تصویر'
+    PROFILE_SUBMISSION_DELETE_PHOTO = 'حذف تصویر فعلی'
+    PROFILE_SUBMISSION_UNIVERSITY = "دانشگاه"
+    PROFILE_SUBMISSION_FACULTY = "دانشکده"
+    PROFILE_SUBMISSION_OWNER_TITLE = "نام ثبت کننده"
+    PROFILE_SUBMISSION_DESCRIPTION = "توضیحات"
+    PROFILE_SUBMISSION_EMAIL = "ایمیل"
+    PROFILE_SUBMISSION_PHONE = "شماره تلفن"
+    PROFILE_SUBMISSION_DONE = "🟢 اتمام 🟢"
 
     MEDIA_SUBMISSION = "ارسال لینک"
     MEDIA_SUBMISSION_UNIVERSITY = "media_submission_university"
