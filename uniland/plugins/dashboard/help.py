@@ -8,6 +8,7 @@ from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
+from copy import deepcopy
 
 buttons = \
 [
@@ -42,6 +43,11 @@ buttons = \
         ),
     ]
 ]
+
+def get_keyboard(index:int):
+    custom_buttons = deepcopy(buttons)
+    custom_buttons[index][0].text = " 👈 " + custom_buttons[index][0].text
+    return custom_buttons
   
 
 @Client.on_message(filters.text &
@@ -50,30 +56,24 @@ async def display_help_menu(client, message):
   # TODO: send a message with inline keyboard (about us, search, submission, coming soon...)
   # IMPLEMENT USING CALLBACK QUERY (call_back_query.edit_message_text() -> callback query bound methods)
   # https://docs.pyrogram.org/api/bound-methods/
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(0)
     await message.reply(text=Messages.HELP_MENU.value,
-                        reply_markup=InlineKeyboardMarkup(custom_buttons)
+                        reply_markup=InlineKeyboardMarkup(get_keyboard(0))
     )
 
 
 @Client.on_callback_query(filters.regex('helpmenu:back_to_help_menu'))
 async def back_to_menu(client, callback_query):
     await callback_query.edit_message_text(Messages.HELP_MENU.value)
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(0)
     await callback_query.edit_message_reply_markup(
-      InlineKeyboardMarkup(custom_buttons)
+        InlineKeyboardMarkup(get_keyboard(0))
     )
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_search_details'))
 async def search_help(client, callback_query):
     await callback_query.edit_message_text(Messages.HELP_MENU_SEARCH.value)
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(1)
     await callback_query.edit_message_reply_markup(
-        InlineKeyboardMarkup(custom_buttons)
+        InlineKeyboardMarkup(get_keyboard(1))
     )
 
     
@@ -81,28 +81,22 @@ async def search_help(client, callback_query):
 @Client.on_callback_query(filters.regex('helpemenu:display_submit_details'))
 async def submit_help(client, callback_query):
     await callback_query.edit_message_text(Messages.HELP_MENU_SUBMIT.value)
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(2)
     await callback_query.edit_message_reply_markup(
-        InlineKeyboardMarkup(custom_buttons)
+        InlineKeyboardMarkup(get_keyboard(2))
     )
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_about_us'))
 async def about_us(client, callback_query):
     await callback_query.edit_message_text(Messages.HELP_MENU_ABOUT_US.value)
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(3)
     await callback_query.edit_message_reply_markup(
-        InlineKeyboardMarkup(custom_buttons)
+        InlineKeyboardMarkup(get_keyboard(3))
     )
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_coming_soon'))
 async def coming_soon(client, callback_query):
     await callback_query.edit_message_text(Messages.HELP_MENU_COMING_SOON.value)
-    custom_buttons = buttons.copy()
-    custom_buttons.pop(4)
     await callback_query.edit_message_reply_markup(
-        InlineKeyboardMarkup(custom_buttons)
+        InlineKeyboardMarkup(get_keyboard(4))
     )
