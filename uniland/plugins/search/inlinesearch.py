@@ -125,12 +125,36 @@ async def toggle_user_bookmark(client, callback_query):
     # ['bookmark', user_id, record.id]
     result = user_db.toggle_bookmark(int(args[1]), int(args[2]))
     if result == 1: # Submission is bookmarked
+        await callback_query.edit_message_reply_markup(
+            InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text=f'👍 {search_engine.get_likes(int(args[2]))}',
+                            callback_data=f"bookmark:{callback_query.from_user.id}:{args[2]}"
+                        )
+                    ]
+                ]
+            )
+        )
         await callback_query.answer(f'Added to bookmarks')
         return True
     elif result == 0: # Something went Wrong
         await callback_query.answer('Something Went Wrong!')
         return False
     elif result == -1: # Submission removed from bookmards
+        await callback_query.edit_message_reply_markup(
+            InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text=f'👍 {search_engine.get_likes(int(args[2]))}',
+                            callback_data=f"bookmark:{callback_query.from_user.id}:{args[2]}"
+                        )
+                    ]
+                ]
+            )
+        )
         await callback_query.answer(f'Removed from bookmarks')
         return True
     # TODO! Change bookmark counts after like button pressed

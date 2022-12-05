@@ -104,6 +104,10 @@ class SearchEngine:
     def decrease_likes(self, id: int):
 
         self.subs[id].likes -= 1
+        
+    def get_likes(self, id: int):
+
+        return self.subs[id].likes
 
     def remove_record(self, id: int):
 
