@@ -232,10 +232,7 @@ class Profile(Submission):
     title = Column(String(200), nullable=False)
     email = Column(String(50), default="")
     phone_number = Column(String(25), default="")
-    image_link = Column(String, default="")
     image_id = Column(String(50), default="")
-    resume_link = Column(String, default="")
-    resume_id = Column(String(30), default="")
 
     def __init__(
         self,
@@ -243,10 +240,7 @@ class Profile(Submission):
         title="",
         email="",
         phone_number="",
-        image_link="",
         image_id="",
-        resume_link="",
-        resume_id="",
         is_confirmed=False,
         correspondent_admin=None,
         university="نامشخص",
@@ -266,10 +260,7 @@ class Profile(Submission):
         self.title = title
         self.email = email
         self.phone_number = phone_number
-        self.image_link = image_link
         self.image_id = image_id
-        self.resume_link = resume_link
-        self.resume_id = resume_id
 
     def update_search_text(self):
         self.search_text = f"اطلاعات {self.title}"

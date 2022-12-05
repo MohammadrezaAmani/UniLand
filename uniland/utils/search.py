@@ -91,6 +91,8 @@ class SearchEngine:
                 self.keywords[word] = set()
 
             self.keywords[word].add(record)
+            
+        print(f'indexed {record.id} of type {record.type}')
 
     def update_record(
         self, id: int, search_text: str = None, sub_type: str = None, likes: int = -1
