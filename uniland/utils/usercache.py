@@ -49,6 +49,10 @@ class UserCache:
             return
 
         self.users[user_id].last_step = last_step.strip().lower()
+        
+    @property
+    def total_users(self):
+        return len(self.users)
 
     def remove_user(self, user_id: int):
         if user_id not in self.users:

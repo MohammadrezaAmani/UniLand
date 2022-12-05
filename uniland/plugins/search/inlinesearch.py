@@ -34,6 +34,7 @@ async def answer(client, inline_query):
                 InlineQueryResultCachedDocument(
                     document_file_id = document.file_id,
                     title = record.search_text,
+                    id=record.id,
                     caption = document.user_display(),
                     description = f'مورد علاقه {record.likes} نفر',
                     reply_markup=InlineKeyboardMarkup(
@@ -57,6 +58,7 @@ async def answer(client, inline_query):
                     InlineQueryResultCachedDocument(
                         document_file_id = profile.image_id,
                         title = record.search_text,
+                        id=record.id,
                         caption = profile.user_display(),
                         description = f'مورد علاقه {record.likes} نفر',
                         reply_markup=InlineKeyboardMarkup(
@@ -77,6 +79,7 @@ async def answer(client, inline_query):
                         input_message_content=InputTextMessageContent(
                             profile.user_display()
                         ),
+                        id=record.id,
                         description = f'مورد علاقه {record.likes} نفر',
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -100,6 +103,7 @@ async def answer(client, inline_query):
                         input_message_content=InputTextMessageContent(
                             media.user_display()
                         ),
+                        id=record.id,
                         description = f'مورد علاقه {record.likes} نفر',
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -118,6 +122,10 @@ async def answer(client, inline_query):
         cache_time = 1
     )
 
+@Client.on_chosen_inline_result()
+async def update_search_stats(client, chosen_inline_result):
+    sub_db.increase_search_times(id=int(chosen_inline_result.result_id))
+    
 
 @Client.on_callback_query(filters.regex('^bookmark:'))
 async def toggle_user_bookmark(client, callback_query):

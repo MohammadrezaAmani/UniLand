@@ -1,9 +1,10 @@
 class SubmissionRecord:
-    def __init__(self, id: int, search_text: str, type: str, likes: int):
+    def __init__(self, id: int, search_text: str, type: str, likes: int, search_times:int = 0):
         self.id = id
         self.search_text = search_text
         self.type = type
         self.likes = likes
+        self.search_times = search_times
 
     def __repr__(self):
 
@@ -50,6 +51,8 @@ class SearchEngine:
         self.subs = {}  # int id -> Record record
 
         self.keywords = {}  # str keyword -> set of int ids
+        
+        self.total_searches = 0
 
     def __clean_text(self, text: str):
 
@@ -59,7 +62,13 @@ class SearchEngine:
 
         return text.strip()
 
-    def index_record(self, id: int, search_text: str, sub_type: str, likes: int = 0):
+    def index_record(self, id: int,
+                     search_text: str,
+                     sub_type: str,
+                     likes: int = 0,
+                     search_times: int = 0):
+
+        self.total_searches += search_times
 
         if search_text is None:
             self.subs[id] = SubmissionRecord(
@@ -98,16 +107,21 @@ class SearchEngine:
         self.index_record(record.id, record.search_text, record.type, record.likes)
 
     def increase_likes(self, id: int):
-
         self.subs[id].likes += 1
 
     def decrease_likes(self, id: int):
-
         self.subs[id].likes -= 1
         
     def get_likes(self, id: int):
-
         return self.subs[id].likes
+    
+    def increase_search_times(self, id: int):
+        self.subs[id].search_times += 1
+        self.total_searches += 1
+    
+    @property
+    def total_confirmed_subs(self):
+        return len(self.subs)
 
     def remove_record(self, id: int):
 

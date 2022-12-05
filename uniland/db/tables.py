@@ -78,6 +78,7 @@ class Submission(BASE):
     owner_title = Column(String(20))
     search_text = Column(String(200))
     description = Column(String(500))
+    search_times = Column(Integer, default=0)
 
     submission_type = Column(String(20))
 

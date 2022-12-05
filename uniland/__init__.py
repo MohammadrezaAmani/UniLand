@@ -24,6 +24,7 @@ def start() -> scoped_session:
                 search_text=submission.search_text,
                 sub_type=submission.submission_type,
                 likes=len(submission.liked_users),
+                search_times=submission.search_times
             )
 
     # adding users

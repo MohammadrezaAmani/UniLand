@@ -8,12 +8,14 @@ from uniland import usercache, search_engine
 
 app = Flask('')
 
+# This module is used to keep the bot alive on replit servers
 
 @app.route('/')
 def home():
   return \
-      f"Current Amount of users: {len(usercache.users)}<br>" \
-      f"Amount of confirmed Submissions: {len(search_engine.subs)}"
+      f"Total Searches: {search_engine.total_searches}<br>"\
+      f"Total Users: {usercache.total_users}<br>" \
+      f"Amount of confirmed Submissions: {search_engine.total_confirmed_subs}<br>" \
 
 
 def run():
