@@ -23,7 +23,7 @@ class Pages:
         [
             [Triggers.MY_BOOKMARKS.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
             [Triggers.SEARCH.value, Triggers.MY_PROFILE.value],
-            [Triggers.HELP.value, Triggers.ABOUT_US.value],
+            [Triggers.HELP.value],
         ],
         resize_keyboard=True,
     )

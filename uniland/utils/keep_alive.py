@@ -15,7 +15,7 @@ def home():
   return \
       f"Total Searches: {search_engine.total_searches}<br>"\
       f"Total Users: {usercache.total_users}<br>" \
-      f"Amount of confirmed Submissions: {search_engine.total_confirmed_subs}<br>" \
+      f"Total confirmed Submissions: {search_engine.total_confirmed_subs}<br>"
 
 
 def run():

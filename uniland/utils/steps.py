@@ -52,7 +52,7 @@ class UserSteps(enum.Enum):
     # ----------------- User Profile Branch -----------------
     # We don't need nodes for this, because we can just send it and interact
     # using InlineKeyboardMarkup.
-    
+        
     # ----------------- Admin Branch -----------------
     ADMIN_PANEL = 'admin_panel_stage'
     SHOW_STATISTICS = 'show_statistics'

@@ -68,7 +68,6 @@ class Triggers(enum.Enum):
     SUBMIT = "ارسال محتوا"
     MY_PROFILE = "پروفایل من"
     HELP = "راهنما"
-    ABOUT_US = "درباره ما"
     # SUBMIT
     DOCUMENT = "DOCUMENT"
     PROFILE = "PROFILE"
