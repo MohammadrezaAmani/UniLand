@@ -1,6 +1,7 @@
 import enum
 from uniland.utils.triggers import Triggers
 from uniland.utils.enums import DocType
+# from uniland.db.tables i
 
 from pyrogram.types import (
     ReplyKeyboardMarkup,
@@ -19,6 +20,10 @@ from pyrogram.types import (
 
 
 class Pages:
+
+    def generate_inline(submission_id: int, submission_type: str):
+      pass
+
     HOME = ReplyKeyboardMarkup(
         [
             [Triggers.MY_BOOKMARKS.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
@@ -45,23 +50,23 @@ class Pages:
     DOCUMENT_SUBMISSION = ReplyKeyboardMarkup(
         [
             [
-                Triggers.DOCUMENT_SUBMISSION_FILE_TYPE.value, 
+                Triggers.DOCUMENT_SUBMISSION_FILE_TYPE.value,
                 Triggers.DOCUMENT_SUBMISSION_COURSE.value,
                 Triggers.DOCUMENT_SUBMISSION_PROFESSOR.value
             ],
-            
+
             [
                 Triggers.DOCUMENT_SUBMISSION_UNIVERSITY.value,
                 Triggers.DOCUMENT_SUBMISSION_FACULTY.value,
                 Triggers.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value
             ],
-            
+
             [
                 Triggers.DOCUMENT_SUBMISSION_WRITER.value,
                 Triggers.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
                 Triggers.DOCUMENT_SUBMISSION_DESCRIPTION.value
             ],
-            
+
             [
                 Triggers.DOCUMENT_SUBMISSION_DONE.value,
                 Triggers.DOCUMENT_SUBMISSION_CANCEL.value
@@ -69,7 +74,7 @@ class Pages:
         ],
         resize_keyboard=True
     )
-    
+
     DOCUMENT_SUBMISSION_FILE_TYPE = ReplyKeyboardMarkup(
         [
             [DocType.Pamphlet.value, DocType.Summary.value],
@@ -78,7 +83,7 @@ class Pages:
             [Triggers.BACK.value]
         ]
     )
-    
+
     # Mohmmadreza's previous button
     # DOCUMENT_SUBMISSION = InlineKeyboardMarkup(
     #     [
@@ -152,7 +157,7 @@ class Pages:
         ],
         resize_keyboard=True
     )
-    
+
     EDIT_PROFILE_SUBMISSION_PHOTO = ReplyKeyboardMarkup(
         [
             [Triggers.PROFILE_SUBMISSION_DELETE_PHOTO.value],

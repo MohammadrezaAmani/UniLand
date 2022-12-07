@@ -2,6 +2,7 @@ from uniland.utils.steps import UserSteps
 from uniland.utils.pages import Pages
 from uniland.utils.triggers import Triggers
 
+
 class UXNode:
     def __init__(
         self,
@@ -49,11 +50,20 @@ class UXTree:
     )
 
     # ----------------- PV Search -----------------
-    nodes[UserSteps.SEARCH.value] = UXNode(
-        step=UserSteps.SEARCH.value,
-        parent=nodes[UserSteps.START.value],
-        trigger=Triggers.SEARCH.value,
-    )
+    # nodes[UserSteps.SEARCH.value] = UXNode(
+    #     step=UserSteps.SEARCH.value,
+    #     parent=nodes[UserSteps.START.value],
+    #     description="لطفا متن جستجو را وارد کنید: ",
+    #     keyboard=Pages.BACK,
+    #     trigger=Triggers.SEARCH.value,
+    # )
+
+    # nodes[UserSteps.SEARCH_SHOW_RESULTS] = UXNode(
+    #     step=UserSteps.SEARCH_SHOW_RESULTS.value,
+    #     parent=nodes[UserSteps.SEARCH.value],
+    #     description='لطفا متن جستجو را وارد کنید:',
+    #     keyboard=Pages.BACK
+    # )
 
     # ----------------- Starting Submission -----------------
     nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value] = UXNode(
@@ -102,8 +112,8 @@ class UXTree:
     nodes[UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value] = UXNode(
         step=UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
         parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
-        description='می خواهید نام ثبت کننده فایل چه باشد؟'\
-            'می توانید نام کامل یا مستعار خود را وارد کنید',
+        description='می خواهید نام ثبت کننده فایل چه باشد؟'
+        'می توانید نام کامل یا مستعار خود را وارد کنید',
         keyboard=Pages.BACK,
         trigger=Triggers.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
     )
@@ -193,7 +203,7 @@ class UXTree:
         keyboard=Pages.BACK,
         description='می خواهید نام ثبت کننده فایل چه باشد؟'
         'می توانید نام کامل یا مستعار خود را وارد کنید',
-        trigger=Triggers.PROFILE_SUBMISSION_OWNER_TITLE.value, 
+        trigger=Triggers.PROFILE_SUBMISSION_OWNER_TITLE.value,
     )
     nodes[UserSteps.PROFILE_SUBMISSION_DESCRIPTION.value] = UXNode(
         step=UserSteps.PROFILE_SUBMISSION_DESCRIPTION.value,

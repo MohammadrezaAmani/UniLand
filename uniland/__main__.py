@@ -24,7 +24,7 @@ if __name__ == "__main__":
             "submission.submission",
             # 'uniland.plugins.search folder'
             "search.inlinesearch",
-            "search.pvsearch",
+            # "search.pvsearch",
             # 'uniland.plugins.admin folder'
             "admin.access",
             "admin.confirmation",

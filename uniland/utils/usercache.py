@@ -2,10 +2,11 @@ class UserRecord:
 
     permission_values = {"Admin": 3, "Editor": 2, "Ordinary": 1}
 
-    def __init__(self, user_id: int, permission, last_step: str):
+    def __init__(self, user_id: int, permission, last_step: str, achieved_likes: int = 0):
         self.user_id = user_id
         self.update_permission(permission)
         self.last_step = last_step.strip().lower() if last_step else ""
+        self.achieved_likes = achieved_likes
 
     def update_permission(self, permission):
         if permission in self.permission_values.keys():
@@ -49,6 +50,26 @@ class UserCache:
             return
 
         self.users[user_id].last_step = last_step.strip().lower()
+        
+    def increase_achieved_likes(self, user_id: int, amount: int = 1):
+        if user_id not in self.users:
+            return
+        print('before: ', self.users[user_id].achieved_likes)
+        self.users[user_id].achieved_likes += amount
+        print('after: ', self.users[user_id].achieved_likes)
+        
+    def decrease_achieved_likes(self, user_id: int, amount: int = 1):
+        if user_id not in self.users:
+            return
+        print('before: ', self.users[user_id].achieved_likes)
+        self.users[user_id].achieved_likes -= amount
+        print('after: ', self.users[user_id].achieved_likes)
+        
+        
+    def get_achieved_likes(self, user_id: int):
+        if user_id not in self.users:
+            return 0
+        return self.users[user_id].achieved_likes
         
     @property
     def total_users(self):

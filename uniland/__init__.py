@@ -15,18 +15,6 @@ def start() -> scoped_session:
     create_tables(engine)
     session = scoped_session(sessionmaker(bind=engine, autoflush=False))
 
-    # Indexing all submissions
-    search_engine = SearchEngine()
-    for submission in session.query(Submission).all():
-        if submission.is_confirmed:
-            search_engine.index_record(
-                id=submission.id,
-                search_text=submission.search_text,
-                sub_type=submission.submission_type,
-                likes=len(submission.liked_users),
-                search_times=submission.search_times
-            )
-
     # adding users
     usercache = UserCache()
     for user in session.query(User).all():
@@ -35,6 +23,20 @@ def start() -> scoped_session:
             permission=user.access_level.value,
             last_step=user.last_step,
         )
+        
+    # Indexing all submissions
+    search_engine = SearchEngine()
+    for submission in session.query(Submission).all():
+        usercache.increase_achieved_likes(submission.owner_id,
+                                          len(submission.liked_users))
+        if submission.is_confirmed:
+            search_engine.index_record(
+                id=submission.id,
+                search_text=submission.search_text,
+                sub_type=submission.submission_type,
+                likes=len(submission.liked_users),
+                search_times=submission.search_times
+            )
 
     return (session, search_engine, usercache)
 

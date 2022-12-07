@@ -11,44 +11,47 @@ from uniland.utils.filters import user_step, exact_match
 from copy import deepcopy
 
 buttons = \
-[
     [
-        InlineKeyboardButton(  # Opens a web URL
-            "صفحه اصلی",
-            callback_data="helpmenu:back_to_help_menu"
-        ),
-    ],
-    [
-        InlineKeyboardButton(  # Opens a web URL
-            "راهنمای جستجو",
-            callback_data="helpemenu:display_search_details"
-        ),
-    ],
-    [
-        InlineKeyboardButton(  # Opens a web URL
-            "راهنمای ثبت فایل",
-            callback_data="helpemenu:display_submit_details"
-        ),
-    ],
-    [
-        InlineKeyboardButton(  # Opens a web URL
-            "درباره ما",
-            callback_data="helpemenu:display_about_us"
-        ),
-    ],
-    [
-        InlineKeyboardButton(  # Opens a web URL
-            "بزودی...",
-            callback_data="helpemenu:display_coming_soon"
-        ),
+        [
+            InlineKeyboardButton(  # Opens a web URL
+                "صفحه اصلی",
+                callback_data="helpmenu:back_to_help_menu"
+            ),
+        ],
+        [
+            InlineKeyboardButton(  # Opens a web URL
+                "راهنمای جستجو",
+                callback_data="helpemenu:display_search_details"
+            ),
+        ],
+        [
+            InlineKeyboardButton(  # Opens a web URL
+                "راهنمای ثبت فایل",
+                callback_data="helpemenu:display_submit_details"
+            ),
+        ],
+        [
+            InlineKeyboardButton(  # Opens a web URL
+                "درباره ما",
+                callback_data="helpemenu:display_about_us"
+            ),
+        ],
+        [
+            InlineKeyboardButton(  # Opens a web URL
+                "بزودی...",
+                callback_data="helpemenu:display_coming_soon"
+            ),
+        ]
     ]
-]
 
-def get_keyboard(index:int):
+# Generate the new keyboard with selected button
+
+
+def get_keyboard(index: int):
     custom_buttons = deepcopy(buttons)
     custom_buttons[index][0].text = " 👈 " + custom_buttons[index][0].text
     return custom_buttons
-  
+
 
 @Client.on_message(filters.text &
                    user_step(UserSteps.START.value) & exact_match(Triggers.HELP.value))
@@ -58,7 +61,7 @@ async def display_help_menu(client, message):
   # https://docs.pyrogram.org/api/bound-methods/
     await message.reply(text=Messages.HELP_MENU.value,
                         reply_markup=InlineKeyboardMarkup(get_keyboard(0))
-    )
+                        )
 
 
 @Client.on_callback_query(filters.regex('helpmenu:back_to_help_menu'))
@@ -76,7 +79,6 @@ async def search_help(client, callback_query):
         InlineKeyboardMarkup(get_keyboard(1))
     )
 
-    
 
 @Client.on_callback_query(filters.regex('helpemenu:display_submit_details'))
 async def submit_help(client, callback_query):

@@ -1,16 +1,18 @@
 import enum
 
+
 class UserSteps(enum.Enum):
-    
+
     # ----------------- Start -----------------
     START = 'start_stage'
-    
+
     # ----------------- Search Branch -----------------
     SEARCH = 'bot_pv_search'
-    
+    SEARCH_SHOW_RESULTS = 'bot_pv_search_show_results'
+
     # ----------------- Submit Branch -----------------
     CHOOSE_SUBMISSION_TYPE = 'submission_type_stage'
-    
+
     DOCUMENT_SUBMISSION_FILE = 'document_submission_file_stage'
     DOCUMENT_SUBMISSION = 'document_submission_process'
     DOCUMENT_SUBMISSION_CANCEL = 'document_submission_cancel'
@@ -37,7 +39,7 @@ class UserSteps(enum.Enum):
     PROFILE_SUBMISSION_EMAIL = 'profile_submission_email'
     PROFILE_SUBMISSION_PHONE = 'profile_submission_phone'
     PROFILE_SUBMISSION_DONE = 'profile_submission_done_stage'
-    
+
     MEDIA_SUBMISSION = 'media_submission_process'
     MEDIA_SUBMISSION_UNIVERSITY = 'media_submission_university'
     MEDIA_SUBMISSION_FACULTY = 'media_submission_faculty'
@@ -48,11 +50,11 @@ class UserSteps(enum.Enum):
     MEDIA_SUBMISSION_COURSE = 'media_submission_course_stage'
     MEDIA_SUBMISSION_PROFESSOR = 'media_submission_professor_stage'
     MEDIA_SUBMISSION_SEMESTER_YEAR = 'media_submission_semester_year_stage'
-    
+
     # ----------------- User Profile Branch -----------------
     # We don't need nodes for this, because we can just send it and interact
     # using InlineKeyboardMarkup.
-        
+
     # ----------------- Admin Branch -----------------
     ADMIN_PANEL = 'admin_panel_stage'
     SHOW_STATISTICS = 'show_statistics'
@@ -60,5 +62,3 @@ class UserSteps(enum.Enum):
     UPDATE_USER_ACCESS = 'update_user_access'
     CHOOSE_USER_TO_UPDATE = 'choose_user_to_update'
     CHOOSE_USER_ACCESS_LEVEL = 'choose_user_access_level'
-    
-    
