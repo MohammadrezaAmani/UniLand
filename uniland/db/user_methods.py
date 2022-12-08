@@ -119,7 +119,7 @@ def update_user_step(user_id: int, last_step: str):
     usercache.update_user_step(user_id, last_step)
 
 
-def get_user_bookmark(user_id: int):
+def get_user_bookmarks(user_id: int):
   return SESSION.query(User).filter(User.user_id == user_id).first().bookmarks
 
 
@@ -128,7 +128,7 @@ def count_user_submissions(user_id: int):
       Submission.owner_id == user_id).count()
 
 
-def get_user_submission(user_id: int):
+def get_user_submissions(user_id: int):
   return SESSION.query(Submission).filter(Submission.owner_id == user_id).all()
 
 

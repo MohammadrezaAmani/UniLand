@@ -1,9 +1,6 @@
 import enum
 from uniland.utils.triggers import Triggers
 from uniland.utils.enums import DocType
-# from uniland.db.doc_methods import get_document
-# from uniland.db.profile_methods import get_profile
-# from uniland.db.media_methods import get_media
 
 from pyrogram.types import (
     ReplyKeyboardMarkup,
@@ -25,17 +22,16 @@ class Pages:
 
   HOME = ReplyKeyboardMarkup(
       [
-          [Triggers.MY_BOOKMARKS.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
-          [Triggers.SEARCH.value, Triggers.MY_PROFILE.value],
-          [Triggers.HELP.value],
+          [Triggers.SEARCH.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
+          [Triggers.HELP.value, Triggers.MY_PROFILE.value]
       ],
       resize_keyboard=True,
   )
   ADMIN_HOME = ReplyKeyboardMarkup(
       [
-          [Triggers.MY_BOOKMARKS.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
-          [Triggers.SEARCH.value, Triggers.MY_PROFILE.value],
-          [Triggers.HELP.value, Triggers.ADMIN_PANEL.value],
+          [Triggers.SEARCH.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
+          [Triggers.HELP.value, Triggers.MY_PROFILE.value],
+          [Triggers.ADMIN_PANEL.value],
       ],
       resize_keyboard=True,
   )

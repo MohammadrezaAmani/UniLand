@@ -60,8 +60,7 @@ async def display_search_result(client, message):
 
 @Client.on_callback_query(filters.regex('^pvsearch:'))
 async def pvsearch_callback(client, callback_query):
-  print(callback_query.data)
-  page, page_size, search_text = callback_query.data.split(':')[1:4]
+  page, page_size, search_text = callback_query.data.split(':')[1:]
   page, page_size = int(page), int(page_size)
 
   if page < 0:
@@ -84,9 +83,6 @@ async def pvsearch_callback(client, callback_query):
       lambda sub: f'{sub.user_display()}\n',
       lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
 
-  if not display_text:
-    await callback_query.answer(text='این صفحه آخر است', show_alert=True)
-    return
   await callback_query.edit_message_text(
       display_text,
       reply_markup=InlineKeyboardMarkup(buttons),
