@@ -10,8 +10,14 @@ app = Flask('')
 
 # This module is used to keep the bot alive on replit servers
 
+
 @app.route('/')
 def home():
+  return 'You have found the home of a Python program!'
+
+
+@app.route('/stats')
+def stats():
   return \
       f"Total Searches: {search_engine.total_searches}<br>"\
       f"Total Users: {usercache.total_users}<br>" \
