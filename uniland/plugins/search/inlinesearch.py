@@ -11,18 +11,13 @@ from uniland.db import doc_methods as doc_db
 from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
 from uniland.db import submission_methods as sub_db
+from uniland.plugins.dashboard.help import get_keyboard
+from uniland.utils.messages import Messages
 
 
 @Client.on_inline_query()
 async def answer(client, inline_query):
     records = search_engine.search(inline_query.query)
-
-    # Make 5 example SubmissionRecord objects in records list
-    # records = [
-    #     SubmissionRecord(i, f'Doc{i}', 'document', i*2,
-    #                      file_id='BQACAgQAAxkBAAII7GOKX-QAAXUuH0zT7AABKn1hmkMVCYYAAjgOAAJ6SRlQ0CNPvxG1_-8eBA')
-    #     for i in range (5)
-    # ]
 
     results = []
     for record in records:
@@ -118,6 +113,19 @@ async def answer(client, inline_query):
                 )
             )
 
+    if len(results) == 0:
+        results.append(
+            InlineQueryResultArticle(
+                title='راهنما',
+                description='موردی برای نمایش یافت نشد',
+                input_message_content=InputTextMessageContent(
+                    Messages.HELP_MENU.value
+                ),
+                id=-1,
+                reply_markup=InlineKeyboardMarkup(get_keyboard(0))
+            )
+        )
+
     await inline_query.answer(
         results=results,
         cache_time=1
@@ -126,7 +134,8 @@ async def answer(client, inline_query):
 
 @Client.on_chosen_inline_result()
 async def update_search_stats(client, chosen_inline_result):
-    sub_db.increase_search_times(id=int(chosen_inline_result.result_id))
+    if chosen_inline_result.result_id != '-1':
+        sub_db.increase_search_times(id=int(chosen_inline_result.result_id))
 
 
 @Client.on_callback_query(filters.regex('^bookmark:'))

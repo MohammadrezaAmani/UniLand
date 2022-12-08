@@ -10,7 +10,7 @@ class Triggers(enum.Enum):
     # ----------------- Search Branch -----------------
 
     # ----------------- Submit Branch -----------------
-    CHOOSE_SUBMISSION_TYPE = "ارسال محتوا"
+    CHOOSE_SUBMISSION_TYPE = "📤 ارسال محتوا 📤"
 
     DOCUMENT_SUBMISSION_FILE = 'ارسال فایل'
     DOCUMENT_SUBMISSION = "ارسال فایل"
@@ -51,23 +51,6 @@ class Triggers(enum.Enum):
     MEDIA_SUBMISSION_PROFESSOR = "media_submission_professor_stage"
     MEDIA_SUBMISSION_SEMESTER_YEAR = "media_submission_semester_year_stage"
 
-    # ----------------- User Profile Branch -----------------
-    # We don't need nodes for this, because we can just send it and interact
-    # using InlineKeyboardMarkup.
-
-    # ----------------- Admin Branch -----------------
-    ADMIN_PANEL = "admin_panel_stage"
-    SHOW_STATISTICS = "show_statistics"
-    GET_SUBMISSION_TO_APPROVE = "get_files_to_approve"
-    UPDATE_USER_ACCESS = "update_user_access"
-    CHOOSE_USER_TO_UPDATE = "choose_user_to_update"
-    CHOOSE_USER_ACCESS_LEVEL = "choose_user_access_level"
-    # ----------------- Home -----------------
-    MY_BOOKMARKS = "پسندهای من"
-    SEARCH = "جستجو"
-    SUBMIT = "ارسال محتوا"
-    MY_PROFILE = "پروفایل من"
-    HELP = "راهنما"
     # SUBMIT
     DOCUMENT = "DOCUMENT"
     PROFILE = "PROFILE"
@@ -81,3 +64,25 @@ class Triggers(enum.Enum):
     YEAR = "YEAR"
     WRITER = "WRITER"
     FINISH = "FINISH"
+
+    # ----------------- User Profile Branch -----------------
+    # We don't need nodes for this, because we can just send it and interact
+    # using InlineKeyboardMarkup.
+
+    # ----------------- Admin Branch -----------------
+    # SHOW_STATISTICS = "show_statistics" show this on first page of admin panel
+    GET_SUBMISSION_TO_APPROVE = "تایید فایل"
+    UPDATE_USER_ACCESS = "تغییر سطح دسترسی کاربران"
+    ADMIN_EDIT_SUBMISSIONS = "ویرایش فایل ها"
+
+    # ----------------- Home -----------------
+    MY_BOOKMARKS = "پسندهای من"  # TO DO: PLACE THIS FIELD IN MYPROFILE FIELD
+    SEARCH = "🔍 جستجو 🔎"
+    SUBMIT = "📤 ارسال محتوا 📤"
+    MY_PROFILE = "👩‍💻 پروفایل من 👨‍💻"
+    HELP = "📜 راهنما 📜"
+    ADMIN_PANEL = "پنل ادمین"  # only shown to editors & admins
+
+    # -------------- Bookmarks ---------------
+    BOOKMARKS_NAV_BACK = '⏮️'   # I'قبلی'I
+    BOOKMARKS_NAV_NEXT = '⏭️'  # I'بعدی'I

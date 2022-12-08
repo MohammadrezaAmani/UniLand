@@ -56,12 +56,8 @@ def get_keyboard(index: int):
 @Client.on_message(filters.text &
                    user_step(UserSteps.START.value) & exact_match(Triggers.HELP.value))
 async def display_help_menu(client, message):
-  # TODO: send a message with inline keyboard (about us, search, submission, coming soon...)
-  # IMPLEMENT USING CALLBACK QUERY (call_back_query.edit_message_text() -> callback query bound methods)
-  # https://docs.pyrogram.org/api/bound-methods/
     await message.reply(text=Messages.HELP_MENU.value,
-                        reply_markup=InlineKeyboardMarkup(get_keyboard(0))
-                        )
+                        reply_markup=InlineKeyboardMarkup(get_keyboard(0)))
 
 
 @Client.on_callback_query(filters.regex('helpmenu:back_to_help_menu'))

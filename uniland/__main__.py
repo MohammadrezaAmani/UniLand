@@ -24,17 +24,17 @@ if __name__ == "__main__":
             "submission.submission",
             # 'uniland.plugins.search folder'
             "search.inlinesearch",
-            # "search.pvsearch",
+            "search.pvsearch",
             # 'uniland.plugins.admin folder'
+            "admin.admin_panel",
             "admin.access",
             "admin.confirmation",
-            "admin.access",
             # 'uniland.plugins.navigation folder'
             "navigation.back_handler",
             # 'uniland.plugins.dashboard folder'
             "dashboard.myprofile",
             "dashboard.help",
-            "dashboard.bookmarks",
+            # "dashboard.bookmarks",
         ],
     )
 

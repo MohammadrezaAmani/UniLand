@@ -8,24 +8,21 @@ from uniland.db.tables import Profile
 from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
+from uniland.plugins.start.start import start_stage
 from uniland.utils.enums import DocType
 from uniland.config import STORAGE_CHAT_ID
 
 staged_profs = {}
-
-async def goto_start(client, message):
-    start_step = UXTree.nodes[UserSteps.START.value]
-    await message.reply(text=start_step.description, reply_markup=start_step.keyboard)
-    user_db.update_user_step(message.from_user.id, start_step.step)
 
 
 async def check_profile(client, message):
     global staged_profs
     if message.from_user.id not in staged_profs:
         await message.reply(text='خطای گم شدن اطلاعات، لطفا مجددا تلاش کنید.')
-        await goto_start(client, message)
+        await start_stage(client, message)
         return False
     return True
+
 
 async def display_profile(client, message, profile):
     # Displaying the profile
@@ -36,6 +33,7 @@ async def display_profile(client, message, profile):
     else:
         await message.reply_document(document=profile.image_id, caption=str(profile))
 
+
 @Client.on_message(filters.text & ~filters.me & exact_match(Triggers.PROFILE_SUBMISSION_INPUT_TITLE.value)
                    & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value))
 async def get_title(client, message):
@@ -44,7 +42,7 @@ async def get_title(client, message):
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
     user_db.update_user_step(message.from_user.id,
                              UserSteps.PROFILE_SUBMISSION_INPUT_TITLE.value)
-    
+
 
 @Client.on_message(filters.text & ~filters.me & ~exact_match(Triggers.BACK.value) &
                    user_step(UserSteps.PROFILE_SUBMISSION_INPUT_TITLE.value))
@@ -56,8 +54,9 @@ async def start_getting_data(client, message):
     user_step = UXTree.nodes[UserSteps.PROFILE_SUBMISSION.value]
     await display_profile(client, message, profile)
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
-    user_db.update_user_step(message.from_user.id, UserSteps.PROFILE_SUBMISSION.value)
-    
+    user_db.update_user_step(message.from_user.id,
+                             UserSteps.PROFILE_SUBMISSION.value)
+
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION.value) & ~filters.me & filters.text)
 async def choose_doc_field(client, message):
@@ -82,19 +81,20 @@ async def choose_doc_field(client, message):
             await message.reply(text='فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت. \nبا تشکر از شما بابت ارسال محتوای خود')
         else:
             await message.reply('متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید.')
-        await goto_start(client, message)
+        await start_stage(client, message)
 
     # Cancel Button
     elif message.text.strip() == Triggers.PROFILE_SUBMISSION_CANCEL.value:
         # User has canceled the submission process
         await message.reply('عملیات ارسال فایل لغو شد.')
         staged_profs.pop(message.from_user.id)
-        await goto_start(client, message)
+        await start_stage(client, message)
 
     else:
         await message.reply('لطفا یکی از گزینه های موجود را انتخاب کنید.')
 
 # ---------------------- Inputting data fields ----------------------
+
 
 async def go_back(client, message, step):
     # Going back to previous step
@@ -102,6 +102,7 @@ async def go_back(client, message, step):
     await message.reply(text=user_step.parent.description,
                         reply_markup=user_step.parent.keyboard)
     user_db.update_user_step(message.from_user.id, user_step.parent.step)
+
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION_EDIT_TITLE.value)
                    & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
@@ -215,12 +216,12 @@ async def delete_profile_photo(client, message):
         await display_profile(client, message, profile)
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
         return
-    
+
     # return # TODO! delete this line when implemented
-    
+
     # TODO! delete this line when implemented
     # await message.reply('لطفا تصویر جدید را ارسال کنید یا یکی از دکمه‌های زیر را بزنید.')1
-    
+
     # TODO! Complete this part
     # Inputting profile photo
     # Check if message is link using regex
@@ -235,8 +236,9 @@ async def delete_profile_photo(client, message):
         await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
         await display_profile(client, message, profile)
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
-        
+
     await message.reply('لینک عکس پروفایل نامعتبر است.')
+
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
                    & ~filters.me & filters.photo & ~exact_match(Triggers.BACK.value))

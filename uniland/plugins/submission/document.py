@@ -18,7 +18,8 @@ async def goto_start(client, message):
     await message.reply(text=start_step.description, reply_markup=start_step.keyboard)
     user_db.update_user_step(message.from_user.id, start_step.step)
 
-@Client.on_message(filters.text & ~filters.me & exact_match(Triggers.DOCUMENT_SUBMISSION_FILE.value)
+@Client.on_message(filters.text
+                   & exact_match(Triggers.DOCUMENT_SUBMISSION_FILE.value)
                    & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value))
 async def get_file(client, message):
     # Getting file from user
@@ -27,7 +28,8 @@ async def get_file(client, message):
     user_db.update_user_step(message.from_user.id, UserSteps.DOCUMENT_SUBMISSION_FILE.value)
 
 
-@Client.on_message(filters.document & user_step(UserSteps.DOCUMENT_SUBMISSION_FILE.value))
+@Client.on_message(filters.document
+                   & user_step(UserSteps.DOCUMENT_SUBMISSION_FILE.value))
 async def start_getting_data(client, message,):
     # User has sent the file, now it can change the file data
     if doc_db.unique_id_exists(message.document.file_unique_id):
@@ -43,7 +45,8 @@ async def start_getting_data(client, message,):
                              UserSteps.DOCUMENT_SUBMISSION.value)
     
 
-@Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION.value) & ~filters.me & filters.text)
+@Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION.value) 
+                   & filters.text)
 async def choose_doc_field(client, message): 
     # Routing the user to input file data fields
     user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION.value]
@@ -96,7 +99,7 @@ async def go_back(client, message, step):
     user_db.update_user_step(message.from_user.id, user_step.parent.step)
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_COURSE.value) 
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_course(client, message,):
     # Inputting course name
     global staged_docs
@@ -108,7 +111,7 @@ async def doc_course(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_professor(client, message,):
     # Inputting professor name
     global staged_docs
@@ -120,7 +123,7 @@ async def doc_professor(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_WRITER.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_writer(client, message,):
     # Inputting the writer of the document
     global staged_docs
@@ -132,7 +135,7 @@ async def doc_writer(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_faculty(client, message,):
     # Inputting the faculty of the document
     global staged_docs
@@ -144,7 +147,7 @@ async def doc_faculty(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_university(client, message,):
     # Inputting the university of the document
     global staged_docs
@@ -156,7 +159,7 @@ async def doc_university(client, message,):
 
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_owner_title(client, message,):
     # Inputting the owner title of the document
     global staged_docs
@@ -168,7 +171,7 @@ async def doc_owner_title(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_description(client, message,):
     # Inputting the description of the document
     global staged_docs
@@ -180,7 +183,7 @@ async def doc_description(client, message,):
     
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_year(client, message,):
     # Inputting the semester if its number, show error otherwise
     sem = 0
@@ -197,7 +200,7 @@ async def doc_year(client, message,):
     await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
-                   & ~filters.me & filters.text & ~exact_match(Triggers.BACK.value))
+                   & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_file_type(client, message,):
     # Inputting the faculty of the document
     global staged_docs

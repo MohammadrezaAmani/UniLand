@@ -54,16 +54,12 @@ class UserCache:
     def increase_achieved_likes(self, user_id: int, amount: int = 1):
         if user_id not in self.users:
             return
-        print('before: ', self.users[user_id].achieved_likes)
         self.users[user_id].achieved_likes += amount
-        print('after: ', self.users[user_id].achieved_likes)
         
     def decrease_achieved_likes(self, user_id: int, amount: int = 1):
         if user_id not in self.users:
             return
-        print('before: ', self.users[user_id].achieved_likes)
         self.users[user_id].achieved_likes -= amount
-        print('after: ', self.users[user_id].achieved_likes)
         
         
     def get_achieved_likes(self, user_id: int):

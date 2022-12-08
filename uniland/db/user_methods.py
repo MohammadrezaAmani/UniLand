@@ -5,6 +5,7 @@ from uniland import usercache, search_engine
 from uniland.utils.enums import UserLevel
 from uniland.utils.steps import UserSteps
 from uniland import search_engine as se
+import os
 
 USER_INSERTION_LOCK = threading.RLock()
 
@@ -85,14 +86,9 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
       SESSION.close()
       return False
     submission.owner = user
-    user.user_submissions.append(submission)
     if user.access_level.value == UserLevel.Admin.value:
       print('Has Admin Access')
-      # submission.confirm(user)
-      submission.admin = user
-      user.confirmations.append(submission)
-      submission.is_confirmed = True
-      submission.update_search_text()
+      submission.confirm(user)
       SESSION.commit()
       search_engine.index_record(id=submission.id,
                                  search_text=submission.search_text,
@@ -123,9 +119,35 @@ def update_user_step(user_id: int, last_step: str):
     usercache.update_user_step(user_id, last_step)
 
 
+def get_user_bookmark(user_id: int):
+  return SESSION.query(User).filter(User.user_id == user_id).first().bookmarks
+
+
+def count_user_submissions(user_id: int):
+  return SESSION.query(Submission).filter(
+      Submission.owner_id == user_id).count()
+
+
+def get_user_submission(user_id: int):
+  return SESSION.query(Submission).filter(Submission.owner_id == user_id).all()
+
+
+def count_user_bookmarks(user_id: int):
+  return SESSION.query(bookmarks_association).filter(
+      bookmarks_association.c.user_id == user_id).count()
+
+
 def list_users():
   return SESSION.query(User).all()
 
 
 def count_users():
-  return SESSION.query(User).count()
+  return len(usercache.users)
+
+
+def count_admins():
+  return sum(1 for user in usercache.users.values() if user.permission == 3)
+
+
+def count_editors():
+  return sum(1 for user in usercache.users.values() if user.permission == 2)

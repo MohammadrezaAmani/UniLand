@@ -15,8 +15,19 @@ class Messages(enum.Enum):
 
     HELP_MENU_COMING_SOON = 'بزودی...'
 
-    MYPROFILE_NAME = 'نام شما'
+  #     ------- MYPROFILE ---------
+    # MYPROFILE_NAME = 'نام من' #
 
-    MYPROFILE_SCORE = ' :امتیاز شما'
+    MYPROFILE_SCORE = 'امتیاز: '
 
-    BOOKMARKS_COUNT = 'تعداد نشان شده ها: '
+    MYPROFILE_SUBMISSIONS = 'ثبت‌شده‌های من'
+
+    SUBMISSIONS_COUNT = 'تعداد ثبت‌ها: '
+
+    MYPROFILE_BOOKMARKS = 'پسند‌های من'  # TODO: bebarid too triggers chon dokmast
+
+    BOOKMARKS_TITLE = 'تعداد پسندها: '
+    BOOKMARKS_NOT_FOUND_TITLE = 'شما هیچ پسندی ندارید!'
+
+  #    ----- MISC -----
+    DEFAULT_EMPTY_RESULT_TITLE = 'نتیجه ای یافت نشد'

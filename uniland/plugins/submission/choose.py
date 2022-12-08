@@ -7,7 +7,8 @@ from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
 
 
-@Client.on_message(exact_match(Triggers.CHOOSE_SUBMISSION_TYPE.value)
+@Client.on_message(filters.text
+                   & exact_match(Triggers.CHOOSE_SUBMISSION_TYPE.value)
                    & user_step(UserSteps.START.value))
 async def submission_type(client, message):
     # Asks user to choose submission type

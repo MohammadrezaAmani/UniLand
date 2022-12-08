@@ -123,7 +123,6 @@ class Submission(BASE):
     if user == None or user.access_level.value < 2:  # 2 is Editor access
       raise RuntimeError(
           "User doesn't have permission to confirm this submission")
-    user.confirmations.append(self)
     self.admin = user
     self.is_confirmed = True
     self.update_search_text()

@@ -18,6 +18,7 @@ Submission Class Properties:
 
 SUBMISSION_INSERTION_LOCK = threading.RLock()
 
+
 def increase_search_times(id: int):
 	with SUBMISSION_INSERTION_LOCK:
 		submission = SESSION.query(Submission).filter(Submission.id == id).first()
@@ -27,5 +28,14 @@ def increase_search_times(id: int):
 			SESSION.commit()
 		SESSION.close()
 
+
 def get_submission(submission_id: int):
 	return SESSION.query(Submission).filter(Submission.id == submission_id).first()
+
+
+def count_total_submissions():
+	return SESSION.query(Submission).count()
+
+
+def count_confirmed_submissions():
+	return len(search_engine.subs)

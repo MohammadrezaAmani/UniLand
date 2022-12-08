@@ -40,7 +40,7 @@ def build_keyboard(bookmarks, page=1):
   return InlineKeyboardMarkup(keyboard)
 
 
-@Client.on_message(filters.text & filters.private
+@Client.on_message(filters.text & filters
                    & user_step(UserSteps.START.value)
                    & exact_match(Triggers.MY_BOOKMARKS.value))
 async def display_bookmarks(client, message):
