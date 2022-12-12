@@ -5,7 +5,7 @@ class Triggers(enum.Enum):
 
     # ----------------- Start -----------------
     START = "/start"
-    BACK = "برگشت"
+    BACK = "🔙 برگشت"
 
     # ----------------- Search Branch -----------------
 
@@ -40,7 +40,7 @@ class Triggers(enum.Enum):
     PROFILE_SUBMISSION_PHONE = "شماره تلفن"
     PROFILE_SUBMISSION_DONE = "✅ اتمام ✅"
 
-    MEDIA_SUBMISSION = "ارسال لینک"
+    MEDIA_SUBMISSION = "ارسال رسانه"
     MEDIA_SUBMISSION_UNIVERSITY = "media_submission_university"
     MEDIA_SUBMISSION_FACULTY = "media_submission_faculty"
     MEDIA_SUBMISSION_OWNER_TITLE = "media_submission_owner_title"
@@ -74,6 +74,9 @@ class Triggers(enum.Enum):
     GET_SUBMISSION_TO_APPROVE = "تایید فایل"
     UPDATE_USER_ACCESS = "تغییر سطح دسترسی کاربران"
     ADMIN_EDIT_SUBMISSIONS = "ویرایش فایل ها"
+    USER_ACCESS_LEVEL_ADMIN = "ادمین"
+    USER_ACCESS_LEVEL_EDITOR = "ادیتور"
+    USER_ACCESS_LEVEL_BASIC = "معمولی"
 
     # ----------------- Home -----------------
     MY_BOOKMARKS = "پسندهای من"  # TO DO: PLACE THIS FIELD IN MYPROFILE FIELD
@@ -86,3 +89,16 @@ class Triggers(enum.Enum):
     # -------------- Bookmarks ---------------
     BOOKMARKS_NAV_BACK = '⏮️'   # I'قبلی'I
     BOOKMARKS_NAV_NEXT = '⏭️'  # I'بعدی'I
+
+    # -------------- Edit document ----------
+    EDIT_SUBMISSION = 'ویرایش اطلاعات'
+    EDIT_DOCUMENT_SUBMISSION = 'ویرایش فایل'
+    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = 'ویرایش نوع فایل'
+    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = 'ویرایش دانشگاه'
+    EDIT_DOCUMENT_SUBMISSION_FACULTY = 'ویرایش دانشکده'
+    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = 'ویرایش نام ارسال کننده'
+    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = 'ویرایش توضیحات'
+    EDIT_DOCUMENT_SUBMISSION_COURSE = 'ویرایش نام درس'
+    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = 'ویرایش نام استاد'
+    EDIT_DOCUMENT_SUBMISSION_WRITER = 'ویرایش نام نویسنده'
+    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = 'ویرایش سال تدریس'

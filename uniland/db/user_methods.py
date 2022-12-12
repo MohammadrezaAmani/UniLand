@@ -17,8 +17,8 @@ def add_user(user_id: int, last_step: str = UserSteps.START.value):
       SESSION.close()
       return user
     user = User(user_id, last_step=last_step)
-    user.access_level = UserLevel.Admin  # TODO! REMOVE THIS LINE
-    usercache.add_user(user_id, 3, last_step)  # TODO! Change 3 to 1
+    user.access_level = UserLevel.Ordinary
+    usercache.add_user(user_id, 2, last_step)
     print(f"added user: {str(user)}")
     SESSION.add(user)
     SESSION.commit()

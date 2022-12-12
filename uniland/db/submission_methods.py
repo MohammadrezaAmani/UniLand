@@ -33,6 +33,10 @@ def get_submission(submission_id: int):
 	return SESSION.query(Submission).filter(Submission.id == submission_id).first()
 
 
+def get_unconfirmed_submissions():
+  return SESSION.query(Submission).filter(Submission.is_confirmed == False).order_by(Submission.submission_date.desc()).all()
+
+
 def count_total_submissions():
 	return SESSION.query(Submission).count()
 

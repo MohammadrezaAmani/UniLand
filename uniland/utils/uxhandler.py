@@ -1,6 +1,7 @@
 from uniland.utils.steps import UserSteps
 from uniland.utils.pages import Pages
 from uniland.utils.triggers import Triggers
+from uniland.utils.messages import Messages
 
 
 class UXNode:
@@ -44,7 +45,7 @@ class UXTree:
   nodes[UserSteps.START.value] = UXNode(
       UserSteps.START.value,
       keyboard=Pages.HOME,
-      description='This is uniland bot for testing purposes',
+      description='به ربات یونیلند خوش آمدید.',
       trigger='/start',
   )
 
@@ -276,31 +277,122 @@ class UXTree:
       step=UserSteps.ADMIN_PANEL.value,
       parent=nodes[UserSteps.START.value],
       trigger=Triggers.ADMIN_PANEL.value,
-      keyboard=Pages.ADMIN_PANEL
-  )
+      keyboard=Pages.ADMIN_PANEL,
+      description="پنل ادمین")
+
   nodes[UserSteps.SHOW_STATISTICS.value] = UXNode(
       step=UserSteps.SHOW_STATISTICS.value,
       parent=nodes[UserSteps.ADMIN_PANEL.value],
       trigger="/stats",
   )
-  nodes[UserSteps.GET_SUBMISSION_TO_APPROVE.value] = UXNode(
-      step=UserSteps.GET_SUBMISSION_TO_APPROVE.value,
+  # nodes[UserSteps.GET_SUBMISSION_TO_APPROVE.value] = UXNode(
+  #   step=UserSteps.GET_SUBMISSION_TO_APPROVE.value,
+  #   parent=nodes[UserSteps.ADMIN_PANEL.value],
+  #   # keyboard=Pages.ADMIN_PANEL.value,
+  #   trigger=Triggers.GET_SUBMISSION_TO_APPROVE.value,
+  # )
+
+  nodes[UserSteps.GET_REJECTION_REASON.value] = UXNode(
+      step=UserSteps.GET_REJECTION_REASON.value,
       parent=nodes[UserSteps.ADMIN_PANEL.value],
-      # keyboard=Pages.ADMIN_PANEL.value,
-      trigger=Triggers.GET_SUBMISSION_TO_APPROVE.value,
+      keyboard=Pages.BACK
   )
+
   nodes[UserSteps.UPDATE_USER_ACCESS.value] = UXNode(
       step=UserSteps.UPDATE_USER_ACCESS.value,
       parent=nodes[UserSteps.ADMIN_PANEL.value],
-      trigger="/update_access",
+      description=Messages.ACCESS_LEVEL_BY_USERID.value,
+      keyboard=Pages.BACK,
+      trigger="تغییر سطح دسترسی کاربران",
   )
-  nodes[UserSteps.CHOOSE_USER_TO_UPDATE.value] = UXNode(
-      step=UserSteps.CHOOSE_USER_TO_UPDATE.value,
-      parent=nodes[UserSteps.UPDATE_USER_ACCESS.value],
-      trigger="انتخاب کاربر",
-  )
+  # nodes[UserSteps.CHOOSE_USER_TO_UPDATE.value] = UXNode(
+  #   step=UserSteps.CHOOSE_USER_TO_UPDATE.value,
+  #   parent=nodes[UserSteps.UPDATE_USER_ACCESS.value],
+  #   trigger="انتخاب کاربر",
+  # )
   nodes[UserSteps.CHOOSE_USER_ACCESS_LEVEL.value] = UXNode(
       step=UserSteps.CHOOSE_USER_ACCESS_LEVEL.value,
       parent=nodes[UserSteps.UPDATE_USER_ACCESS.value],
       trigger="انتخاب سطح دسترسی",
+      keyboard=Pages.ADMIN_PANEL_CHOOSE_NEW_ACCESS_LEVEL,
+  )
+
+  # ----------------- Edit Submission -----------------
+
+  nodes[UserSteps.EDIT_SUBMISSION.value] = UXNode(
+      step=UserSteps.EDIT_SUBMISSION.value,
+      parent=nodes[UserSteps.ADMIN_PANEL.value],
+      trigger="ویرایش",
+  )
+  # #---------------EDIT DOCUMENT SUBMISSION-------------
+
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION.value,
+      keyboard=Pages.DOCUMENT_SUBMISSION,
+      parent=nodes[UserSteps.EDIT_SUBMISSION.value],
+      description='مشخصاتی که می‌خواهید تغییر دهید را انتخاب کنید',
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='لطفا نوع فایل مورد نظر خود را انتخاب کنید',
+      keyboard=Pages.DOCUMENT_SUBMISSION_FILE_TYPE,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='لطفا نام دانشگاه مربوطه را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='لطفا نام دانشکده مربوطه را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_FACULTY.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='می خواهید نام ثبت کننده فایل چه باشد؟'
+      'می توانید نام کامل یا مستعار خود را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value,
+      parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
+      description='لطفا توضیحات مورد نظرتان را در مورد فایل خود وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value,
+      parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
+      description='لطفا نام درس مربوطه را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_COURSE.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='لطفا نام استاد درس را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value,
+  )
+  nodes[UserSteps.DOCUMENT_SUBMISSION_WRITER.value] = UXNode(
+      step=UserSteps.DOCUMENT_SUBMISSION_WRITER.value,
+      parent=nodes[UserSteps.DOCUMENT_SUBMISSION.value],
+      description='لطفا نام تهیه کننده یا نویسنده فایل را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.DOCUMENT_SUBMISSION_WRITER.value,
+  )
+  nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value] = UXNode(
+      step=UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value,
+      parent=nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value],
+      description='لطفا سال تهیه فایل را وارد کنید',
+      keyboard=Pages.BACK,
+      trigger=Triggers.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value,
   )

@@ -15,15 +15,6 @@ class DocType(enum.Enum):
 
 
 '''
-class DocType(enum.Enum):
-    Pamphlet = "جزوه"
-    Summary = "خلاصه"
-    Exercises = "تمرینات"
-    ExampleProblems = "نمونه سوالات"
-    CompressedFile = "فایل فشرده"
-'''
-
-'''
 class CallbackCondition(enum.Enum):
   PVSEARCH = 'pvsearch'
   BOOKMARKS = 'bookmarkspage'
