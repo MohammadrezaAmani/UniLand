@@ -44,11 +44,11 @@ class Pages:
       resize_keyboard=True)
 
   ADMIN_PANEL_CHOOSE_NEW_ACCESS_LEVEL = ReplyKeyboardMarkup([
-      [Triggers.USER_ACCESS_LEVEL_ADMIN.value,
-       Triggers.USER_ACCESS_LEVEL_EDITOR.value,
-       Triggers.USER_ACCESS_LEVEL_BASIC.value],
-      [Triggers.BACK.value]],
-      resize_keyboard=True
+    [Triggers.USER_ACCESS_LEVEL_ADMIN.value,
+    Triggers.USER_ACCESS_LEVEL_EDITOR.value,
+    Triggers.USER_ACCESS_LEVEL_BASIC.value],
+    [Triggers.BACK.value]],
+    resize_keyboard=True
   )
 
   EDITOR_PANEL = ReplyKeyboardMarkup(
@@ -57,12 +57,15 @@ class Pages:
           [Triggers.BACK.value]],
       resize_keyboard=True)
 
+  
+  
+  
   BACK = ReplyKeyboardMarkup([[Triggers.BACK.value]], resize_keyboard=True)
   EMPTY = ReplyKeyboardMarkup(
       [],
       resize_keyboard=True,
   )
-
+  
   CHOOSE_SUBMISSION_TYPE = ReplyKeyboardMarkup([
       [Triggers.DOCUMENT_SUBMISSION_FILE.value],
       [Triggers.PROFILE_SUBMISSION_INPUT_TITLE.value],
@@ -98,7 +101,7 @@ class Pages:
        [DocType.Exercises.value, DocType.CompressedFile.value],
           [Triggers.BACK.value]
        ],
-      resize_keyboard=True)
+  resize_keyboard=True)
 
   PROFILE_SUBMISSION = ReplyKeyboardMarkup(
       [[

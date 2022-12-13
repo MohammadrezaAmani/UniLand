@@ -29,6 +29,22 @@ def increase_search_times(id: int):
 		SESSION.close()
 
 
+def confirm_user_submission(admin_id: int, submission_id: int):
+  admin = user_db.get_user(admin_id)
+  if admin == None:
+    return
+  with SUBMISSION_INSERTION_LOCK:
+    submission = SESSION.query(Submission).filter(Submission.id == submission_id).first()
+    if submission:
+      submission.confirm(user_db.get_user(admin_id))
+      search_engine.index_record(id=submission.id,
+                                 search_text=submission.search_text,
+                                 sub_type=submission.submission_type,
+                                 likes=0)
+      SESSION.commit()
+    SESSION.close()
+
+
 def get_submission(submission_id: int):
 	return SESSION.query(Submission).filter(Submission.id == submission_id).first()
 
@@ -43,3 +59,13 @@ def count_total_submissions():
 
 def count_confirmed_submissions():
 	return len(search_engine.subs)
+
+
+def delete_submission(submission_id: int):
+  with SUBMISSION_INSERTION_LOCK:
+    submission = SESSION.query(Submission).filter(Submission.id == submission_id).first()
+    if submission:
+      SESSION.delete(submission)
+      SESSION.commit()
+    SESSION.close()
+  

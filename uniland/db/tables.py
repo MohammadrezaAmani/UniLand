@@ -1,12 +1,12 @@
 from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    DateTime,
-    Enum,
-    Table,
-    Boolean,
-    ForeignKey,
+  Column,
+  Integer,
+  String,
+  DateTime,
+  Enum,
+  Table,
+  Boolean,
+  ForeignKey,
 )
 from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
@@ -15,12 +15,10 @@ from uniland.utils.enums import UserLevel, DocType
 BASE = declarative_base()
 
 bookmarks_association = Table(
-    "bookmarks_association",
-    BASE.metadata,
-    Column("user_id", Integer, ForeignKey("users.user_id")),
-    Column("submission_id", Integer, ForeignKey("submissions.id"))
-    # Column(DateTime, default=datetime.utcnow)
-)
+  "bookmarks_association", BASE.metadata,
+  Column("user_id", Integer, ForeignKey("users.user_id")),
+  Column("submission_id", Integer, ForeignKey("submissions.id")),
+  Column("timestamp", DateTime, default=datetime.utcnow))
 
 
 # TODO! handle ON DELETE cascade in relationships
@@ -36,6 +34,9 @@ class User(BASE):
                         default=UserLevel.Ordinary)
   last_step = Column(String(50), default="")
 
+  signup_date = Column(DateTime, default=datetime.utcnow)
+  last_active = Column(DateTime, default=datetime.utcnow)
+
   # user_submissions : list -> one-to_many with Submission.owner
 
   # confirmations : list -> one-to-many with Submission.admin
@@ -43,7 +44,8 @@ class User(BASE):
   # many-to-many with Submission.liked_users
   bookmarks = relationship("Submission",
                            secondary=bookmarks_association,
-                           back_populates="liked_users")
+                           back_populates="liked_users",
+                           order_by='bookmarks_association.c.timestamp')
 
   def __init__(self, user_id, last_step=""):
     self.user_id = user_id
@@ -68,6 +70,7 @@ class Submission(BASE):
   owner_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
   owner = relationship("User",
                        backref="user_submissions",
+                       order_by='Submission.submission_date',
                        foreign_keys=[owner_id])
 
   # many-to-one with User.confirmations
@@ -91,19 +94,19 @@ class Submission(BASE):
   submission_type = Column(String(20))
 
   __mapper_args__ = {
-      "polymorphic_identity": "submission",
-      "polymorphic_on": submission_type,
+    "polymorphic_identity": "submission",
+    "polymorphic_on": submission_type,
   }
 
   def __init__(
-      self,
-      owner,
-      is_confirmed=False,
-      correspondent_admin=None,
-      university="نامشخص",
-      faculty="نامشخص",
-      owner_title="ناشناس",
-      description="توضیحاتی برای این فایل ثبت نشده است.",
+    self,
+    owner,
+    is_confirmed=False,
+    correspondent_admin=None,
+    university="نامشخص",
+    faculty="نامشخص",
+    owner_title="ناشناس",
+    description="توضیحاتی برای این فایل ثبت نشده است.",
   ):
 
     self.owner = owner
@@ -117,12 +120,12 @@ class Submission(BASE):
   def update_search_text(self):
     # This method is implemented in each subclass of Submission
     raise NotImplementedError(
-        "This method should not be called from Submission class")
+      "This method should not be called from Submission class")
 
   def confirm(self, user: User):
     if user == None or user.access_level.value < 2:  # 2 is Editor access
       raise RuntimeError(
-          "User doesn't have permission to confirm this submission")
+        "User doesn't have permission to confirm this submission")
     self.admin = user
     self.is_confirmed = True
     self.update_search_text()
@@ -144,21 +147,21 @@ class Document(Submission):
   semester_year = Column(Integer, default=0)
 
   def __init__(
-      self,
-      owner,
-      file_id,
-      unique_id,
-      is_confirmed=False,
-      correspondent_admin=None,
-      university="نامشخص",
-      faculty="نامشخص",
-      owner_title="ناشناس",
-      description="توضیحاتی برای این فایل ثبت نشده است.",
-      file_type=DocType.Pamphlet,
-      course="نامشخص",
-      professor="نامشخص",
-      writer="نامشخص",
-      semester_year=0,
+    self,
+    owner,
+    file_id,
+    unique_id,
+    is_confirmed=False,
+    correspondent_admin=None,
+    university="نامشخص",
+    faculty="نامشخص",
+    owner_title="ناشناس",
+    description="توضیحاتی برای این فایل ثبت نشده است.",
+    file_type=DocType.Pamphlet,
+    course="نامشخص",
+    professor="نامشخص",
+    writer="نامشخص",
+    semester_year=0,
   ):
 
     self.owner = owner
@@ -223,7 +226,7 @@ class Document(Submission):
     return out
 
   __mapper_args__ = {
-      "polymorphic_identity": "document",
+    "polymorphic_identity": "document",
   }
 
 
@@ -240,18 +243,18 @@ class Profile(Submission):
   image_id = Column(String(50), default="")
 
   def __init__(
-      self,
-      owner,
-      title="",
-      email="",
-      phone_number="",
-      image_id="",
-      is_confirmed=False,
-      correspondent_admin=None,
-      university="نامشخص",
-      faculty="نامشخص",
-      owner_title="ناشناس",
-      description="توضیحاتی برای این فایل ثبت نشده است.",
+    self,
+    owner,
+    title="",
+    email="",
+    phone_number="",
+    image_id="",
+    is_confirmed=False,
+    correspondent_admin=None,
+    university="نامشخص",
+    faculty="نامشخص",
+    owner_title="ناشناس",
+    description="توضیحاتی برای این فایل ثبت نشده است.",
   ):
 
     self.is_confirmed = is_confirmed
@@ -301,7 +304,7 @@ class Profile(Submission):
     return out
 
   __mapper_args__ = {
-      "polymorphic_identity": "profile",
+    "polymorphic_identity": "profile",
   }
 
 
@@ -319,19 +322,19 @@ class Media(Submission):
   semester_year = Column(Integer, default=0)
 
   def __init__(
-      self,
-      owner,
-      url,
-      media_type="",
-      course="نامشخص",
-      professor="نامشخص",
-      semester_year=0,
-      is_confirmed=False,
-      correspondent_admin=None,
-      university="نامشخص",
-      faculty="نامشخص",
-      owner_title="ناشناس",
-      description="توضیحاتی برای این فایل ثبت نشده است.",
+    self,
+    owner,
+    url,
+    media_type="",
+    course="نامشخص",
+    professor="نامشخص",
+    semester_year=0,
+    is_confirmed=False,
+    correspondent_admin=None,
+    university="نامشخص",
+    faculty="نامشخص",
+    owner_title="ناشناس",
+    description="توضیحاتی برای این فایل ثبت نشده است.",
   ):
     self.owner = owner
     self.is_confirmed = is_confirmed
@@ -381,7 +384,7 @@ class Media(Submission):
     return out
 
   __mapper_args__ = {
-      "polymorphic_identity": "media",
+    "polymorphic_identity": "media",
   }
 
 

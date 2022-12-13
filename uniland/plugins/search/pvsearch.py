@@ -47,7 +47,7 @@ async def display_search_result(client, message):
   display_text, buttons = Builder.get_navigation(
       results[page * page_size:min((page + 1) *
                                    page_size, len(results))], page,
-      page_size, f'نتایج جستجو برای {search_text}\n\n',
+      page_size, f'🌐 نتایج جستجو برای {search_text}\n\n',
       lambda sub: f'{sub.user_display()}\n',
       lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
 

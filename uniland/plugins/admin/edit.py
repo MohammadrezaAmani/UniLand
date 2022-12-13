@@ -12,12 +12,11 @@ from uniland.config import STORAGE_CHAT_ID
 
 staged_editted_docs = {}
 
-
 @Client.on_message(filters.text
                    & user_step(UserSteps.ADMIN_PANEL.value))
 async def start_editing_data(
-    client,
-    message,
+  client,
+  message,
 ):
     #! edit this part
   user_step = UXTree.nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value]
@@ -36,11 +35,11 @@ async def go_back(client, message, step):
 
 
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_course(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting course name
   global staged_editted_docs
@@ -50,13 +49,12 @@ async def doc_course(
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_professor(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting professor name
   global staged_editted_docs
@@ -66,13 +64,12 @@ async def doc_professor(
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_WRITER.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_WRITER.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_writer(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the writer of the document
   global staged_editted_docs
@@ -84,11 +81,11 @@ async def doc_writer(
 
 
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_faculty(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the faculty of the document
   global staged_editted_docs
@@ -98,13 +95,12 @@ async def doc_faculty(
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_university(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the university of the document
   global staged_editted_docs
@@ -115,13 +111,12 @@ async def doc_university(
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_owner_title(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the owner title of the document
   global staged_editted_docs
@@ -132,13 +127,12 @@ async def doc_owner_title(
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_description(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the description of the document
   global staged_editted_docs
@@ -149,13 +143,12 @@ async def doc_description(
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_year(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the semester if its number, show error otherwise
   sem = 0
@@ -172,13 +165,12 @@ async def doc_year(
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
 
-
 @Client.on_message(
-    user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value)
-    & filters.text & ~exact_match(Triggers.BACK.value))
+  user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value)
+  & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_file_type(
-    client,
-    message,
+  client,
+  message,
 ):
   # Editting the faculty of the document
   global staged_editted_docs

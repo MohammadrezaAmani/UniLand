@@ -84,12 +84,12 @@ class Triggers(enum.Enum):
     SUBMIT = "📤 ارسال محتوا 📤"
     MY_PROFILE = "👩‍💻 پروفایل من 👨‍💻"
     HELP = "📜 راهنما 📜"
-    ADMIN_PANEL = "پنل ادمین"  # only shown to editors & admins
+    ADMIN_PANEL = "دسترسی های ویژه"  # only shown to editors & admins
 
     # -------------- Bookmarks ---------------
     BOOKMARKS_NAV_BACK = '⏮️'   # I'قبلی'I
     BOOKMARKS_NAV_NEXT = '⏭️'  # I'بعدی'I
-
+  
     # -------------- Edit document ----------
     EDIT_SUBMISSION = 'ویرایش اطلاعات'
     EDIT_DOCUMENT_SUBMISSION = 'ویرایش فایل'

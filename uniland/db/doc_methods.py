@@ -71,13 +71,10 @@ def add_document(user_id):
 def get_document(id: int):
     return SESSION.query(Document).filter(Document.id == id).first()
 
-
-def unique_id_exists(unique_id: str):
+def unique_id_exists(unique_id:str):
     return SESSION.query(
-        SESSION.query(Document).filter(
-            Document.unique_id == unique_id).exists()
-    ).scalar()
-
+        SESSION.query(Document).filter(Document.unique_id == unique_id).exists()
+        ).scalar()
 
 def list_documents():
     return SESSION.query(Document).all()

@@ -1,6 +1,6 @@
 from pyrogram.types import (
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
+  InlineKeyboardMarkup,
+  InlineKeyboardButton,
 )
 from uniland import search_engine, usercache
 from uniland.db import user_methods as user_db
@@ -14,7 +14,7 @@ from uniland.utils.pages import Pages
 
 
 class Builder:
-
+  
   #TODO use this function
   def display_panel(user_id):
     user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
@@ -22,6 +22,7 @@ class Builder:
       output = '🔐 پنل ادمین\n\n'
       output += '📊 آمار ربات:\n'
       output += f'👤 تعداد کل کاربران: {user_db.count_users()}\n'
+      output += f'👤 تعداد کاربران فعال در یک ساعت اخیر: {user_db.count_active_users(60)}\n'
       output += f'👮 تعداد کل ادمین ها: {user_db.count_admins()}\n'
       output += f'🕵️ تعداد کل ویرایشگر ها: {user_db.count_editors()}\n'
       output += f'🗂️ تعداد رکوردها: {sub_db.count_total_submissions()}\n'
@@ -33,6 +34,7 @@ class Builder:
       keyboard = Pages.EDITOR_PANEL
     return (output, keyboard)
 
+  
   def get_submission_child(submission_id: int, submission_type: str):
     if submission_type == 'document':
       return doc_db.get_document(submission_id)
@@ -46,9 +48,10 @@ class Builder:
     if submission == None:
       return (None, None, None)
     keyboard = InlineKeyboardMarkup([[
-        InlineKeyboardButton(
-            text=f'👍 {search_engine.get_likes(submission.id)}',
-            callback_data=f"bookmark:{submission.id}:{search_engine.get_likes(submission.id)}")
+      InlineKeyboardButton(
+        text=f'👍 {search_engine.get_likes(submission.id)}',
+        callback_data=
+        f"bookmark:{submission.id}:{search_engine.get_likes(submission.id)}")
     ]])
     if submission.submission_type == 'document':
       return (submission.file_id, submission.user_display(), keyboard)
@@ -65,12 +68,12 @@ class Builder:
   ):
 
     buttons = [[
-        InlineKeyboardButton(text=f'⏮ صفحه قبل',
-                             callback_data=callback_generator(
-                                 page - 1, page_size)),
-        InlineKeyboardButton(text=f'صفحه بعد ⏭',
-                             callback_data=callback_generator(
-                                 page + 1, page_size))
+      InlineKeyboardButton(text=f'⏮ صفحه قبل',
+                           callback_data=callback_generator(
+                             page - 1, page_size)),
+      InlineKeyboardButton(text=f'صفحه بعد ⏭',
+                           callback_data=callback_generator(
+                             page + 1, page_size))
     ]]
 
     first = page * page_size + 1
