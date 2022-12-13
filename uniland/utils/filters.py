@@ -19,6 +19,8 @@ def access_level(min: int = 1, max: int = 3):
 def user_step(step: str):
 
   async def func(self, client, message):
+    if message.chat.type != ChatType.PRIVATE:
+      return False
     return usercache.match_step(message.from_user.id, step)
 
   return filters.create(func)
