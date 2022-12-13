@@ -26,8 +26,8 @@ class Builder:
       output += '📊 آمار ربات:\n'
       output += f'👤 تعداد کل کاربران: {user_db.count_users()}\n'
       output += f'👤 تعداد کاربران فعال در یک ساعت اخیر: {user_db.count_active_users(60)}\n'
-      output += f'👮 تعداد کل ادمین ها: {user_db.count_admins()}\n'
-      output += f'🕵️ تعداد کل ویرایشگر ها: {user_db.count_editors()}\n'
+      output += f'👮 تعداد کل ادمین‌ها: {user_db.count_admins()}\n'
+      output += f'🕵️ تعداد کل ویرایشگرها: {user_db.count_editors()}\n'
       output += f'🗂️ تعداد رکوردها: {sub_db.count_total_submissions()}\n'
       output += f'🗃️ تعداد رکوردهای تایید شده: {sub_db.count_confirmed_submissions()}\n\n'
       keyboard = user_step.keyboard
@@ -87,7 +87,7 @@ class Builder:
     display_text += f'نتایج {first} تا {last}\n'
     for i, submission in enumerate(submissions):
       if not submission:
-        display_text += f'رکورد ناموجود است\n\n'
+        display_text += f'.رکورد ناموجود است\n\n'
 
       else:
         display_text += f'\nرکورد {first + i}:\n'
