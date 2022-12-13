@@ -89,7 +89,7 @@ async def accept_submission(client, callback_query):
   admin_id = reviewing_subs[sub_id]
   subs_db.confirm_user_submission(admin_id, sub_id)  #update db & cache
   reviewing_subs.pop(sub_id)  # pop from dictionary the accepted
-  await callback_query.answer(text="تایید شد. 🍾")
+  await callback_query.answer(text=".تا‌یید شد 🍾")
 
 
 @Client.on_callback_query(filters.regex('^confirmation:reject'))
@@ -97,7 +97,7 @@ async def get_rejection_reason(client, callback_query):
   global reviewing_subs
   await callback_query.edit_message_reply_markup([])
   user_step = UXTree.nodes[UserSteps.GET_REJECTION_REASON.value]
-  await callback_query.message.reply(text='علت رد شدن را وارد کنید.',
+  await callback_query.message.reply(text='.علت رد شدن را وارد کنید',
                                      reply_markup=user_step.keyboard)
   sub_id = int(callback_query.data.split(":")[2])
   admin_id = reviewing_subs[sub_id]
