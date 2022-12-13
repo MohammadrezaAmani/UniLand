@@ -36,19 +36,19 @@ async def edit_access_level(client, message):
 async def get_access_level(client, message):
   global user_id_input
   if message.forward_from == None and not message.forward_sender_name == None:
-      await message.reply(f"شما در حال فوروارد کردن پیامی از {message.forward_sender_name} هستد. اما قابلیت فوروارد پیام ها توسط ایشان بسته شده است.")
+      await message.reply(f"شما در حال فوروارد کردن پیامی از {message.forward_sender_name} .هستید. اما قابلیت فوروارد پیام‌ها توسط ایشان بسته شده است.")
       return
   elif message.forward_from == None:
     # When message is not forwarded
     user_id_input = message.text
     if not user_id_input.isnumeric():  #not int
-      await message.reply('مقدار وارد شده معتبر نیست. لطفا عدد وارد کنید')
+      await message.reply('.مقدار وارد شده معتبر نیست. لطفا عدد وارد کنید')
       return
   else:
     # When message is forwarded
     user_id_input = message.forward_from.id
   if not usercache.has_user(int(user_id_input)):  #user not in database
-    await message.reply("این یوزر آیدی وجود ندارد. دوباره تلاش کنید")
+    await message.reply(".این یوزر آیدی وجود ندارد. دوباره تلاش کنید")
     return
   user_step = UXTree.nodes[UserSteps.CHOOSE_USER_ACCESS_LEVEL.value]
   output = Messages.ACCESS_LEVEL_CHOOSE.value
@@ -78,7 +78,7 @@ async def change_access_level(client, message):
   user_id = int(user_id_input)
   user_db.update_user_access_level(user_id,
                                    new_access_level)  # update db & cache
-  output = "سطح دسترسی آپدیت شد."
+  output = ".سطح دسترسی آپدیت شد"
   await message.reply(output)
   user_db.update_user_step(message.from_user.id, user_step.step)
   text, keyboard = Builder.display_panel(message.from_user.id)
