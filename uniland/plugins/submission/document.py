@@ -36,7 +36,7 @@ async def start_getting_data(
   # User has sent the file, now it can change the file data
   if doc_db.unique_id_exists(message.document.file_unique_id):
     await message.reply(
-      text='این در پایگاه داده موجود است.\n لطفا فایل دیگری را ارسال نمایید.')
+      text='.این در پایگاه داده موجود است\n .لطفا فایل دیگری را ارسال نمایید')
     return
   doc = Document(None, message.document.file_id,
                  message.document.file_unique_id)
@@ -59,7 +59,7 @@ async def choose_doc_field(client, message):
   user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION.value]
   global staged_docs
   if message.from_user.id not in staged_docs:
-    await message.reply(text='خطای گم شدن فایل، لطفا مجددا تلاش کنید.')
+    await message.reply(text='.خطای گم شدن فایل، لطفا مجددا تلاش کنید')
     await start_stage(client, message)
     return
   # Data Fields
@@ -82,24 +82,24 @@ async def choose_doc_field(client, message):
     if result:
       await message.reply(
         text=
-        'فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت. \nبا تشکر از شما بابت ارسال محتوای خود'
+        '.فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود'
       )
     else:
       await message.reply(
-        'متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید.'
+        '.متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید'
       )
     await start_stage(client, message)
 
   # Cancel Button
   elif message.text.strip() == Triggers.DOCUMENT_SUBMISSION_CANCEL.value:
     # User has canceled the submission process
-    await message.reply('عملیات ارسال فایل لغو شد.')
+    await message.reply('.عملیات ارسال فایل لغو شد')
     if message.from_user.id in staged_docs:
       staged_docs.pop(message.from_user.id)
     await start_stage(client, message)
 
   else:
-    await message.reply('لطفا یکی از گزینه های موجود را انتخاب کنید.')
+    await message.reply('.لطفا یکی از گزینه‌های موجود را انتخاب کنید')
 
 
 # ---------------------- Inputting data fields ----------------------
@@ -124,7 +124,7 @@ async def doc_course(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.course = message.text.strip()
-  await message.reply('درس فایل شما با موفقیت ثبت شد.')
+  await message.reply('.درس فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_COURSE.value)
 
@@ -140,7 +140,7 @@ async def doc_professor(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.professor = message.text.strip()
-  await message.reply('استاد فایل شما با موفقیت ثبت شد.')
+  await message.reply('.استاد فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
 
@@ -156,7 +156,7 @@ async def doc_writer(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.writer = message.text.strip()
-  await message.reply('نویسنده فایل شما با موفقیت ثبت شد.')
+  await message.reply('.نویسنده فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
 
@@ -172,7 +172,7 @@ async def doc_faculty(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.faculty = message.text.strip()
-  await message.reply('دانشکده فایل شما با موفقیت ثبت شد.')
+  await message.reply('.دانشکده فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
 
@@ -188,7 +188,7 @@ async def doc_university(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.university = message.text.strip()
-  await message.reply('دانشگاه فایل شما با موفقیت ثبت شد.')
+  await message.reply('.دانشگاه فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
@@ -205,7 +205,7 @@ async def doc_owner_title(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.owner_title = message.text.strip()
-  await message.reply('عنوان صاحب فایل شما با موفقیت ثبت شد.')
+  await message.reply('.عنوان صاحب فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
@@ -222,7 +222,7 @@ async def doc_description(
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.description = message.text.strip()
-  await message.reply('توضیحات فایل شما با موفقیت ثبت شد.')
+  await message.reply('.توضیحات فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
@@ -240,12 +240,12 @@ async def doc_year(
   try:
     sem = int(message.text.strip())
   except:
-    await message.reply('لطفا یک عدد وارد کنید.')
+    await message.reply('.لطفا یک عدد وارد کنید')
     return
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.semester_year = sem
-  await message.reply('سال تهیه فایل شما با موفقیت ثبت شد.')
+  await message.reply('.سال تهیه فایل شما با موفقیت ثبت شد')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
@@ -264,10 +264,10 @@ async def doc_file_type(
   for c in DocType:
     if c.value == message.text.strip():
       doc.file_type = c
-      await message.reply('نوع فایل شما با موفقیت ثبت شد.')
+      await message.reply('.نوع فایل شما با موفقیت ثبت شد')
       await message.reply_document(document=doc.file_id, caption=str(doc))
       await go_back(client, message,
                     UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
       return
 
-  await message.reply('لطفا یکی از گزینه های زیر را انتخاب کنید.')
+  await message.reply('.لطفا یکی از گزینه‌های زیر را انتخاب کنید')
