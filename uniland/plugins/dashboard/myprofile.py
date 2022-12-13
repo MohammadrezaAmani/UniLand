@@ -24,7 +24,7 @@ async def show_user_profile(client, message):
                                     )
             ],
             [
-                InlineKeyboardButton(text=f'🗄️ نمایش فایل های من',
+                InlineKeyboardButton(text=f'🗄️ نمایش فایل‌های من',
                                     callback_data=f'showmysubs:{message.from_user.id}:0:5'
                                     )
             ]
@@ -54,12 +54,12 @@ async def show_user_profile(client, message):
 async def show_myprofile(client, callback_query):
     buttons = [
         [
-            InlineKeyboardButton(text='🔖 نمایش پسند های من',
+            InlineKeyboardButton(text='🔖 نمایش پسندهای من',
                                 callback_data=f'showbookmarks:{callback_query.from_user.id}:0:5'
                                 )
         ],
         [
-            InlineKeyboardButton(text=f'🗄️ نمایش فایل های من',
+            InlineKeyboardButton(text=f'🗄️ نمایش فایل‌های من',
                                 callback_data=f'showmysubs:{callback_query.from_user.id}:0:5'
                                 )
         ]
@@ -89,13 +89,13 @@ async def show_bookmarks_callback(client, callback_query):
   user_id, page, page_size = list(map(int, callback_query.data.split(':')[1:]))
 
   if page < 0:
-    await callback_query.answer(text='این صفحه اول است', show_alert=True)
+    await callback_query.answer(text='.این صفحه اول است', show_alert=True)
     return
 
   results = user_db.get_user_bookmarks(user_id)
 
   if len(results) <= page * page_size:
-    await callback_query.answer(text='این صفحه آخر است', show_alert=True)
+    await callback_query.answer(text='.این صفحه آخر است', show_alert=True)
     return
 
   display_text, buttons = Builder.get_navigation(
@@ -106,7 +106,7 @@ async def show_bookmarks_callback(client, callback_query):
       lambda page, page_size: f'showbookmarks:{user_id}:{page}:{page_size}')
   
   if not display_text or not buttons:
-    await callback_query.answer(text='این صفحه آخر است', show_alert=True)
+    await callback_query.answer(text='.این صفحه آخر است', show_alert=True)
     return
 
   buttons.append(
@@ -125,13 +125,13 @@ async def show_mysubs_callback(client, callback_query):
   user_id, page, page_size = list(map(int, callback_query.data.split(':')[1:]))
 
   if page < 0:
-    await callback_query.answer(text='این صفحه اول است', show_alert=True)
+    await callback_query.answer(text='.این صفحه اول است', show_alert=True)
     return
 
   results = user_db.get_user_submissions(user_id)
 
   if len(results) <= page * page_size:
-    await callback_query.answer(text='این صفحه آخر است', show_alert=True)
+    await callback_query.answer(text='.این صفحه آخر است', show_alert=True)
     return
 
   types = {'document':'فایل', 'profile':'پروفایل', 'media':'رسانه'}
@@ -139,7 +139,7 @@ async def show_mysubs_callback(client, callback_query):
   display_text, buttons = Builder.get_navigation(
       results[page * page_size:min((page + 1) *
                                    page_size, len(results))], page,
-      page_size, f'🗄️فایل های ثبت شده توسط شما\n\n',
+      page_size, f'🗄️فایل‌های ثبت شده توسط شما\n\n',
       lambda sub: f"{'✅' if sub.is_confirmed else '❌'} "\
           f"{types[sub.submission_type]}:\n"
           f"{sub.user_display()}\n",
