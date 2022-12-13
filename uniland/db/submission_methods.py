@@ -2,7 +2,6 @@ import threading
 from uniland import SESSION, search_engine
 from uniland.db.tables import Submission
 from uniland.db import user_methods as user_db
-from uniland.utils.enums import UserLevel
 
 """
 Submission Class Properties:
@@ -52,6 +51,11 @@ def get_submission(submission_id: int):
 def get_unconfirmed_submissions():
   return SESSION.query(Submission).filter(Submission.is_confirmed == False).order_by(Submission.submission_date.desc()).all()
 
+def is_pending(submission_id: int):
+  submission = SESSION.query(Submission).filter(Submission.id == submission_id).first()
+  if not submission:
+    return False
+  return not submission.is_confirmed
 
 def count_total_submissions():
 	return SESSION.query(Submission).count()
