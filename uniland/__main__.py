@@ -11,7 +11,8 @@ from .utils import keep_alive
 
 if __name__ == "__main__":
 
-  on_repl = True if 'y' in input('Are you running this on repl.it? (y/n): ').lower() else False
+  # on_repl = True if 'y' in input('Are you running this on repl.it? (y/n): ').lower() else False
+  on_repl = False
 
   if on_repl:
     keep_alive.awake(REPL_URL, False)
@@ -54,4 +55,6 @@ if __name__ == "__main__":
          api_id=API_ID,
          api_hash=API_HASH,
          bot_token=BOT_TOKEN,
-         plugins=plugins).run()
+         plugins=plugins,
+         proxy=dict(scheme='socks5', hostname='127.0.0.1', port=7777)
+         ).run()

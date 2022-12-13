@@ -73,16 +73,12 @@ async def choose_doc_field(client, message):
   if message.text.strip() == Triggers.DOCUMENT_SUBMISSION_DONE.value:
     # User has finished the submission process
     doc = staged_docs.pop(message.from_user.id)
-    sub_id = user_db.add_user_submission(message.from_user.id, doc)
     sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID,
                                               document=doc.file_id,
                                               caption=doc.user_display())
     result = None
-    if sub_id >= 0:
+    if sent_message:
       result = user_db.add_user_submission(message.from_user.id, doc)
-      await client.send_document(chat_id=STORAGE_CHAT_ID,
-                                document=doc.file_id,
-                                caption=doc.user_display())
     if result:
       await message.reply(
         text=

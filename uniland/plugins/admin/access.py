@@ -81,6 +81,5 @@ async def change_access_level(client, message):
   output = "سطح دسترسی آپدیت شد."
   await message.reply(output)
   user_db.update_user_step(message.from_user.id, user_step.step)
-  user_db.update_user_last_activity()
   text, keyboard = Builder.display_panel(message.from_user.id)
   await message.reply(text, reply_markup=keyboard)

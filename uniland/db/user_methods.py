@@ -91,7 +91,7 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
     user = SESSION.query(User).filter(User.user_id == user_id).first()
     if user == None or submission == None or submission in user.user_submissions:
       SESSION.close()
-      return -1
+      return False
     submission.owner = user
     if user.access_level.value == UserLevel.Admin.value:
       submission.confirm(user)
@@ -100,9 +100,8 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
                                  sub_type=submission.submission_type,
                                  likes=0)
     SESSION.commit()
-    sub_id = submission.id
     SESSION.close()
-    return sub_id
+    return True
 
 
 def remove_user_submission(user_id: int, submission: Submission) -> bool:

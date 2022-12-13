@@ -58,14 +58,26 @@ async def admin_confirmation(client, message):
       sub_id = submission.id
       sub = subs_db.get_submission(sub_id)
       break
-  if sub_id == 0: # new unconfirmed unreviewed submission not found
+  if sub_id == 0:  # new unconfirmed unreviewed submission not found
     await message.reply(Messages.CONFIRMATION_NO_UNCONFIMRED_FILE.value)
-  else: # found
+
+  elif sub.submission_type == 'document':
     reviewing_subs[sub_id] = admin_id
     await message.reply_document(document=sub.file_id,
-                                 caption=str(sub),
+                                 caption=sub.user_display(),
                                  reply_markup=InlineKeyboardMarkup(
                                    get_keyboard(sub_id)))
+  elif sub.submission_type == 'profile':
+    reviewing_subs[sub_id] = admin_id
+    if sub.image_id != '':
+      await message.reply_document(document=sub.image_id,
+                                   caption=sub.user_display(),
+                                   reply_markup=InlineKeyboardMarkup(
+                                     get_keyboard(sub_id)))
+    else:
+      await message.reply_text(text=sub.user_display(),
+                               reply_markup=InlineKeyboardMarkup(
+                                 get_keyboard(sub_id)))
 
 
 @Client.on_callback_query(filters.regex('^confirmation:accept'))
@@ -75,8 +87,8 @@ async def accept_submission(client, callback_query):
   sub_id = int(callback_query.data.split(":")[2])
   sub = subs_db.get_submission(sub_id)
   admin_id = reviewing_subs[sub_id]
-  subs_db.confirm_user_submission(admin_id, sub_id) #update db & cache
-  reviewing_subs.pop(sub_id) # pop from dictionary the accepted
+  subs_db.confirm_user_submission(admin_id, sub_id)  #update db & cache
+  reviewing_subs.pop(sub_id)  # pop from dictionary the accepted
   await callback_query.answer(text="تایید شد. 🍾")
 
 
@@ -90,7 +102,6 @@ async def get_rejection_reason(client, callback_query):
   sub_id = int(callback_query.data.split(":")[2])
   admin_id = reviewing_subs[sub_id]
   user_db.update_user_step(admin_id, user_step.step)
-  
 
 
 @Client.on_message(filters.text
@@ -107,12 +118,13 @@ async def reject_submission(client, message):
   sub = subs_db.get_submission(sub_id)
   # TODO tell user which submission it was
   await message.copy(sub.owner_id)
-  reviewing_subs.pop(sub_id) # pop from dictionary the rejected
-  subs_db.delete_submission(sub_id) # delete from db & cache
+  reviewing_subs.pop(sub_id)  # pop from dictionary the rejected
+  subs_db.delete_submission(sub_id)  # delete from db & cache
   user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
   user_db.update_user_step(admin_id, user_step.step)
   text, keyboard = Builder.display_panel(message.from_user.id)
   await message.reply(text, reply_markup=keyboard)
+
 
 @Client.on_callback_query(filters.regex("^confirmation:edit"))
 async def edit_submission(client, callback_query):

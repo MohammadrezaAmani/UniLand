@@ -1,5 +1,4 @@
 from pyrogram import Client, filters
-# from uniland.utils.filters import access_level
 from uniland.db.tables import User
 from uniland.db import user_methods as user_db
 from uniland.db import doc_methods as doc_db
@@ -7,9 +6,8 @@ from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
 from uniland import search_engine
 from uniland.utils.filters import access_level, user_step
+from uniland.utils.builders import Builder
 from uniland.config import STORAGE_CHAT_ID
-
-# This file tests bot uptime
 
 # @Client.on_message(filters.photo)
 # async def mime_type(client, message):
@@ -27,6 +25,23 @@ async def count_actives(client, message):
   await message.reply_text(
     f'Total active users in last hour: {user_db.count_active_users(60)}')
 
+
+@Client.on_message(filters.text & filters.command('public_announcement')
+                   & access_level(3, 3),
+                   group=2)
+async def public_announcement(client, message):
+  users = user_db.list_users()
+  for user in users:
+    if user.user_id == 122002479:
+      await message.send_message(user.user_id, "شما بامزه هستید")
+    else:
+      try:
+        print(f'good user: {user.user_id}')
+        await client.send_message(user.user_id,
+                              Builder.get_public_announcement(message.text))
+      except Exception as e:
+        print(e)
+        print(f'bad user: {user.user_id}')
 
 @Client.on_message(filters.command('chat_details'))
 async def display_details(client, message):

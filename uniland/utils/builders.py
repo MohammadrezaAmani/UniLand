@@ -14,6 +14,9 @@ from uniland.utils.pages import Pages
 
 
 class Builder:
+
+  def get_public_announcement(caption):
+     return caption[21:]
   
   #TODO use this function
   def display_panel(user_id):
