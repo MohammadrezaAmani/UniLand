@@ -45,7 +45,7 @@ async def doc_course(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.course = message.text.strip()
-  await message.reply('درس فایل شما با موفقیت تغییر یافت..')
+  await message.reply('.درس فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_COURSE.value)
 
@@ -60,7 +60,7 @@ async def doc_professor(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.professor = message.text.strip()
-  await message.reply('استاد فایل شما با موفقیت تغییر یافت..')
+  await message.reply('.استاد فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value)
 
@@ -75,7 +75,7 @@ async def doc_writer(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.writer = message.text.strip()
-  await message.reply('نویسنده فایل شما با موفقیت تغییر یافت.')
+  await message.reply('.نویسنده فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_PROFESSOR.value)
 
@@ -91,7 +91,7 @@ async def doc_faculty(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.faculty = message.text.strip()
-  await message.reply('دانشکده فایل شما با موفقیت تغییر یافت.')
+  await message.reply('.دانشکده فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.EDIT_DOCUMENT_SUBMISSION_FACULTY.value)
 
@@ -106,7 +106,7 @@ async def doc_university(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.university = message.text.strip()
-  await message.reply('دانشگاه فایل شما با موفقیت تغییر یافت.')
+  await message.reply('.دانشگاه فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_UNIVERSITY.value)
@@ -122,7 +122,7 @@ async def doc_owner_title(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.owner_title = message.text.strip()
-  await message.reply('عنوان صاحب فایل شما با موفقیت تغییر یافت.')
+  await message.reply('.عنوان صاحب فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE.value)
@@ -138,7 +138,7 @@ async def doc_description(
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.description = message.text.strip()
-  await message.reply('توضیحات فایل شما با موفقیت تغییر یافت..')
+  await message.reply('.توضیحات فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_DESCRIPTION.value)
@@ -155,12 +155,12 @@ async def doc_year(
   try:
     sem = int(message.text.strip())
   except:
-    await message.reply('لطفا یک عدد وارد کنید.')
+    await message.reply('.لطفا یک عدد وارد کنید')
     return
   global staged_editted_docs
   doc = staged_editted_docs[message.from_user.id]
   doc.semester_year = sem
-  await message.reply('سال تهیه فایل شما با موفقیت تغییر یافت.')
+  await message.reply('.سال تهیه فایل شما با موفقیت تغییر یافت')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
@@ -178,10 +178,10 @@ async def doc_file_type(
   for c in DocType:
     if c.value == message.text.strip():
       doc.file_type = c
-      await message.reply('نوع فایل شما با موفقیت تغییر یافت.')
+      await message.reply('.نوع فایل شما با موفقیت تغییر یافت')
       await message.reply_document(document=doc.file_id, caption=str(doc))
       await go_back(client, message,
                     UserSteps.EDIT_DOCUMENT_SUBMISSION_FILE_TYPE.value)
       return
 
-  await message.reply('لطفا یکی از گزینه های زیر را انتخاب کنید.')
+  await message.reply('.لطفا یکی از گزینه‌های زیر را انتخاب کنید')
