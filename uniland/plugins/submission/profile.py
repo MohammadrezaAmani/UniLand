@@ -18,7 +18,7 @@ staged_profs = {}
 async def check_profile(client, message):
     global staged_profs
     if message.from_user.id not in staged_profs:
-        await message.reply(text='خطای گم شدن اطلاعات، لطفا مجددا تلاش کنید.')
+        await message.reply(text='.خطای گم شدن اطلاعات، لطفا مجددا تلاش کنید')
         await start_stage(client, message)
         return False
     return True
@@ -78,20 +78,20 @@ async def choose_doc_field(client, message):
         profile = staged_profs.pop(message.from_user.id)
         result = user_db.add_user_submission(message.from_user.id, profile)
         if result:
-            await message.reply(text='فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت. \nبا تشکر از شما بابت ارسال محتوای خود')
+            await message.reply(text='.فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود')
         else:
-            await message.reply('متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید.')
+            await message.reply('.متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید')
         await start_stage(client, message)
 
     # Cancel Button
     elif message.text.strip() == Triggers.PROFILE_SUBMISSION_CANCEL.value:
         # User has canceled the submission process
-        await message.reply('عملیات ارسال فایل لغو شد.')
+        await message.reply('.عملیات ارسال فایل لغو شد')
         staged_profs.pop(message.from_user.id)
         await start_stage(client, message)
 
     else:
-        await message.reply('لطفا یکی از گزینه های موجود را انتخاب کنید.')
+        await message.reply('.لطفا یکی از گزینه‌های موجود را انتخاب کنید')
 
 # ---------------------- Inputting data fields ----------------------
 
@@ -113,7 +113,7 @@ async def update_profile_title(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.title = message.text.strip()
-    await message.reply('عنوان اطلاعات با موفقیت تغییر کرد.')
+    await message.reply('.عنوان اطلاعات با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_EDIT_TITLE.value)
 
@@ -127,7 +127,7 @@ async def profile_phone(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.phone_number = message.text.strip()
-    await message.reply('شماره تماس با موفقیت تغییر کرد.')
+    await message.reply('.شماره تماس با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHONE.value)
 
@@ -141,7 +141,7 @@ async def profile_email(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.email = message.text.strip()
-    await message.reply('ایمیل با موفقیت تغییر کرد.')
+    await message.reply('.ایمیل با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_EMAIL.value)
 
@@ -155,7 +155,7 @@ async def profile_university(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.university = message.text.strip()
-    await message.reply('نام دانشگاه با موفقیت تغییر کرد.')
+    await message.reply('.نام دانشگاه با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_UNIVERSITY.value)
 
@@ -169,7 +169,7 @@ async def profile_faculty(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.faculty = message.text.strip()
-    await message.reply('عنوان اطلاعات با موفقیت تغییر کرد.')
+    await message.reply('.عنوان اطلاعات با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_FACULTY.value)
 
@@ -183,7 +183,7 @@ async def profile_owner_title(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.owner_title = message.text.strip()
-    await message.reply('نام ثبت کننده‌ی اطلاعات با موفقیت تغییر کرد.')
+    await message.reply('.نام ثبت کننده‌ی اطلاعات با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_OWNER_TITLE.value)
 
@@ -197,7 +197,7 @@ async def profile_description(client, message,):
         return
     profile = staged_profs[message.from_user.id]
     profile.description = message.text.strip()
-    await message.reply('توضیحات با موفقیت تغییر کرد.')
+    await message.reply('.توضیحات با موفقیت تغییر کرد')
     await display_profile(client, message, profile)
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_DESCRIPTION.value)
 
@@ -212,7 +212,7 @@ async def delete_profile_photo(client, message):
         # Deleting profile photo
         profile = staged_profs[message.from_user.id]
         profile.image_id = ''
-        await message.reply('عکس پروفایل با موفقیت حذف شد.')
+        await message.reply('.عکس پروفایل با موفقیت حذف شد')
         await display_profile(client, message, profile)
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
         return
@@ -233,11 +233,11 @@ async def delete_profile_photo(client, message):
                                               document=message.text.strip())
     if sent_message:
         profile.image_id = sent_message.document.file_id
-        await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
+        await message.reply('.عکس پروفایل با موفقیت تغییر کرد')
         await display_profile(client, message, profile)
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
 
-    await message.reply('لینک عکس پروفایل نامعتبر است.')
+    await message.reply('.لینک عکس پروفایل نامعتبر است')
 
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
@@ -247,20 +247,20 @@ async def profile_photo(client, message):
         return
     # Downloading photo and uploading as document on telegram
     # To get file_id as document
-    await message.reply('در حال تبدیل به فایل...')
+    await message.reply('...در حال تبدیل به فایل')
     photo = await message.download(in_memory=True)
     sent_message = await client.send_document(
         chat_id=STORAGE_CHAT_ID,
         document=photo
     )
     if sent_message == None:
-        await message.reply('دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد.\n لطفا مجددا تلاش کنید.')
+        await message.reply('.دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد\n .لطفا مجددا تلاش کنید')
         return
     # image_id is file_id of document
     image_id = sent_message.document.file_id
     global staged_profs
     staged_profs[message.from_user.id].image_id = image_id
-    await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
+    await message.reply('.عکس پروفایل با موفقیت تغییر کرد')
     await display_profile(client, message, staged_profs[message.from_user.id])
     await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
 
@@ -274,8 +274,8 @@ async def profile_photo_document(client, message):
         image_id = message.document.file_id
         global staged_profs
         staged_profs[message.from_user.id].image_id = image_id
-        await message.reply('عکس پروفایل با موفقیت تغییر کرد.')
+        await message.reply('.عکس پروفایل با موفقیت تغییر کرد')
         await display_profile(client, message, staged_profs[message.from_user.id])
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
     else:
-        await message.reply('لطفا فایلی با فرمت تصویر ارسال کنید.')
+        await message.reply('.لطفا فایلی با فرمت تصویر ارسال کنید')
