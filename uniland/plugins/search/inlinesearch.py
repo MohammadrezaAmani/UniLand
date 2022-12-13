@@ -92,7 +92,7 @@ async def answer(client, inline_query):
   if len(results) == 0:
     results.append(
       InlineQueryResultArticle(title='راهنما',
-                               description='موردی برای نمایش یافت نشد',
+                               description='.موردی برای نمایش یافت نشد',
                                input_message_content=InputTextMessageContent(
                                  Messages.HELP_MENU_SEARCH.value),
                                id=-1,
