@@ -73,7 +73,7 @@ class Triggers(enum.Enum):
     # SHOW_STATISTICS = "show_statistics" show this on first page of admin panel
     GET_SUBMISSION_TO_APPROVE = "تایید فایل"
     UPDATE_USER_ACCESS = "تغییر سطح دسترسی کاربران"
-    ADMIN_EDIT_SUBMISSIONS = "ویرایش فایل ها"
+    ADMIN_EDIT_SUBMISSIONS = "ویرایش فایل‌ها"
     USER_ACCESS_LEVEL_ADMIN = "ادمین"
     USER_ACCESS_LEVEL_EDITOR = "ادیتور"
     USER_ACCESS_LEVEL_BASIC = "معمولی"
@@ -84,7 +84,7 @@ class Triggers(enum.Enum):
     SUBMIT = "📤 ارسال محتوا 📤"
     MY_PROFILE = "👩‍💻 پروفایل من 👨‍💻"
     HELP = "📜 راهنما 📜"
-    ADMIN_PANEL = "دسترسی های ویژه"  # only shown to editors & admins
+    ADMIN_PANEL = "دسترسی‌های ویژه"  # only shown to editors & admins
 
     # -------------- Bookmarks ---------------
     BOOKMARKS_NAV_BACK = '⏮️'   # I'قبلی'I
