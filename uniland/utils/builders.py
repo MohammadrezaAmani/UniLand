@@ -15,9 +15,6 @@ from uniland.utils.pages import Pages
 
 class Builder:
 
-  def get_public_announcement(caption):
-     return caption[21:]
-  
   #TODO use this function
   def display_panel(user_id):
     user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
@@ -37,7 +34,6 @@ class Builder:
       keyboard = Pages.EDITOR_PANEL
     return (output, keyboard)
 
-  
   def get_submission_child(submission_id: int, submission_type: str):
     if submission_type == 'document':
       return doc_db.get_document(submission_id)

@@ -64,32 +64,32 @@ async def display_help_menu(client, message):
 async def back_to_menu(client, callback_query):
   await callback_query.edit_message_text(Messages.HELP_MENU.value,
                                          reply_markup=InlineKeyboardMarkup(
-                                             get_keyboard(0)))
+                                           get_keyboard(0)))
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_search_details'))
 async def search_help(client, callback_query):
   await callback_query.edit_message_text(Messages.HELP_MENU_SEARCH.value,
                                          reply_markup=InlineKeyboardMarkup(
-                                             get_keyboard(1)))
+                                           get_keyboard(1)))
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_submit_details'))
 async def submit_help(client, callback_query):
   await callback_query.edit_message_text(Messages.HELP_MENU_SUBMIT.value,
                                          reply_markup=InlineKeyboardMarkup(
-                                             get_keyboard(2)))
+                                           get_keyboard(2)))
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_about_us'))
 async def about_us(client, callback_query):
   await callback_query.edit_message_text(Messages.HELP_MENU_ABOUT_US.value,
                                          reply_markup=InlineKeyboardMarkup(
-                                             get_keyboard(3)))
+                                           get_keyboard(3)))
 
 
 @Client.on_callback_query(filters.regex('helpemenu:display_coming_soon'))
 async def coming_soon(client, callback_query):
   await callback_query.edit_message_text(Messages.HELP_MENU_COMING_SOON.value,
                                          reply_markup=InlineKeyboardMarkup(
-                                             get_keyboard(4)))
+                                           get_keyboard(4)))

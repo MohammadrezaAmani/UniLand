@@ -287,8 +287,8 @@ class Profile(Submission):
       out += f'دانشکده: {self.faculty}\n'
     if self.university != "نامشخص":
       out += f'دانشگاه: {self.university}\n'
-    if self.owner_title != "ناشناس":
-      out += f'نام ثبت کننده: {self.owner_title}\n'
+    # if self.owner_title != "ناشناس":
+    #   out += f'نام ثبت کننده: {self.owner_title}\n'
     out += f'توضیحات:\n {self.description}\n'
     out += f'شماره پروفایل: {self.id}\n'
     return out

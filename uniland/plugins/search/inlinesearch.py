@@ -104,6 +104,10 @@ async def answer(client, inline_query):
 
 @Client.on_chosen_inline_result()
 async def update_search_stats(client, chosen_inline_result):
+  if not usercache.has_user(chosen_inline_result.from_user.id):
+    user_db.add_user(chosen_inline_result.from_user.id,
+                     last_step=UserSteps.START.value)
+
   if chosen_inline_result.result_id != '-1':
     sub_db.increase_search_times(id=int(chosen_inline_result.result_id))
 

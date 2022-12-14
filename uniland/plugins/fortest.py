@@ -48,8 +48,7 @@ async def public_announcement(client, message):
     else:
       try:
         print(f'good user: {user.user_id}')
-        await client.send_message(user.user_id,
-                                  Builder.get_public_announcement(text))
+        await client.send_message(user.user_id,text)
       except Exception as e:
         print(e)
         print(f'bad user: {user.user_id}')

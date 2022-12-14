@@ -1,8 +1,6 @@
-import asyncio
 from uniland import usercache
-from uniland.db.tables import User
-from uniland.utils import triggers, steps
 from pyrogram import filters
+from pyrogram.enums import ChatType
 
 
 def access_level(min: int = 1, max: int = 3):
