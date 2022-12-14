@@ -130,8 +130,13 @@ async def reject_submission(client, message):
     if dict_admin == admin_id:
       sub_id = dict_sub
   sub = subs_db.get_submission(sub_id)
-  # TODO tell user which submission it was
-  await message.copy(sub.owner_id)
+  sub.update_search_text()
+  rejection_msg = Messages.CONFIRMATION_REJECTION_HEAD.value + "\n\n"
+  rejection_msg += Messages.CONFIRMATION_REJECTION_SUBMISSION.value
+  rejection_msg += sub.search_text
+  rejection_msg += "\n\n" + Messages.CONFIRMATION_REJECTION_REASON.value
+  rejection_msg += message.text
+  await client.send_message(sub.owner_id, rejection_msg)
   reviewing_subs.pop(sub_id)  # pop from dictionary the rejected
   subs_db.delete_submission(sub_id)  # delete from db & cache
   user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
