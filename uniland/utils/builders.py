@@ -90,10 +90,10 @@ class Builder:
         display_text += f'.رکورد ناموجود است\n\n'
 
       else:
-        display_text += f'\nرکورد {first + i}:\n'
+        display_text += f'\n📔 رکورد {first + i}:\n'
         display_text += text_generator(submission)
         if submission.is_confirmed:
-          display_text += f'دریافت رکورد: /get_{submission.submission_type}_{submission.id}\n\n'
+          display_text += f'📥 ‌دریافت رکورد: /get_{submission.submission_type}_{submission.id}\n\n'
         display_text += 20 * '-'
 
     return display_text, buttons
