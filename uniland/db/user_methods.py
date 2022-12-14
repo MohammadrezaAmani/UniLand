@@ -28,7 +28,7 @@ def add_user(user_id: int, last_step: str = UserSteps.START.value):
 def add_user_object(user: User):
   with USER_INSERTION_LOCK:
     prev_user = SESSION.query(User).filter(
-        User.user_id == user.user_id).first()
+      User.user_id == user.user_id).first()
     if prev_user:
       SESSION.close()
       return
@@ -42,17 +42,17 @@ def get_user(user_id: int):
 
 
 def filter_users_by_access_level(
-        access_levels: list = [
-            UserLevel.Admin, UserLevel.Editor, UserLevel.Ordinary
-        ]):
+  access_levels: list = [
+    UserLevel.Admin, UserLevel.Editor, UserLevel.Ordinary
+  ]):
   return SESSION.query(User).filter(User.level in access_levels).all()
 
 
 def update_user_access_level(user_id: int, access_level: int):
   with USER_INSERTION_LOCK:
     SESSION.query(User).filter(User.user_id == user_id).update(
-        {User.access_level: UserLevel(access_level).name},
-        synchronize_session=False)
+      {User.access_level: UserLevel(access_level).name},
+      synchronize_session=False)
     SESSION.commit()
     SESSION.close()
     usercache.update_user_permission(user_id, access_level)
@@ -64,7 +64,7 @@ def toggle_bookmark(user_id: int, submission_id: int) -> int:
   with USER_INSERTION_LOCK:
     user = SESSION.query(User).filter(User.user_id == user_id).first()
     submission = SESSION.query(Submission).filter(
-        Submission.id == submission_id).first()
+      Submission.id == submission_id).first()
     result = 0
     if user == None or submission == None:
       result = 0  # Something went wrong
@@ -93,7 +93,7 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
       SESSION.close()
       return False
     submission.owner = user
-    if user.access_level.value == UserLevel.Admin.value:
+    if user.access_level.value >= UserLevel.Editor.value:
       submission.confirm(user)
       SESSION.commit()
       search_engine.index_record(id=submission.id,
@@ -121,7 +121,7 @@ def update_user_step(user_id: int, last_step: str):
   with USER_INSERTION_LOCK:
     if usercache.has_user(user_id):
       SESSION.query(User).filter(User.user_id == user_id).update(
-          {User.last_step: last_step}, synchronize_session=False)
+        {User.last_step: last_step}, synchronize_session=False)
       SESSION.commit()
       SESSION.close()
       usercache.update_user_step(user_id, last_step)
@@ -131,7 +131,7 @@ def update_user_activity(user_id: int):
   with USER_INSERTION_LOCK:
     if usercache.has_user(user_id):
       SESSION.query(User).filter(User.user_id == user_id).update(
-          {User.last_active: datetime.utcnow()}, synchronize_session=False)
+        {User.last_active: datetime.utcnow()}, synchronize_session=False)
       SESSION.commit()
       SESSION.close()
 
@@ -142,7 +142,7 @@ def get_user_bookmarks(user_id: int):
 
 def count_user_submissions(user_id: int):
   return SESSION.query(Submission).filter(
-      Submission.owner_id == user_id).count()
+    Submission.owner_id == user_id).count()
 
 
 def get_user_submissions(user_id: int):
@@ -151,7 +151,7 @@ def get_user_submissions(user_id: int):
 
 def count_user_bookmarks(user_id: int):
   return SESSION.query(bookmarks_association).filter(
-      bookmarks_association.c.user_id == user_id).count()
+    bookmarks_association.c.user_id == user_id).count()
 
 
 def count_active_users(minutes: int):

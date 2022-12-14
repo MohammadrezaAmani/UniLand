@@ -30,13 +30,13 @@ async def get_file(client, message):
 @Client.on_message(filters.document
                    & user_step(UserSteps.DOCUMENT_SUBMISSION_FILE.value))
 async def start_getting_data(
-  client,
-  message,
+    client,
+    message,
 ):
   # User has sent the file, now it can change the file data
   if doc_db.unique_id_exists(message.document.file_unique_id):
     await message.reply(
-      text='.این در پایگاه داده موجود است\n .لطفا فایل دیگری را ارسال نمایید')
+        text='این در پایگاه داده موجود است.\n لطفا فایل دیگری را ارسال نمایید.')
     return
   doc = Document(None, message.document.file_id,
                  message.document.file_unique_id)
@@ -52,14 +52,14 @@ async def start_getting_data(
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION.value)
-  & filters.text)
+    user_step(UserSteps.DOCUMENT_SUBMISSION.value)
+    & filters.text)
 async def choose_doc_field(client, message):
   # Routing the user to input file data fields
   user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION.value]
   global staged_docs
   if message.from_user.id not in staged_docs:
-    await message.reply(text='.خطای گم شدن فایل، لطفا مجددا تلاش کنید')
+    await message.reply(text='خطای گم شدن فایل، لطفا مجددا تلاش کنید.')
     await start_stage(client, message)
     return
   # Data Fields
@@ -81,25 +81,24 @@ async def choose_doc_field(client, message):
       result = user_db.add_user_submission(message.from_user.id, doc)
     if result:
       await message.reply(
-        text=
-        '.فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود'
+          text='فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت. \nبا سپاس از همراهی شما'
       )
     else:
       await message.reply(
-        '.متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید'
+          'متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا مجددا تلاش کنید.'
       )
     await start_stage(client, message)
 
   # Cancel Button
   elif message.text.strip() == Triggers.DOCUMENT_SUBMISSION_CANCEL.value:
     # User has canceled the submission process
-    await message.reply('.عملیات ارسال فایل لغو شد')
+    await message.reply('عملیات ارسال فایل لغو شد.')
     if message.from_user.id in staged_docs:
       staged_docs.pop(message.from_user.id)
     await start_stage(client, message)
 
   else:
-    await message.reply('.لطفا یکی از گزینه‌های موجود را انتخاب کنید')
+    await message.reply('لطفا یکی از گزینه های موجود را انتخاب کنید.')
 
 
 # ---------------------- Inputting data fields ----------------------
@@ -114,149 +113,149 @@ async def go_back(client, message, step):
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_COURSE.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_COURSE.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_course(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting course name
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.course = message.text.strip()
-  await message.reply('.درس فایل شما با موفقیت ثبت شد')
+  await message.reply('درس فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_COURSE.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_professor(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting professor name
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.professor = message.text.strip()
-  await message.reply('.استاد فایل شما با موفقیت ثبت شد')
+  await message.reply('استاد فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_WRITER.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_WRITER.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_writer(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the writer of the document
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.writer = message.text.strip()
-  await message.reply('.نویسنده فایل شما با موفقیت ثبت شد')
+  await message.reply('نویسنده فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_PROFESSOR.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_faculty(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the faculty of the document
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.faculty = message.text.strip()
-  await message.reply('.دانشکده فایل شما با موفقیت ثبت شد')
+  await message.reply('دانشکده فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message, UserSteps.DOCUMENT_SUBMISSION_FACULTY.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_university(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the university of the document
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.university = message.text.strip()
-  await message.reply('.دانشگاه فایل شما با موفقیت ثبت شد')
+  await message.reply('دانشگاه فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_UNIVERSITY.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_owner_title(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the owner title of the document
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.owner_title = message.text.strip()
-  await message.reply('.عنوان صاحب فایل شما با موفقیت ثبت شد')
+  await message.reply('عنوان صاحب فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_OWNER_TITLE.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_description(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the description of the document
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.description = message.text.strip()
-  await message.reply('.توضیحات فایل شما با موفقیت ثبت شد')
+  await message.reply('توضیحات فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_DESCRIPTION.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_year(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the semester if its number, show error otherwise
   sem = 0
   try:
     sem = int(message.text.strip())
   except:
-    await message.reply('.لطفا یک عدد وارد کنید')
+    await message.reply('لطفا یک عدد وارد کنید.')
     return
   global staged_docs
   doc = staged_docs[message.from_user.id]
   doc.semester_year = sem
-  await message.reply('.سال تهیه فایل شما با موفقیت ثبت شد')
+  await message.reply('سال تهیه فایل شما با موفقیت ثبت شد.')
   await message.reply_document(document=doc.file_id, caption=str(doc))
   await go_back(client, message,
                 UserSteps.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value)
 
 
 @Client.on_message(
-  user_step(UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
-  & filters.text & ~exact_match(Triggers.BACK.value))
+    user_step(UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
+    & filters.text & ~exact_match(Triggers.BACK.value))
 async def doc_file_type(
-  client,
-  message,
+    client,
+    message,
 ):
   # Inputting the faculty of the document
   global staged_docs
@@ -264,10 +263,10 @@ async def doc_file_type(
   for c in DocType:
     if c.value == message.text.strip():
       doc.file_type = c
-      await message.reply('.نوع فایل شما با موفقیت ثبت شد')
+      await message.reply('نوع فایل شما با موفقیت ثبت شد.')
       await message.reply_document(document=doc.file_id, caption=str(doc))
       await go_back(client, message,
                     UserSteps.DOCUMENT_SUBMISSION_FILE_TYPE.value)
       return
 
-  await message.reply('.لطفا یکی از گزینه‌های زیر را انتخاب کنید')
+  await message.reply('لطفا یکی از گزینه های زیر را انتخاب کنید.')

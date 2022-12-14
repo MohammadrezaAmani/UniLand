@@ -20,12 +20,21 @@ from uniland.config import STORAGE_CHAT_ID
 #     await message.reply_document(image_id)
 
 
+@Client.on_message(filters.text & filters.command('send_db')
+                   & access_level(3, 3),
+                   group=2)
+async def send_db(client, message):
+  subs = len(search_engine.subs)
+  await message.reply_document('AUT_Archive.sqlite',
+                               caption=f'Total confirmed submissions: {subs}')
+
+
 @Client.on_message(filters.text & filters.command('count_actives')
                    & access_level(3, 3),
                    group=2)
 async def count_actives(client, message):
   await message.reply_text(
-      f'Total active users in last hour: {user_db.count_active_users(60)}')
+    f'Total active users in last hour: {user_db.count_active_users(60)}')
 
 
 @Client.on_message(filters.text & filters.command('public_announcement')
@@ -49,7 +58,7 @@ async def public_announcement(client, message):
 @Client.on_message(access_level(3, 3) & filters.command('chat_details'))
 async def display_details(client, message):
   await message.reply_text(
-      f'Chat ID: {message.chat.id}, Chat Type: {message.chat.type}')
+    f'Chat ID: {message.chat.id}, Chat Type: {message.chat.type}')
   await message.reply_text(f'User ID: {message.from_user.id}')
 
 
@@ -84,7 +93,7 @@ async def echo(client, message):
 
 
 @Client.on_message(
-    access_level(3, 3) & filters.text & filters.command('list_all'))
+  access_level(3, 3) & filters.text & filters.command('list_all'))
 async def listall(client, message):
   users = user_db.list_users()
   await message.reply('Fetched Users!')

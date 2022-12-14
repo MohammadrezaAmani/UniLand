@@ -92,8 +92,12 @@ async def pvsearch_callback(client, callback_query):
 @Client.on_message(filters.text & filters.regex('^/get_'))
 async def get_submission(client, message):
   submission_type, submission_id = message.text.split('_')[1:]
-  file_id, caption, keyboard = Builder.file_message_generator(
-      Builder.get_submission_child(submission_id, submission_type))
+  submission = Builder.get_submission_child(submission_id, submission_type)
+  if submission == None or not submission.is_confirmed:
+    await message.reply(text='.این رکورد وجود ندارد')
+    return
+  
+  file_id, caption, keyboard = Builder.file_message_generator(submission)
   if not keyboard:
     await message.reply(text='.این رکورد وجود ندارد')
     return
