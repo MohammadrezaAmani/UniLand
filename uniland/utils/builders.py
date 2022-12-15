@@ -52,10 +52,11 @@ class Builder:
         callback_data=
         f"bookmark:{submission.id}:{search_engine.get_likes(submission.id)}")
     ]])
+    text = submission.user_display() + '\n' + "آیدی ربات: @UniLandBot"
     if submission.submission_type == 'document':
-      return (submission.file_id, submission.user_display(), keyboard)
+      return (submission.file_id, text, keyboard)
     if submission.submission_type == 'profile':
-      return (submission.image_id, submission.user_display(), keyboard)
+      return (submission.image_id, text, keyboard)
 
   def get_navigation(
       submissions: list,

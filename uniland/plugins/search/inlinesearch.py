@@ -35,7 +35,7 @@ async def answer(client, inline_query):
           document_file_id=document.file_id,
           title=record.search_text,
           id=record.id,
-          caption=document.user_display(),
+          caption=document.user_display() + '\n' + "آیدی ربات: @UniLandBot",
           description=f'مورد علاقه {record.likes} نفر',
           reply_markup=InlineKeyboardMarkup([[
             InlineKeyboardButton(
@@ -54,7 +54,7 @@ async def answer(client, inline_query):
             document_file_id=profile.image_id,
             title=record.search_text,
             id=record.id,
-            caption=profile.user_display(),
+            caption=profile.user_display() + '\n' + "آیدی ربات: @UniLandBot",
             description=f'مورد علاقه {record.likes} نفر',
             reply_markup=InlineKeyboardMarkup([[
               InlineKeyboardButton(
@@ -67,7 +67,7 @@ async def answer(client, inline_query):
           InlineQueryResultArticle(
             title=record.search_text,
             input_message_content=InputTextMessageContent(
-              profile.user_display()),
+                profile.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
             id=record.id,
             description=f'مورد علاقه {record.likes} نفر',
             reply_markup=InlineKeyboardMarkup([[
@@ -83,7 +83,8 @@ async def answer(client, inline_query):
       results.append(
         InlineQueryResultArticle(
           title=record.search_text,
-          input_message_content=InputTextMessageContent(media.user_display()),
+          input_message_content=InputTextMessageContent(
+              media.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
           id=record.id,
           description=f'مورد علاقه {record.likes} نفر',
           reply_markup=InlineKeyboardMarkup([[

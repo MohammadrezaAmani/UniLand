@@ -1,15 +1,10 @@
 from pyrogram import Client, filters
-from pyrogram.types import (
-  InlineKeyboardMarkup,
-  InlineKeyboardButton,
-)
+from pyrogram.types import InlineKeyboardMarkup
 from pyrogram.enums import ParseMode
-from uniland import search_engine
+from uniland import search_engine, usercache
 from uniland.utils.triggers import Triggers
 import uniland.db.user_methods as user_db
-import uniland.db.doc_methods as doc_db
-import uniland.db.profile_methods as profile_db
-import uniland.db.media_methods as media_db
+import uniland.db.submission_methods as sub_db
 from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
@@ -39,16 +34,17 @@ async def display_search_result(client, message):
   search_text = message.text.replace(':', ' ')
 
   results = [
-    Builder.get_submission_child(record.id, record.type)
-    for record in search_engine.search(search_text)
+      Builder.get_submission_child(record.id, record.type)
+      for record in search_engine.search(search_text)
   ]
 
   page, page_size = 0, 5
   display_text, buttons = Builder.get_navigation(
-    results[page * page_size:min((page + 1) * page_size, len(results))], page,
-    page_size, f'🌐 نتایج جستجو برای {search_text}\n\n',
-    lambda sub: f'{sub.user_display()}\n',
-    lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
+      results[page * page_size:min((page + 1) *
+                                   page_size, len(results))], page,
+      page_size, f'🌐 نتایج جستجو برای {search_text}\n\n',
+      lambda sub: f'{sub.user_display()}\n',
+      lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
 
   await message.reply(text=display_text,
                       reply_markup=InlineKeyboardMarkup(buttons),
@@ -67,8 +63,8 @@ async def pvsearch_callback(client, callback_query):
     return
 
   results = [
-    Builder.get_submission_child(record.id, record.type)
-    for record in search_engine.search(search_text)
+      Builder.get_submission_child(record.id, record.type)
+      for record in search_engine.search(search_text)
   ]
 
   if len(results) <= page * page_size:
@@ -76,15 +72,16 @@ async def pvsearch_callback(client, callback_query):
     return
 
   display_text, buttons = Builder.get_navigation(
-    results[page * page_size:min((page + 1) * page_size, len(results))], page,
-    page_size, f'نتایج جستجو برای {search_text}\n\n',
-    lambda sub: f'{sub.user_display()}\n',
-    lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
+      results[page * page_size:min((page + 1) *
+                                   page_size, len(results))], page,
+      page_size, f'نتایج جستجو برای {search_text}\n\n',
+      lambda sub: f'{sub.user_display()}\n',
+      lambda page, page_size: f'pvsearch:{page}:{page_size}:{search_text}')
 
   await callback_query.edit_message_text(
-    display_text,
-    reply_markup=InlineKeyboardMarkup(buttons),
-    parse_mode=ParseMode.DISABLED)
+      display_text,
+      reply_markup=InlineKeyboardMarkup(buttons),
+      parse_mode=ParseMode.DISABLED)
 
 
 @Client.on_message(filters.text & filters.regex('^/get_'))
@@ -111,3 +108,11 @@ async def get_submission(client, message):
                                    reply_markup=keyboard)
     else:
       await message.reply_text(text=caption, reply_markup=keyboard)
+
+  try:
+    if not usercache.has_user(message.from_user.id):
+      user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
+  except:
+    print('None user found in pvsearch')
+
+  sub_db.increase_search_times(id=submission.id)
