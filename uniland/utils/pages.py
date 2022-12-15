@@ -75,13 +75,13 @@ class Pages:
       Triggers.DOCUMENT_SUBMISSION_PROFESSOR.value
     ],
      [
-       Triggers.DOCUMENT_SUBMISSION_UNIVERSITY.value,
        Triggers.DOCUMENT_SUBMISSION_FACULTY.value,
-       Triggers.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value
+       Triggers.DOCUMENT_SUBMISSION_UNIVERSITY.value,
+       Triggers.DOCUMENT_SUBMISSION_WRITER.value
      ],
      [
-       Triggers.DOCUMENT_SUBMISSION_WRITER.value,
        Triggers.DOCUMENT_SUBMISSION_OWNER_TITLE.value,
+       Triggers.DOCUMENT_SUBMISSION_SEMESTER_YEAR.value,
        Triggers.DOCUMENT_SUBMISSION_DESCRIPTION.value
      ],
      [
@@ -92,7 +92,8 @@ class Pages:
 
   DOCUMENT_SUBMISSION_FILE_TYPE = ReplyKeyboardMarkup(
     [[DocType.BOOK.value, DocType.Pamphlet.value],
-     [DocType.Exercises.value, DocType.CompressedFile.value],
+     [DocType.Exercises.value, DocType.Template.value],
+     [DocType.CompressedFile.value],
      [Triggers.BACK.value]],
     resize_keyboard=True)
 

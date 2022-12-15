@@ -19,7 +19,7 @@ from uniland.utils.steps import UserSteps
 @Client.on_inline_query()
 async def answer(client, inline_query):
   records = search_engine.search(inline_query.query)
-  
+
   if len(records) > 50:
     records = records[:50]
 

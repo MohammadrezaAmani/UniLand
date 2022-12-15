@@ -13,6 +13,7 @@ class DocType(enum.Enum):
     Pamphlet = "جزوه"  # AND KHOLASE
     Exercises = "تمرینات"  # AND NEMOONE SOAL
     CompressedFile = "ترکیبی"  # AND ZIP
+    Template = "تمپلیت"  # AND PLANS AND SHEETS
 
 '''
 class CallbackCondition(enum.Enum):

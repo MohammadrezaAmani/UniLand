@@ -24,10 +24,10 @@ def get_keyboard(submission_id):
               )
           ],
           [
-              InlineKeyboardButton(
+            InlineKeyboardButton(
                   "✏️ ویرایش",
                   callback_data=f"confirmation:edit:{submission_id}"
-              )
+          )
           ],
       ]
   return buttons
@@ -45,7 +45,7 @@ async def admin_confirmation(client, message):
   admin_id = message.from_user.id
   sub_id = 0
   sub = None
-  if admin_id in reviewing_subs.values():  # admin reviewing
+  if admin_id in reviewing_subs.values():  #admin reviewing
     await message.reply(Messages.CONFIRMATION_FINISH_PREVIOUS_REVIEW.value)
     for dict_sub, dict_admin in reviewing_subs.items():
       if dict_admin == admin_id:
@@ -60,23 +60,23 @@ async def admin_confirmation(client, message):
         break
   if sub_id == 0:  # new unconfirmed unreviewed submission not found
     await message.reply(Messages.CONFIRMATION_NO_UNCONFIMRED_FILE.value)
-  elif sub.submission_type == 'document':  # found document
+  elif sub.submission_type == 'document':  #found document
     reviewing_subs[sub_id] = admin_id
     await message.reply_document(document=sub.file_id,
                                  caption=sub.user_display(),
                                  reply_markup=InlineKeyboardMarkup(
-                                     get_keyboard(sub_id)))
-  elif sub.submission_type == 'profile':  # found info
+                                   get_keyboard(sub_id)))
+  elif sub.submission_type == 'profile':  #found info
     reviewing_subs[sub_id] = admin_id
     if sub.image_id != '':
       await message.reply_document(document=sub.image_id,
                                    caption=sub.user_display(),
                                    reply_markup=InlineKeyboardMarkup(
-                                       get_keyboard(sub_id)))
+                                     get_keyboard(sub_id)))
     else:
       await message.reply_text(text=sub.user_display(),
                                reply_markup=InlineKeyboardMarkup(
-          get_keyboard(sub_id)))
+                                 get_keyboard(sub_id)))
 
 
 @Client.on_callback_query(filters.regex('^confirmation:accept'))
@@ -86,23 +86,23 @@ async def accept_submission(client, callback_query):
   sub_id = int(callback_query.data.split(":")[2])
   if sub_id in reviewing_subs.keys():  # not reviewed
     admin_id = reviewing_subs[sub_id]
-    subs_db.confirm_user_submission(admin_id, sub_id)  # update db & cache
+    subs_db.confirm_user_submission(admin_id, sub_id)  #update db & cache
     reviewing_subs.pop(sub_id)  # pop from dictionary the accepted
     await callback_query.answer(text="تایید شد. 🍾")
   else:  # already reviewed
     await callback_query.answer(
-        text=Messages.CONFIRMATION_ALREADY_REVIEWED.value, show_alert=True)
+      text=Messages.CONFIRMATION_ALREADY_REVIEWED.value, show_alert=True)
 
 
 @Client.on_callback_query(filters.regex('^confirmation:reject'))
 async def get_rejection_reason(client, callback_query):
   global reviewing_subs
   sub_id = int(callback_query.data.split(":")[2])
-  if not sub_id in reviewing_subs.keys():  # already reviewed
+  if not sub_id in reviewing_subs.keys():  #already reviewed
     await callback_query.edit_message_reply_markup([])
     await callback_query.answer(
-        text=Messages.CONFIRMATION_ALREADY_REVIEWED.value, show_alert=True)
-  else:  # not reviewed
+      text=Messages.CONFIRMATION_ALREADY_REVIEWED.value, show_alert=True)
+  else:  #not reviewed
     await callback_query.edit_message_reply_markup([])
     user_step = UXTree.nodes[UserSteps.GET_REJECTION_REASON.value]
     await callback_query.message.reply(text='علت رد شدن را وارد کنید.',
