@@ -50,9 +50,8 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 
 
 ## <a name='Requirements'></a> Requirements
----
 ### <a name='PythonCompatibility'></a>**Python Compatibility**
-This bot is written entirely in python. tested versions are `python 3.8, ` while older versions should not cause any problem, we recommend using the latest version of `python3`.
+This bot is written entirely in python. tested versions are `python 3.8, 3.7` while older versions should not cause any problem, we recommend using the latest version of `python3`.
 
 ### <a name='Dependencies'></a> **Dependencies**
 This package requires the following packages:
@@ -62,7 +61,6 @@ This package requires the following packages:
 * [TgCrypto](https://github.com/pyrogram/tgcrypto "TgCrypto Github") - Secure Encryption for Telegram Protocols
 
 ## <a name='Instructions'></a> Instructions
----
 To run the bot, you need to have a Telegram API ID and API Hash. You can get them from [my.telegram.org](https://my.telegram.org "Telegram API"). Then, you need to create a `config.py` file in the root directory of the project and fill it with the following information:
 
 ```python
@@ -71,7 +69,7 @@ To run the bot, you need to have a Telegram API ID and API Hash. You can get the
      BOT_TOKEN = # Your Bot Token
      REPL_URL = # Your Replit URL
 ```
-> *We recommend using a [Repl](https://replit.com/ "Replit") to host the bot but if you have your own server, replace `REPL_URL` with your own server's URL.*  
+> *We recommend using a [Repl](https://replit.com/ "Replit") to host the bot but if you have your own server, replace `REPL_URL` with its URL.*  
 
 Then, you can run the bot using the following command:
 
@@ -80,7 +78,6 @@ Then, you can run the bot using the following command:
 ```
 
 ## <a name='KeyFeatures'></a>Key Features
----
 Some of the key feature are listed below. For more information, please refer to the Documentation.
 * **Modular** - Highly modular and can be easily extended.
 * **Easy to Use** - Easy to customize the interface and messages.
@@ -89,5 +86,4 @@ Some of the key feature are listed below. For more information, please refer to 
 * **Fast** - Build with the fastest performing asynchronus libraries to achieve high performance.
 
 ## <a name='License'></a>License
----
 Distributed under the MIT License. See `LICENSE` for more information.
