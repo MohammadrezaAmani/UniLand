@@ -34,7 +34,6 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 
 ## <a name='Contents'></a>Contents
 <!-- vscode-markdown-toc -->
-* [Contents](#Contents)
 * [Requirements](#Requirements)
 	* [Python Compatibility](#Python-Compatibility)
 	* [Dependencies](#Dependencies)
