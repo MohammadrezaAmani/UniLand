@@ -36,10 +36,10 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 <!-- vscode-markdown-toc -->
 * [Contents](#Contents)
 * [Requirements](#Requirements)
-	* [Python Compatibility](#PythonCompatibility)
+	* [Python Compatibility](#Python-Compatibility)
 	* [Dependencies](#Dependencies)
 * [Instructions](#Instructions)
-* [Key Features](#KeyFeatures)
+* [Key Features](#Key-Features)
 * [License](#License)
 
 <!-- vscode-markdown-toc-config
