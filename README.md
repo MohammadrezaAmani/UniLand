@@ -31,6 +31,24 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 
 
 
+
+## <a name='Contents'></a>Contents
+<!-- vscode-markdown-toc -->
+* [Contents](#Contents)
+* [Requirements](#Requirements)
+	* [Python Compatibility](#PythonCompatibility)
+	* [Dependencies](#Dependencies)
+* [Instructions](#Instructions)
+* [Key Features](#KeyFeatures)
+* [License](#License)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
 ## <a name='Requirements'></a>Requirements
 ### <a name='Python-Compatibility'></a>**Python Compatibility**
 This bot is written entirely in python. tested versions are `python 3.8, 3.7` while older versions should not cause any problem, we recommend using the latest version of `python3`.
