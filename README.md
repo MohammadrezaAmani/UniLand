@@ -31,36 +31,18 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 
 
 
-
-## <a name='Contents'></a>Contents
-<!-- vscode-markdown-toc -->
-* [Contents](#Contents)
-* [Requirements](#Requirements)
-	* [python Compatibility](#PythonCompatibility)
-	* [Dependencies](#Dependencies)
-* [Instructions](#Instructions)
-* [Key Features](#KeyFeatures)
-* [License](#License)
-
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
-
-## <a name='Requirements'></a> Requirements
-### <a name='PythonCompatibility'></a>**Python Compatibility**
+## <a name='Requirements'></a>Requirements
+### <a name='Python-Compatibility'></a>**Python Compatibility**
 This bot is written entirely in python. tested versions are `python 3.8, 3.7` while older versions should not cause any problem, we recommend using the latest version of `python3`.
 
-### <a name='Dependencies'></a> **Dependencies**
+### <a name='Dependencies'></a>**Dependencies**
 This package requires the following packages:
 * [pyrogram](https://github.com/pyrogram/pyrogram "Pyrogram Github") - Telegram MTProto API
 * [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy "SQLAlchemy Github") - SQL & ORM Toolkit
 * [uvloop](https://github.com/MagicStack/uvloop "uvloop Github") - Asynchronus Programming
 * [TgCrypto](https://github.com/pyrogram/tgcrypto "TgCrypto Github") - Secure Encryption for Telegram Protocols
 
-## <a name='Instructions'></a> Instructions
+## <a name='Instructions'></a>Instructions
 To run the bot, you need to have a Telegram API ID and API Hash. You can get them from [my.telegram.org](https://my.telegram.org "Telegram API"). Then, you need to create a `config.py` file in the root directory of the project and fill it with the following information:
 
 ```python
@@ -77,7 +59,7 @@ Then, you can run the bot using the following command:
     python3 -m uniland
 ```
 
-## <a name='KeyFeatures'></a>Key Features
+## <a name='Key-Features'></a>Key Features
 Some of the key feature are listed below. For more information, please refer to the Documentation.
 * **Modular** - Highly modular and can be easily extended.
 * **Easy to Use** - Easy to customize the interface and messages.
