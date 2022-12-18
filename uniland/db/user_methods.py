@@ -13,6 +13,7 @@ def add_user(user_id: int, last_step: str = UserSteps.START.value):
   with USER_INSERTION_LOCK:
     user = SESSION.query(User).filter(User.user_id == user_id).first()
     if user:
+      SESSION.expunge(user)
       SESSION.close()
       return user
     user = User(user_id, last_step=last_step)
@@ -81,7 +82,8 @@ def toggle_bookmark(user_id: int, submission_id: int) -> int:
       SESSION.commit()
       result = 1  # Bookmark Added
 
-    new_likes = len(submission.liked_users)
+    new_likes = SESSION.query(bookmarks_association).filter(
+        bookmarks_association.c.submission_id == submission.id).count()
     SESSION.close()
     return (result, new_likes)
 
@@ -91,7 +93,7 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
     user = SESSION.query(User).filter(User.user_id == user_id).first()
     if user == None or submission == None or submission in user.user_submissions:
       SESSION.close()
-      return False
+      return None
     submission.owner = user
     if user.access_level.value >= UserLevel.Editor.value:
       submission.confirm(user)
@@ -102,8 +104,9 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
                                  likes=0)
     else:
       SESSION.commit()
+    SESSION.expunge(submission)
     SESSION.close()
-    return True
+    return submission
 
 
 def remove_user_submission(user_id: int, submission: Submission) -> bool:

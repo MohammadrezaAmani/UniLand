@@ -59,7 +59,7 @@ async def pvsearch_callback(client, callback_query):
   page, page_size = int(page), int(page_size)
 
   if page < 0:
-    await callback_query.answer(text='.این صفحه اول است', show_alert=True)
+    await callback_query.answer(text='این صفحه‌ اول است.', show_alert=True)
     return
 
   results = [
@@ -68,7 +68,7 @@ async def pvsearch_callback(client, callback_query):
   ]
 
   if len(results) <= page * page_size:
-    await callback_query.answer(text='.این صفحه آخر است', show_alert=True)
+    await callback_query.answer(text='این صفحه آخر است.', show_alert=True)
     return
 
   display_text, buttons = Builder.get_navigation(
@@ -89,12 +89,12 @@ async def get_submission(client, message):
   submission_type, submission_id = message.text.split('_')[1:]
   submission = Builder.get_submission_child(submission_id, submission_type)
   if submission == None or not submission.is_confirmed:
-    await message.reply(text='.این رکورد وجود ندارد')
+    await message.reply(text='این رکورد وجود ندارد.')
     return
 
   file_id, caption, keyboard = Builder.file_message_generator(submission)
   if not keyboard:
-    await message.reply(text='.این رکورد وجود ندارد')
+    await message.reply(text='این رکورد وجود ندارد.')
     return
 
   if submission_type == 'document':

@@ -50,9 +50,12 @@ def get_submission(submission_id: int):
 
 
 def get_unconfirmed_submissions():
-  return SESSION.query(Submission).filter(
+  subs =  SESSION.query(Submission).filter(
     Submission.is_confirmed == False).order_by(
       Submission.submission_date.desc()).all()
+  SESSION.expunge_all()
+  SESSION.close()
+  return subs
 
 
 def is_pending(submission_id: int):
