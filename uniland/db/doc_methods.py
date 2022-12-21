@@ -69,7 +69,10 @@ def add_document(user_id):
 
 
 def get_document(id: int):
-    return SESSION.query(Document).filter(Document.id == id).first()
+    document = SESSION.query(Document).filter(Document.id == id).first()
+    SESSION.expunge(document)
+    SESSION.close()
+    return document
 
 def unique_id_exists(unique_id:str):
     return SESSION.query(

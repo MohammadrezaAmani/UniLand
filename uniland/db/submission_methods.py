@@ -45,8 +45,11 @@ def confirm_user_submission(admin_id: int, submission_id: int):
 
 
 def get_submission(submission_id: int):
-  return SESSION.query(Submission).filter(
+  submission = SESSION.query(Submission).filter(
     Submission.id == submission_id).first()
+  SESSION.expunge(submission)
+  SESSION.close()
+  return submission
 
 
 def get_unconfirmed_submissions():

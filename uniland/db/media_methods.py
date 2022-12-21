@@ -36,7 +36,10 @@ def add_media(user_id):
 
 
 def get_media(id: int):
-    return SESSION.query(Media).filter(Media.id == id).first()
+	media = SESSION.query(Media).filter(Media.id == id).first()
+	SESSION.expunge(media)
+	SESSION.close()
+	return media
 
 
 def list_medias():
