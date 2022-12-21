@@ -83,7 +83,7 @@ def toggle_bookmark(user_id: int, submission_id: int) -> int:
       result = 1  # Bookmark Added
 
     new_likes = SESSION.query(bookmarks_association).filter(
-        bookmarks_association.c.submission_id == submission.id).count()
+      bookmarks_association.c.submission_id == submission.id).count()
     SESSION.close()
     return (result, new_likes)
 

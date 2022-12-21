@@ -62,6 +62,7 @@ class Builder:
       submissions: list,
       page: int,
       page_size: int,
+      total_size: int,
       page_title: str,
       text_generator,  # lambda sub
       callback_generator  # lambda sub, page, page_size
@@ -78,10 +79,11 @@ class Builder:
 
     first = page * page_size + 1
     last = first + len(submissions) - 1
+    total = total_size
 
     # preparing message text
     display_text = page_title
-    display_text += f'نتایج {first} تا {last}\n'
+    display_text += f'نتایج {first} تا {last} از {total} رکورد\n'
     for i, submission in enumerate(submissions):
       if not submission:
         display_text += f'.رکورد ناموجود است\n\n'
@@ -90,7 +92,9 @@ class Builder:
         display_text += f'\n📔 رکورد {first + i}:\n'
         display_text += text_generator(submission)
         if submission.is_confirmed:
-          display_text += f'📥 ‌دریافت رکورد: /get_{submission.submission_type}_{submission.id}\n\n'
-        display_text += 20 * '-'
+          display_text += f'مورد علاقه {search_engine.get_likes(submission.id)} نفر'
+          display_text += f'\n\n📥 ‌دریافت رکورد: /get_{submission.submission_type}_{submission.id}'
+        display_text += '\n\n'
+        display_text += 25 * '-'
 
     return display_text, buttons

@@ -1,21 +1,25 @@
 class SubmissionRecord:
-    def __init__(self, id: int, search_text: str, type: str, likes: int, search_times:int = 0):
-        self.id = id
-        self.search_text = search_text
-        self.type = type
-        self.likes = likes
-        self.search_times = search_times
 
-    def __repr__(self):
+  def __init__(self,
+               id: int,
+               search_text: str,
+               type: str,
+               likes: int,
+               search_times: int = 0):
+    self.id = id
+    self.search_text = search_text
+    self.type = type
+    self.likes = likes
+    self.search_times = search_times
 
-        return str(
-            {
-                "id": self.id,
-                "search_text": self.search_text,
-                "type": self.type,
-                "likes": self.likes,
-            }
-        )
+  def __repr__(self):
+
+    return str({
+      "id": self.id,
+      "search_text": self.search_text,
+      "type": self.type,
+      "likes": self.likes,
+    })
 
 
 # -----------------------------------------------------------------------
@@ -23,147 +27,155 @@ class SubmissionRecord:
 
 class SearchEngine:
 
-    alts = {
-        "ي": "ی",
-        "ك": "ک",
-        "ة": "ه",
-        "أ": "ا",
-        "إ": "ا",
-        "ئ": "ی",
-        "ؤ": "و",
-        "۱": "1",
-        "۲": "2",
-        "۳": "3",
-        "۴": "4",
-        "۵": "5",
-        "۶": "6",
-        "۷": "7",
-        "۸": "8",
-        "۹": "9",
-        "۰": "0",
-        ",": " ",
-        "-": " ",
-        ":": " ",
-    }
+  alts = {
+    "ي": "ی",
+    "ك": "ک",
+    "ة": "ه",
+    "آ": "ا",
+    "أ": "ا",
+    "إ": "ا",
+    "ئ": "ی",
+    "ؤ": "و",
+    "۱": "1",
+    "۲": "2",
+    "۳": "3",
+    "۴": "4",
+    "۵": "5",
+    "۶": "6",
+    "۷": "7",
+    "۸": "8",
+    "۹": "9",
+    "۰": "0",
+    ",": " ",
+    "-": " ",
+    ":": " ",
+  }
 
-    def __init__(self):
+  def __init__(self):
 
-        self.subs = {}  # int id -> Record record
+    self.subs = {}  # int id -> Record record
 
-        self.keywords = {}  # str keyword -> set of int ids
-        
-        self.total_searches = 0
+    self.keywords = {}  # str keyword -> set of int ids
 
-    def __clean_text(self, text: str):
+    self.total_searches = 0
 
-        for key, value in self.alts.items():
+  def __clean_text(self, text: str):
 
-            text = text.replace(key, value)
+    for key, value in self.alts.items():
 
-        return text.strip()
+      text = text.replace(key, value)
 
-    def index_record(self, id: int,
-                     search_text: str,
-                     sub_type: str,
-                     likes: int = 0,
-                     search_times: int = 0):
+    return text.strip().lower()
 
-        self.total_searches += search_times
+  def index_record(self,
+                   id: int,
+                   search_text: str,
+                   sub_type: str,
+                   likes: int = 0,
+                   search_times: int = 0):
 
-        if search_text is None:
-            self.subs[id] = SubmissionRecord(
-                id, search_text=search_text, type=sub_type.strip(), likes=likes
-            )
-            return
+    self.total_searches += search_times
 
-        search_text = self.__clean_text(search_text)
+    if search_text is None:
+      self.subs[id] = SubmissionRecord(id,
+                                       search_text=search_text,
+                                       type=sub_type.strip(),
+                                       likes=likes)
+      return
 
-        record = SubmissionRecord(
-            id, search_text=search_text, type=sub_type.strip(), likes=likes
-        )
+    search_text = self.__clean_text(search_text)
 
-        self.subs[id] = record
+    record = SubmissionRecord(id,
+                              search_text=search_text,
+                              type=sub_type.strip(),
+                              likes=likes)
 
-        for word in search_text.split():
+    self.subs[id] = record
 
-            if word not in self.keywords:
+    for word in search_text.split():
 
-                self.keywords[word] = set()
+      if word not in self.keywords:
 
-            self.keywords[word].add(record)
+        self.keywords[word] = set()
 
-    def update_record(
-        self, id: int, search_text: str = None, sub_type: str = None, likes: int = -1
-    ):
+      self.keywords[word].add(record)
 
-        record = self.remove_record(id)
+  def update_record(self,
+                    id: int,
+                    search_text: str = None,
+                    sub_type: str = None,
+                    likes: int = -1):
 
-        record.search_text = record.search_text if search_text is None else search_text
+    record = self.remove_record(id)
 
-        record.type = record.type if sub_type is None else sub_type
+    record.search_text = record.search_text if search_text is None else search_text
 
-        record.likes = record.likes if likes == -1 else likes
+    record.type = record.type if sub_type is None else sub_type
 
-        self.index_record(record.id, record.search_text, record.type, record.likes)
+    record.likes = record.likes if likes == -1 else likes
 
-    def increase_likes(self, id: int):
-        self.subs[id].likes += 1
+    self.index_record(record.id, record.search_text, record.type, record.likes)
 
-    def decrease_likes(self, id: int):
-        self.subs[id].likes -= 1
-        
-    def get_likes(self, id: int):
-        return self.subs[id].likes
-    
-    def increase_search_times(self, id: int):
-        self.subs[id].search_times += 1
-        self.total_searches += 1
-    
-    @property
-    def total_confirmed_subs(self):
-        return len(self.subs)
+  def increase_likes(self, id: int):
+    self.subs[id].likes += 1
 
-    def remove_record(self, id: int):
+  def decrease_likes(self, id: int):
+    self.subs[id].likes -= 1
 
-        record = self.subs.pop(id)
+  def get_likes(self, id: int):
+    if not id in self.subs:
+      return 0
+    return self.subs[id].likes
 
-        search_text = record.search_text
+  def increase_search_times(self, id: int):
+    self.subs[id].search_times += 1
+    self.total_searches += 1
 
-        for word in search_text.split():
+  @property
+  def total_confirmed_subs(self):
+    return len(self.subs)
 
-            if word in self.keywords:
+  def remove_record(self, id: int):
 
-                self.keywords[word].remove(record)
+    record = self.subs.pop(id)
 
-                if len(self.keywords[word]) == 0:
+    search_text = record.search_text
 
-                    del self.keywords[word]
+    for word in search_text.split():
 
-        return record
+      if word in self.keywords:
 
-    def search(self, search_text: str):
+        self.keywords[word].remove(record)
 
-        search_text = self.__clean_text(search_text)
+        if len(self.keywords[word]) == 0:
 
-        result = set()
+          del self.keywords[word]
 
-        first_flag = True
+    return record
 
-        for word in search_text.split():
+  def search(self, search_text: str):
 
-            if word in self.keywords:
+    search_text = self.__clean_text(search_text)
 
-                if not first_flag:
+    result = set()
 
-                    result = result.intersection(self.keywords[word])
-                else:
+    first_flag = True
 
-                    result = self.keywords[word]
+    for word in search_text.split():
 
-                    first_flag = False
+      if word in self.keywords:
 
-        return sorted(result, key=lambda x: x.likes, reverse=True)
+        if not first_flag:
 
-    def __repr__(self):
+          result = result.intersection(self.keywords[word])
+        else:
 
-        return f"SearchEngine with {len(self.subs)} records and {len(self.keywords)} keywords"
+          result = self.keywords[word]
+
+          first_flag = False
+
+    return sorted(result, key=lambda x: x.likes, reverse=True)
+
+  def __repr__(self):
+
+    return f"SearchEngine with {len(self.subs)} records and {len(self.keywords)} keywords"

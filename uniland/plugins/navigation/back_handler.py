@@ -9,8 +9,8 @@ from uniland.utils.builders import Builder
 
 
 @Client.on_message(
-    filters.regex(triggers.Triggers.BACK.value)
-    & filters.private)
+  filters.regex(triggers.Triggers.BACK.value)
+  & filters.private)
 async def back_nav(client, message):
   step = usercache.get_last_step(message.from_user.id)
   user_step = uxhandler.UXTree.nodes[step]
@@ -26,3 +26,4 @@ async def back_nav(client, message):
     await message.reply(text=user_step.parent.description,
                         reply_markup=user_step.parent.keyboard)
     user_db.update_user_step(message.from_user.id, user_step.parent.step)
+

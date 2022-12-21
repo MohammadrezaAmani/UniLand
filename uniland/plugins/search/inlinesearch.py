@@ -67,7 +67,7 @@ async def answer(client, inline_query):
           InlineQueryResultArticle(
             title=record.search_text,
             input_message_content=InputTextMessageContent(
-                profile.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
+              profile.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
             id=record.id,
             description=f'مورد علاقه {record.likes} نفر',
             reply_markup=InlineKeyboardMarkup([[
@@ -84,7 +84,7 @@ async def answer(client, inline_query):
         InlineQueryResultArticle(
           title=record.search_text,
           input_message_content=InputTextMessageContent(
-              media.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
+            media.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
           id=record.id,
           description=f'مورد علاقه {record.likes} نفر',
           reply_markup=InlineKeyboardMarkup([[
@@ -131,15 +131,14 @@ async def toggle_user_bookmark(client, callback_query):
   if result == 0:
     await callback_query.answer('Something Went Wrong!')
     return
-  elif new_likes == likes:
-    if result == 1:
-      await callback_query.answer('Added to bookmarks')
-    else:
-      await callback_query.answer('Removed from bookmarks')
-    return
+  elif result == 1:
+    await callback_query.answer('به پسندها اضافه شد.')
+  else:
+    await callback_query.answer('از پسندها حذف شد.')
 
-  await callback_query.edit_message_reply_markup(
-    InlineKeyboardMarkup([[
-      InlineKeyboardButton(text=f'👍 {new_likes}',
-                           callback_data=f"bookmark:{sub_id}:{new_likes}")
-    ]]))
+  if new_likes != likes:
+    await callback_query.edit_message_reply_markup(
+      InlineKeyboardMarkup([[
+        InlineKeyboardButton(text=f'👍 {new_likes}',
+                             callback_data=f"bookmark:{sub_id}:{new_likes}")
+      ]]))

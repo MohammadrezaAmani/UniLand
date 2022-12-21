@@ -93,7 +93,7 @@ async def show_bookmarks_callback(client, callback_query):
     return
 
   results = user_db.get_user_bookmarks(user_id)
-
+  
   if len(results) == 0:
       await callback_query.answer(text='شما هنوز محتوایی را پسند نکرده‌اید.', show_alert=True)
       return
@@ -105,8 +105,8 @@ async def show_bookmarks_callback(client, callback_query):
   display_text, buttons = Builder.get_navigation(
       results[page * page_size:min((page + 1) *
                                    page_size, len(results))], page,
-      page_size, f'🔖پسندهای شما\n\n',
-      lambda sub: f'{sub.user_display()}\n',
+      page_size, len(results), f'🔖پسندهای شما\n\n',
+      lambda sub: sub.user_display(),
       lambda page, page_size: f'showbookmarks:{user_id}:{page}:{page_size}')
 
   if not display_text or not buttons:
@@ -133,7 +133,7 @@ async def show_mysubs_callback(client, callback_query):
     return
 
   results = user_db.get_user_submissions(user_id)
-
+  
   if len(results) == 0:
       await callback_query.answer(text='شما هنوز محتوایی را ثبت نکرده‌اید.', show_alert=True)
       return
@@ -147,10 +147,10 @@ async def show_mysubs_callback(client, callback_query):
   display_text, buttons = Builder.get_navigation(
       results[page * page_size:min((page + 1) *
                                    page_size, len(results))], page,
-      page_size, f'🗄️فایل‌های ثبت شده توسط شما\n\n',
+      page_size, len(results), f'🗄️فایل‌های ثبت شده توسط شما\n\n',
       lambda sub: f"{'✅' if sub.is_confirmed else '❌'} "
       f"{types[sub.submission_type]}:\n"
-      f"{sub.user_display()}\n",
+      f"{sub.user_display()}",
       lambda page, page_size: f'showmysubs:{user_id}:{page}:{page_size}')
 
   if not display_text or not buttons:

@@ -12,15 +12,15 @@ def start() -> scoped_session:
   engine = create_engine(DB_URI)
   create_tables(engine)
   session = scoped_session(
-      sessionmaker(bind=engine, autoflush=False, expire_on_commit=False))
+    sessionmaker(bind=engine, autoflush=False, expire_on_commit=False))
 
   # adding users
   usercache = UserCache()
   for user in session.query(User).all():
     usercache.add_user(
-        user_id=user.user_id,
-        permission=user.access_level.value,
-        last_step=user.last_step,
+      user_id=user.user_id,
+      permission=user.access_level.value,
+      last_step=user.last_step,
     )
 
   # Indexing all submissions

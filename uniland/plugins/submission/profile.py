@@ -78,9 +78,9 @@ async def choose_doc_field(client, message):
         profile = staged_profs.pop(message.from_user.id)
         result = user_db.add_user_submission(message.from_user.id, profile)
         if result:
-            await message.reply(text='.فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود')
+            await message.reply(text='فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود.')
         else:
-            await message.reply('.متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا دوباره تلاش کنید')
+            await message.reply('متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا دوباره تلاش کنید.')
         await start_stage(client, message)
 
     # Cancel Button
@@ -247,14 +247,14 @@ async def profile_photo(client, message):
         return
     # Downloading photo and uploading as document on telegram
     # To get file_id as document
-    await message.reply('...در حال تبدیل به فایل')
+    await message.reply('در حال تبدیل به فایل...')
     photo = await message.download(in_memory=True)
     sent_message = await client.send_document(
         chat_id=STORAGE_CHAT_ID,
         document=photo
     )
     if sent_message == None:
-        await message.reply('.دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد\n .لطفا مجددا تلاش کنید')
+        await message.reply('دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد\n .لطفا مجددا تلاش کنید.')
         return
     # image_id is file_id of document
     image_id = sent_message.document.file_id

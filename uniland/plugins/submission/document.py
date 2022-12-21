@@ -77,9 +77,10 @@ async def choose_doc_field(client, message):
     final_doc = user_db.add_user_submission(message.from_user.id, doc)
     sent_message = None
     if final_doc:
-      sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID,
-                                                document=final_doc.file_id,
-                                                caption=final_doc.user_display())
+      sent_message = await client.send_document(
+        chat_id=STORAGE_CHAT_ID,
+        document=final_doc.file_id,
+        caption=final_doc.user_display())
     if sent_message:
       await message.reply(
         text=

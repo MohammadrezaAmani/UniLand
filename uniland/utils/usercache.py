@@ -64,7 +64,6 @@ class UserCache:
             return
         self.users[user_id].achieved_likes -= amount
         
-        
     def get_achieved_likes(self, user_id: int):
         if user_id not in self.users:
             return 0
