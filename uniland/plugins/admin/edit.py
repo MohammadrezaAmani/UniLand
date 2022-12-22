@@ -13,6 +13,7 @@ from uniland.config import STORAGE_CHAT_ID
 
 staged_editted_docs = {}
 
+
 @Client.on_message(filters.text & user_step(UserSteps.ADMIN_PANEL.value))
 async def start_editing_data2(
     client,
@@ -21,10 +22,8 @@ async def start_editing_data2(
     #! edit this part
     user_step = UXTree.nodes[UserSteps.EDIT_SUBMISSION.value]
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
-    user_db.update_user_step(
-        message.from_user.id, UserSteps.EDIT_SUBMISSION.value
-    )
-    
+    user_db.update_user_step(message.from_user.id, UserSteps.EDIT_SUBMISSION.value)
+
 
 @Client.on_message(filters.text & user_step(UserSteps.EDIT_SUBMISSION.value))
 async def get_editing_id(
@@ -37,9 +36,11 @@ async def get_editing_id(
         submission = get_submission(int(message.text))
         if submission == None:
             await message.reply("Submission not found")
-        if submission.submission_type==DocType.DOCUMENT.value:
+        if submission.submission_type == DocType.DOCUMENT.value:
             user_step = UXTree.nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value]
-            await message.reply(user_step.description.value, reply_markup=user_step.keyboard.value)
+            await message.reply(
+                user_step.description.value, reply_markup=user_step.keyboard.value
+            )
             user_db.update_user_step(
                 message.from_user.id, UserSteps.EDIT_DOCUMENT_SUBMISSION.value
             )
@@ -52,13 +53,15 @@ async def get_editing_id(
         #     await message.reply(user_step.description.value, reply_markup=user_step.keyboard.value)
         #     user_db.update_user_step(
         #         message.from_user.id, UserSteps.EDIT_PROFILE_SUBMISSION.value
-        #     )   
-            
+        #     )
+
     # print(get_submission(1))
     except Exception as e:
         print(e)
-        
+
     # await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
+
+
 @Client.on_message(filters.text & user_step(UserSteps.EDIT_DOCUMENT_SUBMISSION.value))
 async def start_editing_data(
     client,
@@ -258,4 +261,3 @@ async def doc_file_type(
             return
 
     await message.reply(".لطفا یکی از گزینه‌های زیر را انتخاب کنید")
-
