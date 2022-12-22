@@ -45,6 +45,14 @@ def confirm_user_submission(admin_id: int, submission_id: int):
 
 
 def get_submission(submission_id: int):
+  """search in database for a submission with given id and return it
+
+  Args:
+      submission_id (int): id of the submission
+
+  Returns:
+      tuple: (Submission, bool) -> (submission, is_confirmed)
+  """
   submission = SESSION.query(Submission).filter(
     Submission.id == submission_id).first()
   SESSION.expunge(submission)

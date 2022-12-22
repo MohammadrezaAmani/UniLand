@@ -12,10 +12,10 @@ class Triggers(enum.Enum):
     # ----------------- Submit Branch -----------------
     CHOOSE_SUBMISSION_TYPE = "📤 ارسال محتوا 📤"
 
-    DOCUMENT_SUBMISSION_FILE = 'ارسال فایل'
+    DOCUMENT_SUBMISSION_FILE = "ارسال فایل"
     DOCUMENT_SUBMISSION = "ارسال فایل"
-    DOCUMENT_SUBMISSION_CANCEL = '❌ لغو ❌'
-    DOCUMENT_SUBMISSION_FILE_TYPE = 'نوع فایل'
+    DOCUMENT_SUBMISSION_CANCEL = "❌ لغو ❌"
+    DOCUMENT_SUBMISSION_FILE_TYPE = "نوع فایل"
     DOCUMENT_SUBMISSION_UNIVERSITY = "دانشگاه"
     DOCUMENT_SUBMISSION_FACULTY = "دانشکده"
     DOCUMENT_SUBMISSION_OWNER_TITLE = "نام ثبت کننده"
@@ -28,10 +28,10 @@ class Triggers(enum.Enum):
 
     PROFILE_SUBMISSION_INPUT_TITLE = "ارسال اطلاعات"
     PROFILE_SUBMISSION = "ارسال اطلاعات"
-    PROFILE_SUBMISSION_CANCEL = '❌ لغو ❌'
+    PROFILE_SUBMISSION_CANCEL = "❌ لغو ❌"
     PROFILE_SUBMISSION_EDIT_TITLE = "عنوان"
-    PROFILE_SUBMISSION_PHOTO = 'تصویر'
-    PROFILE_SUBMISSION_DELETE_PHOTO = 'حذف تصویر فعلی'
+    PROFILE_SUBMISSION_PHOTO = "تصویر"
+    PROFILE_SUBMISSION_DELETE_PHOTO = "حذف تصویر فعلی"
     PROFILE_SUBMISSION_UNIVERSITY = "دانشگاه"
     PROFILE_SUBMISSION_FACULTY = "دانشکده"
     PROFILE_SUBMISSION_OWNER_TITLE = "نام ثبت کننده"
@@ -87,18 +87,19 @@ class Triggers(enum.Enum):
     ADMIN_PANEL = "دسترسی‌های ویژه"  # only shown to editors & admins
 
     # -------------- Bookmarks ---------------
-    BOOKMARKS_NAV_BACK = '⏮️'   # I'قبلی'I
-    BOOKMARKS_NAV_NEXT = '⏭️'  # I'بعدی'I
-  
+    BOOKMARKS_NAV_BACK = "⏮️"  # I'قبلی'I
+    BOOKMARKS_NAV_NEXT = "⏭️"  # I'بعدی'I
+
     # -------------- Edit document ----------
-    EDIT_SUBMISSION = 'ویرایش اطلاعات'
-    EDIT_DOCUMENT_SUBMISSION = 'ویرایش فایل'
-    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = 'ویرایش نوع فایل'
-    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = 'ویرایش دانشگاه'
-    EDIT_DOCUMENT_SUBMISSION_FACULTY = 'ویرایش دانشکده'
-    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = 'ویرایش نام ارسال کننده'
-    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = 'ویرایش توضیحات'
-    EDIT_DOCUMENT_SUBMISSION_COURSE = 'ویرایش نام درس'
-    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = 'ویرایش نام استاد'
-    EDIT_DOCUMENT_SUBMISSION_WRITER = 'ویرایش نام نویسنده'
-    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = 'ویرایش سال تدریس'
+    EDIT_SUBMISSION = "ویرایش اطلاعات"
+    EDIT_DOCUMENT_SUBMISSION = "ویرایش فایل"
+    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = "ویرایش نوع فایل"
+    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = "ویرایش دانشگاه"
+    EDIT_DOCUMENT_SUBMISSION_FACULTY = "ویرایش دانشکده"
+    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = "ویرایش نام ارسال کننده"
+    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = "ویرایش توضیحات"
+    EDIT_DOCUMENT_SUBMISSION_COURSE = "ویرایش نام درس"
+    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = "ویرایش نام استاد"
+    EDIT_DOCUMENT_SUBMISSION_WRITER = "ویرایش نام نویسنده"
+    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = "ویرایش سال تدریس"
+    EDIT_ID = 'edit_id'
