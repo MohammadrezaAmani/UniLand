@@ -83,4 +83,17 @@ class UserSteps(enum.Enum):
     EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = (
         "EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR".lower()
     )
+
     EDIT_ID = "EDIT_ID".lower()
+    EDIT_PROFILE_SUBMISSION_INPUT_TITLE = "EDIT_profile_submission_title"
+    EDIT_PROFILE_SUBMISSION = "EDIT_profile_submission_process"
+    EDIT_PROFILE_SUBMISSION_CANCEL = "EDIT_profile_submission_cancel"
+    EDIT_PROFILE_SUBMISSION_EDIT_TITLE = "EDIT_profile_submission_edit_title"
+    EDIT_PROFILE_SUBMISSION_PHOTO = "EDIT_profile_submission_photo"
+    EDIT_PROFILE_SUBMISSION_UNIVERSITY = "EDIT_profile_submission_university"
+    EDIT_PROFILE_SUBMISSION_FACULTY = "EDIT_profile_submission_faculty"
+    EDIT_PROFILE_SUBMISSION_OWNER_TITLE = "EDIT_profile_submission_owner_title"
+    EDIT_PROFILE_SUBMISSION_DESCRIPTION = "EDIT_profile_submission_description"
+    EDIT_PROFILE_SUBMISSION_EMAIL = "EDIT_profile_submission_email"
+    EDIT_PROFILE_SUBMISSION_PHONE = "EDIT_profile_submission_phone"
+    EDIT_PROFILE_SUBMISSION_DONE = "EDIT_profile_submission_done_stage"
