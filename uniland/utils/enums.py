@@ -5,7 +5,6 @@ class UserLevel(enum.Enum):
     Ordinary = 1
     Editor = 2
     Admin = 3
-  
 
 
 class DocType(enum.Enum):
@@ -15,9 +14,10 @@ class DocType(enum.Enum):
     CompressedFile = "ترکیبی"  # AND ZIP
     Template = "تمپلیت"  # AND PLANS AND SHEETS
 
-'''
+
+"""
 class CallbackCondition(enum.Enum):
   PVSEARCH = 'pvsearch'
   BOOKMARKS = 'bookmarkspage'
   MYSUBS = 'mysubmission'
-'''
+"""
