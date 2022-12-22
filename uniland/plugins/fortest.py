@@ -20,50 +20,54 @@ from uniland.config import STORAGE_CHAT_ID
 #     await message.reply_document(image_id)
 
 
-@Client.on_message(filters.text & filters.command('send_db')
-                   & access_level(3, 3),
-                   group=2)
+@Client.on_message(
+    filters.text & filters.command("send_db") & access_level(3, 3), group=2
+)
 async def send_db(client, message):
-  subs = len(search_engine.subs)
-  await message.reply_document('AUT_Archive.sqlite',
-                               caption=f'Total confirmed submissions: {subs}')
+    subs = len(search_engine.subs)
+    await message.reply_document(
+        "AUT_Archive.sqlite", caption=f"Total confirmed submissions: {subs}"
+    )
 
 
-@Client.on_message(filters.text & filters.command('count_actives')
-                   & access_level(3, 3),
-                   group=2)
+@Client.on_message(
+    filters.text & filters.command("count_actives") & access_level(3, 3), group=2
+)
 async def count_actives(client, message):
-  await message.reply_text(
-    f'Total active users in last hour: {user_db.count_active_users(60)}')
+    await message.reply_text(
+        f"Total active users in last hour: {user_db.count_active_users(60)}"
+    )
 
 
-@Client.on_message(filters.text & filters.command('public_announcement')
-                   & access_level(3, 3))
+@Client.on_message(
+    filters.text & filters.command("public_announcement") & access_level(3, 3)
+)
 async def public_announcement(client, message):
-  users = user_db.list_users()
-  text = message.text.replace('/public_announcement', '')
-  for user in users:
-    if user.user_id == 122002479:
-      await client.send_message(user.user_id, text)
-    else:
-      try:
-        print(f'good user: {user.user_id}')
-        await client.send_message(user.user_id,text)
-      except Exception as e:
-        print(e)
-        print(f'bad user: {user.user_id}')
+    users = user_db.list_users()
+    text = message.text.replace("/public_announcement", "")
+    for user in users:
+        if user.user_id == 122002479:
+            await client.send_message(user.user_id, text)
+        else:
+            try:
+                print(f"good user: {user.user_id}")
+                await client.send_message(user.user_id, text)
+            except Exception as e:
+                print(e)
+                print(f"bad user: {user.user_id}")
 
 
-@Client.on_message(access_level(3, 3) & filters.command('chat_details'))
+@Client.on_message(access_level(3, 3) & filters.command("chat_details"))
 async def display_details(client, message):
-  await message.reply_text(
-    f'Chat ID: {message.chat.id}, Chat Type: {message.chat.type}')
-  await message.reply_text(f'User ID: {message.from_user.id}')
+    await message.reply_text(
+        f"Chat ID: {message.chat.id}, Chat Type: {message.chat.type}"
+    )
+    await message.reply_text(f"User ID: {message.from_user.id}")
 
 
-@Client.on_message(filters.text & filters.regex('admin') & access_level(min=3))
+@Client.on_message(filters.text & filters.regex("admin") & access_level(min=3))
 async def admin_check(client, message):
-  await message.reply("You are admin")
+    await message.reply("You are admin")
 
 
 # @Client.on_message(filters.text & filters.regex('step') & user_step('test'))
@@ -71,10 +75,10 @@ async def admin_check(client, message):
 #   await message.reply("You are in test step")
 
 
-@Client.on_message(access_level(3, 3) & filters.text & filters.regex('echo'))
+@Client.on_message(access_level(3, 3) & filters.text & filters.regex("echo"))
 async def echo(client, message):
-  await message.reply(message.text)
-  await message.reply('from UniLand!')
+    await message.reply(message.text)
+    await message.reply("from UniLand!")
 
 
 # @Client.on_message(filters.text & filters.regex('search'))
@@ -91,14 +95,13 @@ async def echo(client, message):
 #   await message.reply('Done!')
 
 
-@Client.on_message(
-  access_level(3, 3) & filters.text & filters.command('list_all'))
+@Client.on_message(access_level(3, 3) & filters.text & filters.command("list_all"))
 async def listall(client, message):
-  users = user_db.list_users()
-  await message.reply('Fetched Users!')
-  print(users)
-  for user in users:
-    await message.reply(str(user))
+    users = user_db.list_users()
+    await message.reply("Fetched Users!")
+    print(users)
+    for user in users:
+        await message.reply(str(user))
 
 
 # @Client.on_message(filters.text & filters.command('test_doc'))
@@ -108,14 +111,13 @@ async def listall(client, message):
 #   await message.reply('Document Added!')
 
 
-@Client.on_message(filters.text & filters.command('list_doc')
-                   & access_level(3, 3))
+@Client.on_message(filters.text & filters.command("list_doc") & access_level(3, 3))
 async def listdoc(client, message):
-  await message.reply('Testing...')
-  docs = doc_db.list_documents()
-  for doc in docs:
-    await message.reply(str(doc))
-  await message.reply('End of the list')
+    await message.reply("Testing...")
+    docs = doc_db.list_documents()
+    for doc in docs:
+        await message.reply(str(doc))
+    await message.reply("End of the list")
 
 
 # @Client.on_message(filters.text & filters.command('test_profile'))
@@ -125,14 +127,13 @@ async def listdoc(client, message):
 #   await message.reply('Profile Added!')
 
 
-@Client.on_message(filters.text & filters.command('list_profile')
-                   & access_level(3, 3))
+@Client.on_message(filters.text & filters.command("list_profile") & access_level(3, 3))
 async def listprofile(client, message):
-  await message.reply('Testing...')
-  profiles = profile_db.list_profiles()
-  for profile in profiles:
-    await message.reply(str(profile))
-  await message.reply('End of the list')
+    await message.reply("Testing...")
+    profiles = profile_db.list_profiles()
+    for profile in profiles:
+        await message.reply(str(profile))
+    await message.reply("End of the list")
 
 
 # @Client.on_message(filters.text & filters.command('test_media'))
@@ -142,11 +143,10 @@ async def listprofile(client, message):
 #   await message.reply('Media Added!')
 
 
-@Client.on_message(filters.text & filters.command('list_media')
-                   & access_level(3, 3))
+@Client.on_message(filters.text & filters.command("list_media") & access_level(3, 3))
 async def listmedia(client, message):
-  await message.reply('Testing...')
-  medias = media_db.list_medias()
-  for media in medias:
-    await message.reply(str(media))
-  await message.reply('End of the list')
+    await message.reply("Testing...")
+    medias = media_db.list_medias()
+    for media in medias:
+        await message.reply(str(media))
+    await message.reply("End of the list")
