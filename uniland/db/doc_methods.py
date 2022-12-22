@@ -74,10 +74,12 @@ def get_document(id: int):
     SESSION.close()
     return document
 
-def unique_id_exists(unique_id:str):
+
+def unique_id_exists(unique_id: str):
     return SESSION.query(
         SESSION.query(Document).filter(Document.unique_id == unique_id).exists()
-        ).scalar()
+    ).scalar()
+
 
 def list_documents():
     return SESSION.query(Document).all()

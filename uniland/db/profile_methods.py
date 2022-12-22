@@ -42,10 +42,10 @@ def add_profile(user_id):
 
 
 def get_profile(id: int):
-	profile = SESSION.query(Profile).filter(Profile.id == id).first()
-	SESSION.expunge(profile)
-	SESSION.close()
-	return profile
+    profile = SESSION.query(Profile).filter(Profile.id == id).first()
+    SESSION.expunge(profile)
+    SESSION.close()
+    return profile
 
 
 def list_profiles():
