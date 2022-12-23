@@ -1,5 +1,5 @@
 import threading
-from uniland import SESSION, search_engine
+from uniland import SESSION, search_engine, usercache
 from uniland.db.tables import Submission
 from uniland.db import user_methods as user_db
 
@@ -46,6 +46,28 @@ def confirm_user_submission(admin_id: int, submission_id: int):
             )
             SESSION.commit()
         SESSION.close()
+        
+def delete_submission(submission_id: int) -> bool:
+    with SUBMISSION_INSERTION_LOCK:
+        submission = (
+            SESSION.query(Submission).filter(Submission.id == submission_id).first()
+        )
+        # Also decrease search times and achieved likes from usercache and search engine
+        if not submission:
+            SESSION.close()
+            return False
+        
+        for user in submission.liked_users:
+            usercache.decrease_achieved_likes(user.id,
+                                           amount=search_engine.get_likes(submission.id))
+        
+        search_engine.remove_record(submission.id)
+        submission.liked_users.clear()
+        SESSION.commit()
+        
+        SESSION.delete(submission)
+        SESSION.commit()
+        return True
 
 
 def get_submission(submission_id: int):
@@ -60,7 +82,8 @@ def get_submission(submission_id: int):
     submission = (
         SESSION.query(Submission).filter(Submission.id == submission_id).first()
     )
-    SESSION.expunge(submission)
+    SESSION.refresh(submission)
+    SESSION.expunge_all()
     SESSION.close()
     return submission
 
@@ -93,13 +116,3 @@ def count_total_submissions():
 def count_confirmed_submissions():
     return len(search_engine.subs)
 
-
-def delete_submission(submission_id: int):
-    with SUBMISSION_INSERTION_LOCK:
-        submission = (
-            SESSION.query(Submission).filter(Submission.id == submission_id).first()
-        )
-        if submission:
-            SESSION.delete(submission)
-            SESSION.commit()
-        SESSION.close()

@@ -134,6 +134,8 @@ class SearchEngine:
     def remove_record(self, id: int):
 
         record = self.subs.pop(id)
+        
+        self.total_searches -= record.search_times
 
         search_text = record.search_text
 

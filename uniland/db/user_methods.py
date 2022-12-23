@@ -112,6 +112,24 @@ def add_user_submission(user_id: int, submission: Submission) -> bool:
         SESSION.close()
         return submission
 
+def edit_admin_submission(admin_id: int, submission: Submission) -> bool:
+    with USER_INSERTION_LOCK:
+        SESSION.expunge_all()
+        admin = SESSION.query(User).filter(User.user_id == admin_id, User.access_level == UserLevel.Admin).first()
+        if admin == None:
+            SESSION.close()
+            return False
+        likes = search_engine.get_likes(submission.id)
+        search_engine.remove_record(submission.id)
+        submission.confirm(admin)
+        search_engine.index_record(submission.id,
+                                   submission.search_text,
+                                   submission.submission_type,
+                                   likes,
+                                   submission.search_times)
+        SESSION.commit()
+        SESSION.close()
+        return True
 
 def remove_user_submission(user_id: int, submission: Submission) -> bool:
     with USER_INSERTION_LOCK:

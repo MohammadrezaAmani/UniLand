@@ -36,7 +36,6 @@ async def display_profile(client, message, profile):
 
 @Client.on_message(
     filters.text
-    & ~filters.me
     & exact_match(Triggers.PROFILE_SUBMISSION_INPUT_TITLE.value)
     & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value)
 )
@@ -51,7 +50,6 @@ async def get_title(client, message):
 
 @Client.on_message(
     filters.text
-    & ~filters.me
     & ~exact_match(Triggers.BACK.value)
     & user_step(UserSteps.PROFILE_SUBMISSION_INPUT_TITLE.value)
 )
@@ -67,9 +65,9 @@ async def start_getting_data(client, message):
 
 
 @Client.on_message(
-    user_step(UserSteps.PROFILE_SUBMISSION.value) & ~filters.me & filters.text
+    user_step(UserSteps.PROFILE_SUBMISSION.value) & filters.text
 )
-async def choose_doc_field(client, message):
+async def choose_profile_field(client, message):
     # Routing the user to input file data fields
     user_step = UXTree.nodes[UserSteps.PROFILE_SUBMISSION.value]
     global staged_profs
@@ -89,18 +87,18 @@ async def choose_doc_field(client, message):
         result = user_db.add_user_submission(message.from_user.id, profile)
         if result:
             await message.reply(
-                text="فایل شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود."
+                text="محتوای مورد نظر شما با موفقیت ثبت شد و پس از تایید در دسترس کاربران قرار خواهد گرفت \nبا تشکر از شما بابت ارسال محتوای خود."
             )
         else:
             await message.reply(
-                "متاسفانه مشکلی در ثبت فایل شما به وجود آمده است. لطفا دوباره تلاش کنید."
+                "متاسفانه مشکلی در ثبت محتوای شما به وجود آمده است. لطفا دوباره تلاش کنید."
             )
         await start_stage(client, message)
 
     # Cancel Button
     elif message.text.strip() == Triggers.PROFILE_SUBMISSION_CANCEL.value:
         # User has canceled the submission process
-        await message.reply("عملیات ارسال فایل لغو شد.")
+        await message.reply("عملیات ارسال اطلاعات لغو شد.")
         staged_profs.pop(message.from_user.id)
         await start_stage(client, message)
 
@@ -122,7 +120,6 @@ async def go_back(client, message, step):
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_EDIT_TITLE.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -143,7 +140,6 @@ async def update_profile_title(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_PHONE.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -164,7 +160,6 @@ async def profile_phone(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_EMAIL.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -185,7 +180,6 @@ async def profile_email(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_UNIVERSITY.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -206,7 +200,6 @@ async def profile_university(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_FACULTY.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -227,7 +220,6 @@ async def profile_faculty(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_OWNER_TITLE.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -248,7 +240,6 @@ async def profile_owner_title(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_DESCRIPTION.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
@@ -269,11 +260,10 @@ async def profile_description(
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
-    & ~filters.me
     & filters.text
     & ~exact_match(Triggers.BACK.value)
 )
-async def delete_profile_photo(client, message):
+async def change_profile_photo(client, message):
     if not await check_profile(client, message):
         return
     global staged_profs
@@ -286,15 +276,8 @@ async def delete_profile_photo(client, message):
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
         return
 
-    # return # TODO! delete this line when implemented
 
-    # TODO! delete this line when implemented
-    # await message.reply('لطفا تصویر جدید را ارسال کنید یا یکی از دکمه‌های زیر را بزنید.')1
-
-    # TODO! Complete this part
     # Inputting profile photo
-    # Check if message is link using regex
-    # Download photo if input is a link
     # Upload photo to telegram
     # Set profile photo to uploaded photo
     profile = staged_profs[message.from_user.id]
@@ -306,13 +289,13 @@ async def delete_profile_photo(client, message):
         await message.reply("عکس پروفایل با موفقیت تغییر کرد.")
         await display_profile(client, message, profile)
         await go_back(client, message, UserSteps.PROFILE_SUBMISSION_PHOTO.value)
+        return
 
     await message.reply("لینک عکس پروفایل نامعتبر است.")
 
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
-    & ~filters.me
     & filters.photo
     & ~exact_match(Triggers.BACK.value)
 )
@@ -340,7 +323,6 @@ async def profile_photo(client, message):
 
 @Client.on_message(
     user_step(UserSteps.PROFILE_SUBMISSION_PHOTO.value)
-    & ~filters.me
     & filters.document
     & ~exact_match(Triggers.BACK.value)
 )

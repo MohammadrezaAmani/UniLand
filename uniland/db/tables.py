@@ -257,7 +257,7 @@ class Profile(Submission):
         university="نامشخص",
         faculty="نامشخص",
         owner_title="ناشناس",
-        description="توضیحاتی برای این فایل ثبت نشده است.",
+        description="توضیحاتی برای این مورد ثبت نشده است.",
     ):
 
         self.is_confirmed = is_confirmed

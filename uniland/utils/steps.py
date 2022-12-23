@@ -65,35 +65,31 @@ class UserSteps(enum.Enum):
     CHOOSE_USER_ACCESS_LEVEL = "choose_user_access_level"
 
     # ------------------ Edit FIle --------------------
-    EDIT_SUBMISSION = "EDIT_SUBMISSION".lower()
-    EDIT_DOCUMENT_SUBMISSION = "EDIT_DOCUMENT_SUBMISSION".lower()
-    EDIT_DOCUMENT_SUBMISSION_FILE = "EDIT_DOCUMENT_SUBMISSION_FILE".lower()
-    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = "EDIT_DOCUMENT_SUBMISSION_FILE_TYPE".lower()
-    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = "EDIT_DOCUMENT_SUBMISSION_UNIVERSITY".lower()
-    EDIT_DOCUMENT_SUBMISSION_FACULTY = "EDIT_DOCUMENT_SUBMISSION_FACULTY".lower()
-    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = (
-        "EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE".lower()
-    )
-    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = (
-        "EDIT_DOCUMENT_SUBMISSION_DESCRIPTION".lower()
-    )
-    EDIT_DOCUMENT_SUBMISSION_COURSE = "EDIT_DOCUMENT_SUBMISSION_COURSE".lower()
-    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = "EDIT_DOCUMENT_SUBMISSION_PROFESSOR".lower()
-    EDIT_DOCUMENT_SUBMISSION_WRITER = "EDIT_DOCUMENT_SUBMISSION_WRITER".lower()
-    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = (
-        "EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR".lower()
-    )
+    EDIT_SUBMISSION = "edit_submission_stage"
+    
+    EDIT_DOCUMENT_SUBMISSION = "edit_document_submission_stage"
+    EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = "edit_document_submission_remove_caution"
+    EDIT_DOCUMENT_SUBMISSION_FILE = "edit_document_submission_file_stage"
+    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = "edit_document_submission_type_stage"
+    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = "edit_document_submission_university_stage"
+    EDIT_DOCUMENT_SUBMISSION_FACULTY = "edit_document_submission_faculty_stage"
+    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = "edit_document_submission_owner_title_stage"
+    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = "edit_document_submission_description_stage"
+    EDIT_DOCUMENT_SUBMISSION_COURSE = "edit_document_submission_course_stage"
+    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = "edit_document_submission_professor_stage"
+    EDIT_DOCUMENT_SUBMISSION_WRITER = "edit_document_submission_writer_stage"
+    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = "edit_document_submission_semester_year_stage"
 
-    EDIT_ID = "EDIT_ID".lower()
-    EDIT_PROFILE_SUBMISSION_INPUT_TITLE = "EDIT_profile_submission_title"
-    EDIT_PROFILE_SUBMISSION = "EDIT_profile_submission_process"
-    EDIT_PROFILE_SUBMISSION_CANCEL = "EDIT_profile_submission_cancel"
-    EDIT_PROFILE_SUBMISSION_EDIT_TITLE = "EDIT_profile_submission_edit_title"
-    EDIT_PROFILE_SUBMISSION_PHOTO = "EDIT_profile_submission_photo"
-    EDIT_PROFILE_SUBMISSION_UNIVERSITY = "EDIT_profile_submission_university"
-    EDIT_PROFILE_SUBMISSION_FACULTY = "EDIT_profile_submission_faculty"
-    EDIT_PROFILE_SUBMISSION_OWNER_TITLE = "EDIT_profile_submission_owner_title"
-    EDIT_PROFILE_SUBMISSION_DESCRIPTION = "EDIT_profile_submission_description"
-    EDIT_PROFILE_SUBMISSION_EMAIL = "EDIT_profile_submission_email"
-    EDIT_PROFILE_SUBMISSION_PHONE = "EDIT_profile_submission_phone"
-    EDIT_PROFILE_SUBMISSION_DONE = "EDIT_profile_submission_done_stage"
+    EDIT_PROFILE_SUBMISSION = "edit_profile_submission_stage"
+    EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = "edit_profile_submission_remove_caution"
+    EDIT_PROFILE_SUBMISSION_TITLE = "edit_profile_submission_title_stage"
+    EDIT_PROFILE_SUBMISSION_CANCEL = "edit_profile_submission_cancel"
+    EDIT_PROFILE_SUBMISSION_EDIT_TITLE = "edit_profile_submission_edit_title_stage"
+    EDIT_PROFILE_SUBMISSION_PHOTO = "edit_profile_submission_photo_stage"
+    EDIT_PROFILE_SUBMISSION_UNIVERSITY = "edit_profile_submission_university_stage"
+    EDIT_PROFILE_SUBMISSION_FACULTY = "edit_profile_submission_faculty_stage"
+    EDIT_PROFILE_SUBMISSION_OWNER_TITLE = "edit_profile_submission_owner_title_stage"
+    EDIT_PROFILE_SUBMISSION_DESCRIPTION = "edit_profile_submission_description_stage"
+    EDIT_PROFILE_SUBMISSION_EMAIL = "edit_profile_submission_email_stage"
+    EDIT_PROFILE_SUBMISSION_PHONE = "edit_profile_submission_phone_stage"
+    EDIT_PROFILE_SUBMISSION_DONE = "edit_profile_submission_done"

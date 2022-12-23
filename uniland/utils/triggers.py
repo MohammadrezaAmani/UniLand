@@ -91,30 +91,16 @@ class Triggers(enum.Enum):
     BOOKMARKS_NAV_NEXT = "⏭️"  # I'بعدی'I
 
     # -------------- Edit document ----------
-    EDIT_SUBMISSION = "ویرایش اطلاعات"
+    EDIT_SUBMISSION = "ویرایش محتوا"
+    
+    EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = '⚠حذف فایل⚠'
+    EDIT_DOCUMENT_SUBMISSION_REMOVE = 'مطمئن هستم'
     EDIT_DOCUMENT_SUBMISSION = "ویرایش فایل"
-    EDIT_DOCUMENT_SUBMISSION_FILE_TYPE = "ویرایش نوع فایل"
-    EDIT_DOCUMENT_SUBMISSION_UNIVERSITY = "ویرایش دانشگاه"
-    EDIT_DOCUMENT_SUBMISSION_FACULTY = "ویرایش دانشکده"
-    EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE = "ویرایش نام ارسال کننده"
-    EDIT_DOCUMENT_SUBMISSION_DESCRIPTION = "ویرایش توضیحات"
-    EDIT_DOCUMENT_SUBMISSION_COURSE = "ویرایش نام درس"
-    EDIT_DOCUMENT_SUBMISSION_PROFESSOR = "ویرایش نام استاد"
-    EDIT_DOCUMENT_SUBMISSION_WRITER = "ویرایش نام نویسنده"
-    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = "ویرایش سال تدریس"
-    EDIT_ID = "edit_id"
+    # Used same trigger from document submission
 
     # -------------- Edit profile ----------
     EDIT_PROFILE_SUBMISSION_INPUT_TITLE = "ویرایش اطلاعات"
     EDIT_PROFILE_SUBMISSION = "ویرایش اطلاعات"
-    EDIT_PROFILE_SUBMISSION_CANCEL = "❌ لغو ❌"
-    EDIT_PROFILE_SUBMISSION_EDIT_TITLE = "عنوان"
-    EDIT_PROFILE_SUBMISSION_PHOTO = "تصویر"
-    EDIT_PROFILE_SUBMISSION_DELETE_PHOTO = "حذف تصویر فعلی"
-    EDIT_PROFILE_SUBMISSION_UNIVERSITY = "دانشگاه"
-    EDIT_PROFILE_SUBMISSION_FACULTY = "دانشکده"
-    EDIT_PROFILE_SUBMISSION_OWNER_TITLE = "نام ثبت کننده"
-    EDIT_PROFILE_SUBMISSION_DESCRIPTION = "توضیحات"
-    EDIT_PROFILE_SUBMISSION_EMAIL = "ایمیل"
-    EDIT_PROFILE_SUBMISSION_PHONE = "شماره تلفن"
-    EDIT_PROFILE_SUBMISSION_DONE = "✅ اتمام ✅"
+    EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = '⚠حذف پروفایل⚠'
+    EDIT_PROFILE_SUBMISSION_REMOVE = 'مطمئن هستم'
+    # Used same trigger from profile submission
