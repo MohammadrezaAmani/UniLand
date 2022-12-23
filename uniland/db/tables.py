@@ -193,6 +193,8 @@ class Document(Submission):
             self.search_text += f" نویسنده {self.writer}"
         if self.semester_year != 0:
             self.search_text += f" سال {self.semester_year}"
+        if self.faculty != "نامشخص":
+            self.search_text += f" دانشکده {self.faculty}"
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 

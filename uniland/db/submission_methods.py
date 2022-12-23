@@ -58,10 +58,11 @@ def delete_submission(submission_id: int) -> bool:
             return False
         
         for user in submission.liked_users:
-            usercache.decrease_achieved_likes(user.id,
+            usercache.decrease_achieved_likes(user.user_id,
                                            amount=search_engine.get_likes(submission.id))
         
-        search_engine.remove_record(submission.id)
+        if submission.id in search_engine.subs:
+            search_engine.remove_record(submission.id)
         submission.liked_users.clear()
         SESSION.commit()
         

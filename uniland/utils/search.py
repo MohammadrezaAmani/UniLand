@@ -76,13 +76,13 @@ class SearchEngine:
 
         self.total_searches += search_times
 
+        search_text = self.__clean_text(search_text)
+
         if search_text is None:
             self.subs[id] = SubmissionRecord(
-                id, search_text=search_text, type=sub_type.strip(), likes=likes
+                id, search_text='', type=sub_type.strip(), likes=likes
             )
             return
-
-        search_text = self.__clean_text(search_text)
 
         record = SubmissionRecord(
             id, search_text=search_text, type=sub_type.strip(), likes=likes
@@ -143,7 +143,7 @@ class SearchEngine:
 
             if word in self.keywords:
 
-                self.keywords[word].remove(record)
+                self.keywords[word].discard(record)
 
                 if len(self.keywords[word]) == 0:
 
