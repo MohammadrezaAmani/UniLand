@@ -34,7 +34,13 @@ async def show_user_profile(client, message):
     user_id = message.from_user.id
     score_message = (
         Messages.MYPROFILE_SCORE.value
-        + str(usercache.get_achieved_likes(user_id))
+        + str(usercache.get_achieved_likes(user_id) + 5*user_db.count_user_submissions(user_id))
+        + " ("
+        + str(user_db.count_user_submissions(user_id))
+        + " فایل ثبت شده، هریک 5 امتیاز و "
+        + str(usercache.get_achieved_likes(user_id)) 
+        + " لایک توسط کاربران"
+        + ")"
         + "\n\n"
     )
     submitted_message = (
@@ -91,7 +97,13 @@ async def show_myprofile(client, callback_query):
     user_id = callback_query.from_user.id
     score_message = (
         Messages.MYPROFILE_SCORE.value
-        + str(usercache.get_achieved_likes(user_id))
+        + str(usercache.get_achieved_likes(user_id) + 5*user_db.count_user_submissions(user_id))
+        + " ("
+        + str(user_db.count_user_submissions(user_id))
+        + " فایل ثبت شده، هریک 5 امتیاز و "
+        + str(usercache.get_achieved_likes(user_id)) 
+        + " لایک توسط کاربران"
+        + ")"
         + "\n\n"
     )
     submitted_message = (
