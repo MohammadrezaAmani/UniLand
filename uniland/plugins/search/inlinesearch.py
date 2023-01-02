@@ -14,11 +14,12 @@ from uniland.db import submission_methods as sub_db
 from uniland.plugins.dashboard.help import get_keyboard
 from uniland.utils.messages import Messages
 from uniland.utils.steps import UserSteps
+from uniland.config import SEARCH_BACKDOOR_GROUP
 
 
-@Client.on_inline_query()
+@Client.on_inline_query(~filters.bot)
 async def answer(client, inline_query):
-  records = search_engine.search(inline_query.query)
+  ignored, records = search_engine.search(inline_query.query)
 
   if len(records) > 50:
     records = records[:50]
@@ -104,6 +105,16 @@ async def answer(client, inline_query):
                                  get_keyboard(1))))
 
   await inline_query.answer(results=results, cache_time=1)
+  # TODO! Remove this part...
+  try:
+    if len(inline_query.query) > 3 and ignored:
+      await client.send_message(
+          chat_id=SEARCH_BACKDOOR_GROUP,
+        text=
+        f'{inline_query.query.strip()}\n\n From {inline_query.from_user.first_name}'
+      )
+  except Exception as e:
+    print(e)
 
 
 @Client.on_chosen_inline_result()
@@ -124,6 +135,10 @@ async def toggle_user_bookmark(client, callback_query):
 
   _, sub_id, likes = callback_query.data.split(':')
   sub_id, likes = int(sub_id), int(likes)
+  
+  if not sub_id in search_engine.subs:
+    await callback_query.answer('این محتوا حذف شده است.')
+    return
 
   result, new_likes = user_db.toggle_bookmark(callback_query.from_user.id,
                                               sub_id)

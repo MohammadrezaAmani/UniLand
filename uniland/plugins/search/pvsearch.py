@@ -10,6 +10,7 @@ from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
 from uniland.plugins.start.start import start_stage
 from uniland.utils.builders import Builder
+from uniland.config import SEARCH_BACKDOOR_GROUP
 
 
 @Client.on_message(filters.text
@@ -33,10 +34,20 @@ async def display_search_result(client, message):
 
   search_text = message.text.replace(':', ' ')
 
+  ignored, results = search_engine.search(search_text)
+
   results = [
-    Builder.get_submission_child(record.id, record.type)
-    for record in search_engine.search(search_text)
+    Builder.get_submission_child(record.id, record.type) for record in results
   ]
+
+  # TODO! Remove this part...
+  try:
+    if len(search_text) > 3 and ignored:
+      await client.send_message(
+        chat_id=SEARCH_BACKDOOR_GROUP,
+        text=f'{search_text}\n\n From {message.from_user.first_name}')
+  except Exception as e:
+    print(e)
 
   page, page_size = 0, 5
   display_text, buttons = Builder.get_navigation(
@@ -49,6 +60,11 @@ async def display_search_result(client, message):
                       reply_markup=InlineKeyboardMarkup(buttons),
                       parse_mode=ParseMode.DISABLED)
   new_step = UXTree.nodes[UserSteps.SEARCH.value].parent
+  if ignored:
+    await message.reply_text(
+      text=
+      '🕶️ نگران نباش! داریم دنبال فایلت می‌گردیم و به زودی به بات اضافه می‌شه. \nدر ضمن حتما یه سری به نحوه سرچ در بات که توی قسمت راهنما هست بزن! شاید فایلی که می‌خوای رو داشته باشیم ولی درست جستجوش نکردی.'
+    )
   await start_stage(client, message)
 
 
@@ -61,9 +77,10 @@ async def pvsearch_callback(client, callback_query):
     await callback_query.answer(text='این صفحه‌ اول است.', show_alert=True)
     return
 
+  ignored, results = search_engine.search(search_text)
+
   results = [
-    Builder.get_submission_child(record.id, record.type)
-    for record in search_engine.search(search_text)
+    Builder.get_submission_child(record.id, record.type) for record in results
   ]
 
   if len(results) <= page * page_size:
@@ -82,7 +99,7 @@ async def pvsearch_callback(client, callback_query):
     parse_mode=ParseMode.DISABLED)
 
 
-@Client.on_message(filters.text & filters.regex('^/get_'))
+@Client.on_message(filters.text & filters.regex('^/get_') & ~filters.bot)
 async def get_submission(client, message):
   submission_type, submission_id = message.text.split('_')[1:]
   submission = Builder.get_submission_child(submission_id, submission_type)
