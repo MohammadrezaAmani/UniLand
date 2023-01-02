@@ -56,7 +56,6 @@ async def get_access_level(client, message):
                       reply_markup=Pages.ADMIN_PANEL_CHOOSE_NEW_ACCESS_LEVEL)
   user_db.update_user_step(message.from_user.id, user_step.step)
 
-
 @Client.on_message(filters.text
                    & user_step(UserSteps.CHOOSE_USER_ACCESS_LEVEL.value)
                    & access_level(min=3)
@@ -70,6 +69,13 @@ async def change_access_level(client, message):
   
   if not message.from_user.id in user_id_input:
     await message.reply_text('خطای گم شدن اطلاعات! لطفا مجددا تلاش نمایید.')
+    user_db.update_user_step(message.from_user.id, user_step.step)
+    text, keyboard = Builder.display_panel(message.from_user.id)
+    await message.reply(text, reply_markup=keyboard)
+    return
+  
+  if not usercache.has_permission(message.from_user.id, min_permission=3):
+    await message.reply_text('شما سطح دسترسی مورد نیاز را ندارید!')
     user_db.update_user_step(message.from_user.id, user_step.step)
     text, keyboard = Builder.display_panel(message.from_user.id)
     await message.reply(text, reply_markup=keyboard)

@@ -68,12 +68,12 @@ def delete_submission(submission_id: int) -> bool:
     SESSION.commit()
 
     for submission in SESSION.query(Submission).filter(is_confirmed == True).all():
-      if total_search <= 0:
-        break
       if submission.search_times > 0:
         submission.search_times += 1
         total_searches -= 1
         SESSION.commit()
+        if total_search <= 0:
+          break
 
     SESSION.delete(submission)
     SESSION.commit()
