@@ -208,10 +208,8 @@ async def delete_submission(
   global staged_editted_subs
   if not await check_sub(client, message):
     return
-  print("Deleting submission")
   if message.text.strip() == Triggers.EDIT_DOCUMENT_SUBMISSION_REMOVE.value:
     sub = staged_editted_subs.pop(message.from_user.id)
-    print("User is sure to delete it!")
     result = sub_db.delete_submission(sub.id)
     if result:
       await message.reply('محتوای مورد نظر شما با متن جستجوی: \n\n' +
