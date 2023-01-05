@@ -75,6 +75,8 @@ class SearchEngine:
 
   def __clean_text(self, text: str):
 
+    text = ' ' + text + ' '
+
     for key, value in self.alts.items():
 
       text = text.replace(key, value)
