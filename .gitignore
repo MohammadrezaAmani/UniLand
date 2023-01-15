@@ -5,3 +5,4 @@ uniland/__pycache__
 *.session
 *.pyc
 test.py
+.vscode
