@@ -213,7 +213,7 @@ async def delete_submission(
     result = sub_db.delete_submission(sub.id)
     if result:
       await message.reply('محتوای مورد نظر شما با متن جستجوی: \n\n' +
-                          sub.search_text + '\n\nاز پایگاه داده حذف شد.')
+                          str(sub.search_text) + '\n\nاز پایگاه داده حذف شد.')
       await start_stage(client, message)
     else:
       await message.reply(

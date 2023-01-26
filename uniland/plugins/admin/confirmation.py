@@ -137,8 +137,8 @@ async def reject_submission(client, message):
     rejection_msg += message.text
     try:
         await client.send_message(sub.owner_id, rejection_msg)
-    except Exception as e:
-        print(e)
+    except:
+        pass
     reviewing_subs.pop(sub_id)  # pop from dictionary the rejected
     subs_db.delete_submission(sub_id)  # delete from db & cache
     user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]

@@ -57,12 +57,15 @@ class SearchEngine:
     " نه ": " 9 ",
     " صفر ": " 0 ",
     ",": " ",
+    "،": " ",
+    "#": " ",
     "-": " ",
     "_": " ",
     ":": " ",
     "ایمیل": "اطلاعات",
     "شماره": "اطلاعات",
     "پروفایل": "اطلاعات",
+    "ن‌ن"[1] : " " # Nim Fasele:)
   }
 
   def __init__(self):
@@ -80,6 +83,8 @@ class SearchEngine:
     for key, value in self.alts.items():
 
       text = text.replace(key, value)
+      
+    text = " ".join(text.split())
 
     return text.strip().lower()
 

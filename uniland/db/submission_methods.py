@@ -48,23 +48,23 @@ def confirm_user_submission(admin_id: int, submission_id: int):
 
 def delete_submission(submission_id: int) -> bool:
   with SUBMISSION_INSERTION_LOCK:
-    submission = (SESSION.query(Submission).filter(
+    target_submission = (SESSION.query(Submission).filter(
       Submission.id == submission_id).first())
     # Also decrease search times and achieved likes from usercache and search engine
-    if not submission:
+    if not target_submission:
       SESSION.close()
       return False
 
-    for user in submission.liked_users:
+    for user in target_submission.liked_users:
       usercache.decrease_achieved_likes(user.user_id,
                                         amount=search_engine.get_likes(
-                                          submission.id))
+                                          target_submission.id))
 
-    total_searches = submission.search_times
+    total_searches = target_submission.search_times
 
-    if submission.id in search_engine.subs:
-      search_engine.remove_record(submission.id)
-    submission.liked_users.clear()
+    if target_submission.id in search_engine.subs:
+      search_engine.remove_record(target_submission.id)
+    target_submission.liked_users.clear()
     SESSION.commit()
 
     for submission in SESSION.query(Submission).filter(Submission.is_confirmed == True).all():
@@ -76,7 +76,7 @@ def delete_submission(submission_id: int) -> bool:
         if total_searches <= 0:
           break
 
-    SESSION.delete(submission)
+    SESSION.delete(target_submission)
     SESSION.commit()
     return True
 

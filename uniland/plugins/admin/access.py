@@ -47,7 +47,7 @@ async def get_access_level(client, message):
     # When message is forwarded
     user_id_input[message.from_user.id] = message.forward_from.id
   # user not in database
-  if not usercache.has_user(int(message.forward_from.id)):
+  if message.forward_from and not usercache.has_user(int(message.forward_from.id)):
     await message.reply("این یوزر آیدی وجود ندارد. دوباره تلاش کنید.")
     return
   user_step = UXTree.nodes[UserSteps.CHOOSE_USER_ACCESS_LEVEL.value]

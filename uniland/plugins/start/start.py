@@ -46,22 +46,31 @@ async def start_stage(client, message):
 
 @Client.on_message(group=2)
 async def update_last_activity_on_message(client, message):
-  if not usercache.has_user(message.from_user.id):
-    user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
-  user_db.update_user_activity(message.from_user.id)
+  try:
+    if not usercache.has_user(message.from_user.id):
+      user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
+    user_db.update_user_activity(message.from_user.id)
+  except:
+    pass
 
 
 @Client.on_callback_query(group=2)
 async def update_last_activity_on_callback(client, callback_query):
-  if not usercache.has_user(callback_query.from_user.id):
-    user_db.add_user(callback_query.from_user.id,
-                     last_step=UserSteps.START.value)
-  user_db.update_user_activity(callback_query.from_user.id)
+  try:
+    if not usercache.has_user(callback_query.from_user.id):
+      user_db.add_user(callback_query.from_user.id,
+                      last_step=UserSteps.START.value)
+    user_db.update_user_activity(callback_query.from_user.id)
+  except:
+    pass
 
 
 @Client.on_inline_query(group=2)
 async def update_last_activity_on_inline(client, inline_query):
-  if not usercache.has_user(inline_query.from_user.id):
-    user_db.add_user(inline_query.from_user.id,
-                     last_step=UserSteps.START.value)
-  user_db.update_user_activity(inline_query.from_user.id)
+  try:
+    if not usercache.has_user(inline_query.from_user.id):
+      user_db.add_user(inline_query.from_user.id,
+                      last_step=UserSteps.START.value)
+    user_db.update_user_activity(inline_query.from_user.id)
+  except:
+    pass
