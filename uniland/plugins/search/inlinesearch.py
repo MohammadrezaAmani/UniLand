@@ -37,7 +37,7 @@ async def answer(client, inline_query):
           title=record.search_text,
           id=record.id,
           caption=document.user_display() + '\n' + "آیدی ربات: @UniLandBot",
-          description=f'مورد علاقه {record.likes} نفر',
+          description=f"محتوای {record.id}" + f' مورد علاقه {record.likes} نفر',
           reply_markup=InlineKeyboardMarkup([[
             InlineKeyboardButton(
               text=f'👍 {record.likes}',
@@ -56,7 +56,8 @@ async def answer(client, inline_query):
             title=record.search_text,
             id=record.id,
             caption=profile.user_display() + '\n' + "آیدی ربات: @UniLandBot",
-            description=f'مورد علاقه {record.likes} نفر',
+            description=f"محتوای {record.id}" +
+              f' مورد علاقه {record.likes} نفر',
             reply_markup=InlineKeyboardMarkup([[
               InlineKeyboardButton(
                 text=f'👍 {record.likes}',
@@ -70,7 +71,8 @@ async def answer(client, inline_query):
             input_message_content=InputTextMessageContent(
               profile.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
             id=record.id,
-            description=f'مورد علاقه {record.likes} نفر',
+            description=f"محتوای {record.id}" +
+              f' مورد علاقه {record.likes} نفر',
             reply_markup=InlineKeyboardMarkup([[
               InlineKeyboardButton(
                 text=f'👍 {record.likes}',
@@ -87,7 +89,8 @@ async def answer(client, inline_query):
           input_message_content=InputTextMessageContent(
             media.user_display() + '\n' + "آیدی ربات: @UniLandBot"),
           id=record.id,
-          description=f'مورد علاقه {record.likes} نفر',
+          description=f"محتوای {record.id}" +
+            f' مورد علاقه {record.likes} نفر',
           reply_markup=InlineKeyboardMarkup([[
             InlineKeyboardButton(
               text=f'👍 {media.likes}',
