@@ -22,8 +22,10 @@ def user_step(step: str):
 
 
 async def user_existence_check(self, client, message):
-    return usercache.has_user(message.from_user.id)
-
+    try:
+        return usercache.has_user(message.from_user.id)
+    except:
+        return False
 
 user_exists = filters.create(user_existence_check)
 

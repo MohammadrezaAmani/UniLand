@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ParseMode
 from uniland import search_engine, usercache
 from uniland.utils.triggers import Triggers
@@ -58,12 +58,18 @@ async def display_search_result(client, message):
 
   await message.reply(text=display_text,
                       reply_markup=InlineKeyboardMarkup(buttons),
-                      parse_mode=ParseMode.DISABLED)
+                      parse_mode=ParseMode.DISABLED,
+                      quote=True)
   new_step = UXTree.nodes[UserSteps.SEARCH.value].parent
-  if ignored:
+  if len(results) == 0:
+    keyboard = InlineKeyboardMarkup([[
+      InlineKeyboardButton(text='جستجوی اینلاین',
+                           switch_inline_query_current_chat='')
+    ]])
     await message.reply_text(
       text=
-      '🕶️ نگران نباش! داریم دنبال فایلت می‌گردیم و به زودی به بات اضافه می‌شه. \nدر ضمن حتما یه سری به نحوه سرچ در بات که توی قسمت راهنما هست بزن! شاید فایلی که می‌خوای رو داشته باشیم ولی درست جستجوش نکردی.'
+      '🕶️ نگران نباش! داریم دنبال فایلت می‌گردیم و به زودی به بات اضافه می‌شه. \nدر ضمن حتما یه سری به نحوه سرچ در بات که توی قسمت راهنما هست بزن! شاید فایلی که می‌خوای رو داشته باشیم ولی درست جستجوش نکردی.',
+      reply_markup=keyboard
     )
   await start_stage(client, message)
 

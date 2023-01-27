@@ -76,7 +76,7 @@ async def answer(client, inline_query):
                 text=f'👍 {record.likes}',
                 callback_data=f"bookmark:{record.id}:{record.likes}")
             ]])))
-
+    # ---------------------- Media ----------------------
     elif record.type == 'media':
       media = media_db.get_media(record.id)
       if media == None:
