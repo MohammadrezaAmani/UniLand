@@ -50,7 +50,7 @@ A highly modular and diverse Telegram Bot for universities and institutions writ
 
 ## <a name='Requirements'></a>Requirements
 ### <a name='Python-Compatibility'></a>**Python Compatibility**
-This bot is written entirely in python. tested versions are `python 3.8, 3.7` while older versions should not cause any problem, we recommend using the latest version of `python3`.
+This bot is written entirely in python. tested versions are `python 3.11, 3.10, 3.9, 3.8, 3.7` while older versions should not cause any problem, we recommend using the latest version of `python3`.
 
 ### <a name='Dependencies'></a>**Dependencies**
 This package requires the following packages:
