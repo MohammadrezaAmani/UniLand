@@ -9,7 +9,10 @@ from uniland.utils.filters import user_exists
 
 @Client.on_message(~user_exists, group=1)
 async def handle_new_user(client, message):
-  user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
+  try:
+    user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
+  except:
+    pass
 
 
 @Client.on_message(filters.text & filters.command("start") & filters.private)

@@ -290,7 +290,9 @@ class Profile(Submission):
     if self.email != "":
       out += f"ایمیل: {self.email}\n"
     if self.phone_number != "":
-      out += f"شماره تماس: {self.phone_number}\n"
+      def f(s): return ''.join([*s[1:], '+']) if s[0] == '+' else s
+      pretty_phone_number = list(map(f, self.phone_number.split()[::-1]))
+      out += f"شماره تماس: {' '.join(pretty_phone_number)}\n"
     if self.faculty != "نامشخص":
       out += f"دانشکده: {self.faculty}\n"
     if self.university != "نامشخص":
