@@ -6,15 +6,16 @@ except:
   print("uvloop is not installed")
 
 from pyrogram import Client
-from .config import API_ID, API_HASH, BOT_TOKEN, REPL_URL
+from .config import API_ID, API_HASH, BOT_TOKEN
 from .utils import keep_alive
 
 if __name__ == "__main__":
 
   # on_repl = True if "y" in input("Are you running this on repl.it? (y/n): ").lower() else False
-  on_repl = True
+  on_repl = False
 
   if on_repl:
+    from .config import REPL_URL
     keep_alive.awake(REPL_URL, False)
 
   plugins = dict(
