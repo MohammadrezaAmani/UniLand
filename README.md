@@ -68,7 +68,9 @@ To run the bot, you need to have a Telegram API ID and API Hash. You can get the
      BOT_TOKEN = # Your Bot Token
      REPL_URL = # Your Replit URL
 ```
-> *We recommend using a [Repl](https://replit.com/ "Replit") to host the bot but if you have your own server, replace `REPL_URL` with its URL.*  
+> ~~We recommend using a [Repl](https://replit.com/ "Replit") to host the bot but if you have your own server, replace `REPL_URL` with its URL.~~
+>
+> *[Replit](https://replit.com/) no longer supports Telegram bots, use another vps or hosting service.*
 
 Then, you can run the bot using the following command:
 
