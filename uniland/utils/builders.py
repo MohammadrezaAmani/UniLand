@@ -14,7 +14,6 @@ from uniland.utils.pages import Pages
 
 
 class Builder:
-
     # TODO use this function
     def display_panel(user_id):
         user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
@@ -29,7 +28,7 @@ class Builder:
             output += f"👤 تعداد کاربران جدید در یک ساعت اخیر: {user_db.count_new_signups(60)}\n"
             output += f"👤 تعداد کاربران جدید در ۲۴ ساعت اخیر: {user_db.count_new_signups(60*24)}\n"
             output += f"👤 تعداد کاربران جدید در یک هفته اخیر: {user_db.count_new_signups(60*24*7)}\n\n"
-            
+
             output += f"👮 تعداد کل ادمین‌ها: {user_db.count_admins()}\n"
             output += f"🕵️ تعداد کل ویرایشگرها: {user_db.count_editors()}\n"
             output += f"🗂️ تعداد رکوردها: {sub_db.count_total_submissions()}\n"
@@ -78,7 +77,6 @@ class Builder:
         text_generator,  # lambda sub
         callback_generator,  # lambda sub, page, page_size
     ):
-
         buttons = [
             [
                 InlineKeyboardButton(

@@ -2,7 +2,6 @@ import enum
 
 
 class UserSteps(enum.Enum):
-
     # ----------------- Start -----------------
     START = "start_stage"
 
@@ -66,7 +65,7 @@ class UserSteps(enum.Enum):
 
     # ------------------ Edit FIle --------------------
     EDIT_SUBMISSION = "edit_submission_stage"
-    
+
     EDIT_DOCUMENT_SUBMISSION = "edit_document_submission_stage"
     EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = "edit_document_submission_remove_caution"
     EDIT_DOCUMENT_SUBMISSION_FILE = "edit_document_submission_file_stage"
@@ -78,7 +77,9 @@ class UserSteps(enum.Enum):
     EDIT_DOCUMENT_SUBMISSION_COURSE = "edit_document_submission_course_stage"
     EDIT_DOCUMENT_SUBMISSION_PROFESSOR = "edit_document_submission_professor_stage"
     EDIT_DOCUMENT_SUBMISSION_WRITER = "edit_document_submission_writer_stage"
-    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = "edit_document_submission_semester_year_stage"
+    EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR = (
+        "edit_document_submission_semester_year_stage"
+    )
 
     EDIT_PROFILE_SUBMISSION = "edit_profile_submission_stage"
     EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = "edit_profile_submission_remove_caution"

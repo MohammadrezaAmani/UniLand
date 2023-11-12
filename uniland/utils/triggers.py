@@ -2,7 +2,6 @@ import enum
 
 
 class Triggers(enum.Enum):
-
     # ----------------- Start -----------------
     START = "/start"
     BACK = "🔙 برگشت"
@@ -92,15 +91,15 @@ class Triggers(enum.Enum):
 
     # -------------- Edit document ----------
     EDIT_SUBMISSION = "ویرایش محتوا"
-    
-    EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = '⚠ حذف فایل ⚠'
-    EDIT_DOCUMENT_SUBMISSION_REMOVE = 'مطمئن هستم'
+
+    EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = "⚠ حذف فایل ⚠"
+    EDIT_DOCUMENT_SUBMISSION_REMOVE = "مطمئن هستم"
     EDIT_DOCUMENT_SUBMISSION = "ویرایش فایل"
     # Used same trigger from document submission
 
     # -------------- Edit profile ----------
     EDIT_PROFILE_SUBMISSION_INPUT_TITLE = "ویرایش اطلاعات"
     EDIT_PROFILE_SUBMISSION = "ویرایش اطلاعات"
-    EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = '⚠ حذف پروفایل ⚠'
-    EDIT_PROFILE_SUBMISSION_REMOVE = 'مطمئن هستم'
+    EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = "⚠ حذف پروفایل ⚠"
+    EDIT_PROFILE_SUBMISSION_REMOVE = "مطمئن هستم"
     # Used same trigger from profile submission

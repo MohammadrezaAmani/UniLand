@@ -326,7 +326,7 @@ class UXTree:
         step=UserSteps.EDIT_SUBMISSION.value,
         parent=nodes[UserSteps.ADMIN_PANEL.value],
         trigger=Triggers.EDIT_SUBMISSION,
-        description='لطفا شماره فایل یا اطلاعات مورد نظرتان را وارد کنید.',
+        description="لطفا شماره فایل یا اطلاعات مورد نظرتان را وارد کنید.",
         keyboard=Pages.BACK,
     )
     # #--------------- EDIT DOCUMENT SUBMISSION -------------

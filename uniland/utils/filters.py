@@ -27,6 +27,7 @@ async def user_existence_check(self, client, message):
     except:
         return False
 
+
 user_exists = filters.create(user_existence_check)
 
 

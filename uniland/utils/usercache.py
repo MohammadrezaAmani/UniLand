@@ -2,7 +2,6 @@ import os
 
 
 class UserRecord:
-
     permission_values = {"Admin": 3, "Editor": 2, "Ordinary": 1}
 
     def __init__(

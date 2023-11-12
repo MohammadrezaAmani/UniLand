@@ -19,7 +19,6 @@ from pyrogram.types import (
 
 
 class Pages:
-
     HOME = ReplyKeyboardMarkup(
         [
             [Triggers.SEARCH.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],
@@ -174,21 +173,14 @@ class Pages:
                 Triggers.DOCUMENT_SUBMISSION_DONE.value,
                 Triggers.EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION.value,
                 Triggers.DOCUMENT_SUBMISSION_CANCEL.value,
-            ]
+            ],
         ],
         resize_keyboard=True,
     )
-    
+
     EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION = ReplyKeyboardMarkup(
-        [
-            [
-                Triggers.EDIT_DOCUMENT_SUBMISSION_REMOVE.value
-            ],
-            [
-                Triggers.BACK.value
-            ]
-        ],
-        resize_keyboard=True
+        [[Triggers.EDIT_DOCUMENT_SUBMISSION_REMOVE.value], [Triggers.BACK.value]],
+        resize_keyboard=True,
     )
 
     EDIT_PROFILE_SUBMISSION = ReplyKeyboardMarkup(
@@ -211,19 +203,12 @@ class Pages:
                 Triggers.DOCUMENT_SUBMISSION_DONE.value,
                 Triggers.EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION.value,
                 Triggers.DOCUMENT_SUBMISSION_CANCEL.value,
-            ]
+            ],
         ],
         resize_keyboard=True,
     )
-    
+
     EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION = ReplyKeyboardMarkup(
-        [
-            [
-                Triggers.EDIT_PROFILE_SUBMISSION_REMOVE.value
-            ],
-            [
-                Triggers.BACK.value
-            ]
-        ],
-        resize_keyboard=True
+        [[Triggers.EDIT_PROFILE_SUBMISSION_REMOVE.value], [Triggers.BACK.value]],
+        resize_keyboard=True,
     )
