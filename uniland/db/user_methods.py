@@ -74,7 +74,7 @@ def toggle_bookmark(user_id: int, submission_id: int) -> int:
             usercache.decrease_achieved_likes(submission.owner_id, 1)
             SESSION.commit()
             result = -1  # Bookmark Removed
-        elif not submission in user.bookmarks:
+        elif submission not in user.bookmarks:
             user.bookmarks.append(submission)
             search_engine.increase_likes(submission.id)
             usercache.increase_achieved_likes(submission.owner_id, 1)
@@ -142,7 +142,7 @@ def edit_admin_submission(admin_id: int, submission: Submission) -> bool:
 def remove_user_submission(user_id: int, submission: Submission) -> bool:
     with USER_INSERTION_LOCK:
         user = SESSION.query(User).filter(User.user_id == user_id).first()
-        if user == None or not submission in user.user_submissions:
+        if user == None or submission not in user.user_submissions:
             SESSION.close()
             return False
         user.user_submissions.remove(submission)

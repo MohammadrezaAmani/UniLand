@@ -1,7 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from uniland import usercache
-from uniland.db.tables import User
 from uniland.utils.triggers import Triggers
 from uniland.utils.steps import UserSteps
 from uniland.utils.uxhandler import UXTree
@@ -9,7 +7,6 @@ from uniland.utils.filters import user_step, exact_match, access_level
 import uniland.db.user_methods as user_db
 from uniland.utils.pages import Pages
 from uniland.utils.messages import Messages
-from uniland.utils.enums import UserLevel
 from uniland.utils.builders import Builder
 
 user_id_input = {}
@@ -79,7 +76,7 @@ async def change_access_level(client, message):
     global user_id_input
     output = ""
 
-    if not message.from_user.id in user_id_input:
+    if message.from_user.id not in user_id_input:
         await message.reply_text("خطای گم شدن اطلاعات! لطفا مجددا تلاش نمایید.")
         user_db.update_user_step(message.from_user.id, user_step.step)
         text, keyboard = Builder.display_panel(message.from_user.id)

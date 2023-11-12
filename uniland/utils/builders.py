@@ -80,11 +80,11 @@ class Builder:
         buttons = [
             [
                 InlineKeyboardButton(
-                    text=f"⏮ صفحه قبل",
+                    text="⏮ صفحه قبل",
                     callback_data=callback_generator(page - 1, page_size),
                 ),
                 InlineKeyboardButton(
-                    text=f"صفحه بعد ⏭",
+                    text="صفحه بعد ⏭",
                     callback_data=callback_generator(page + 1, page_size),
                 ),
             ]
@@ -99,7 +99,7 @@ class Builder:
         display_text += f"نتایج {first} تا {last} از {total} رکورد\n"
         for i, submission in enumerate(submissions):
             if not submission:
-                display_text += f".رکورد ناموجود است\n\n"
+                display_text += ".رکورد ناموجود است\n\n"
 
             else:
                 display_text += f"\n📔 رکورد {first + i}:\n"

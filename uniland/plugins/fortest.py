@@ -1,14 +1,11 @@
 from pyrogram import Client, filters
-from uniland.db.tables import User
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from uniland.db import user_methods as user_db
 from uniland.db import doc_methods as doc_db
 from uniland.db import profile_methods as profile_db
 from uniland.db import media_methods as media_db
 from uniland import search_engine, usercache
-from uniland.utils.filters import access_level, user_step
-from uniland.utils.builders import Builder
-from uniland.config import STORAGE_CHAT_ID
+from uniland.utils.filters import access_level
 
 # @Client.on_message(filters.photo)
 # async def mime_type(client, message):

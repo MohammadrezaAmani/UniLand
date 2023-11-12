@@ -100,7 +100,7 @@ async def accept_submission(client, callback_query):
 async def get_rejection_reason(client, callback_query):
     global reviewing_subs
     sub_id = int(callback_query.data.split(":")[2])
-    if not sub_id in reviewing_subs.keys():  # already reviewed
+    if sub_id not in reviewing_subs.keys():  # already reviewed
         await callback_query.edit_message_reply_markup([])
         await callback_query.answer(
             text=Messages.CONFIRMATION_ALREADY_REVIEWED.value, show_alert=True

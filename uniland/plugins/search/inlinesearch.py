@@ -174,7 +174,7 @@ async def toggle_user_bookmark(client, callback_query):
     _, sub_id, likes = callback_query.data.split(":")
     sub_id, likes = int(sub_id), int(likes)
 
-    if not sub_id in search_engine.subs:
+    if sub_id not in search_engine.subs:
         await callback_query.answer("این محتوا حذف شده است.")
         return
 

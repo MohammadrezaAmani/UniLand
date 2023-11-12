@@ -131,7 +131,7 @@ class SearchEngine:
         self.subs[id].likes -= 1
 
     def get_likes(self, id: int):
-        if not id in self.subs:
+        if id not in self.subs:
             return 0
         return self.subs[id].likes
 

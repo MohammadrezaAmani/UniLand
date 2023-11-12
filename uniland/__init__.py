@@ -5,8 +5,6 @@ from uniland.utils.search import SearchEngine
 from uniland.utils.usercache import UserCache
 from uniland.utils.uxhandler import UXTree
 from .config import DB_URI
-from datetime import datetime
-from random import randint
 
 
 def start() -> scoped_session:

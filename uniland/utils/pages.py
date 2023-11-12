@@ -1,20 +1,12 @@
-import enum
 from uniland.utils.triggers import Triggers
 from uniland.utils.enums import DocType
 
 from pyrogram.types import (
     ReplyKeyboardMarkup,
     InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    InlineQueryResultArticle,
-    InputTextMessageContent,
 )
 from pyrogram.types import (
-    ReplyKeyboardMarkup as RKM,
-    InlineKeyboardMarkup as IKM,
     InlineKeyboardButton as IKB,
-    InlineQueryResultArticle as IQRA,
-    InputTextMessageContent as ITMC,
 )
 
 

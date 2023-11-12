@@ -1,5 +1,4 @@
 from pyrogram import Client, filters
-import pyrogram
 from uniland.utils.triggers import Triggers
 import uniland.db.user_methods as user_db
 from uniland.utils.steps import UserSteps

@@ -25,7 +25,7 @@ async def show_user_profile(client, message):
         ],
         [
             InlineKeyboardButton(
-                text=f"🗄️ نمایش فایل‌های من",
+                text="🗄️ نمایش فایل‌های من",
                 callback_data=f"showmysubs:{message.from_user.id}:0:5",
             )
         ],
@@ -91,7 +91,7 @@ async def show_myprofile(client, callback_query):
         ],
         [
             InlineKeyboardButton(
-                text=f"🗄️ نمایش فایل‌های من",
+                text="🗄️ نمایش فایل‌های من",
                 callback_data=f"showmysubs:{callback_query.from_user.id}:0:5",
             )
         ],
@@ -173,7 +173,7 @@ async def show_bookmarks_callback(client, callback_query):
         page,
         page_size,
         len(results),
-        f"🔖پسندهای شما\n\n",
+        "🔖پسندهای شما\n\n",
         lambda sub: sub.user_display(),
         lambda page, page_size: f"showbookmarks:{user_id}:{page}:{page_size}",
     )
@@ -220,7 +220,7 @@ async def show_mysubs_callback(client, callback_query):
         page,
         page_size,
         len(results),
-        f"🗄️فایل‌های ثبت شده توسط شما\n\n",
+        "🗄️فایل‌های ثبت شده توسط شما\n\n",
         lambda sub: f"{'✅' if sub.is_confirmed else '❌'} "
         f"{types[sub.submission_type]}:\n"
         f"{sub.user_display()}",

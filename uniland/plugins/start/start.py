@@ -22,7 +22,7 @@ async def user_entrance(client, message):
         user_db.add_user(user_id, last_step=UserSteps.START.value)
 
     custom_message = f"سلام {message.from_user.first_name} عزیز"
-    custom_message += f"\nبه بات UniLand خوش اومدی!"
+    custom_message += "\nبه بات UniLand خوش اومدی!"
 
     start_step = UXTree.nodes[UserSteps.START.value]
     if usercache.has_permission(user_id, min_permission=2, max_permission=3):

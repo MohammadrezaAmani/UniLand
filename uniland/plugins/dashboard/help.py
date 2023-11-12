@@ -1,12 +1,9 @@
 # Adding users to database and navigate to bot's branches
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import uniland.db.user_methods as user_db
 from uniland.utils.triggers import Triggers
 from uniland.utils.messages import Messages
 from uniland.utils.steps import UserSteps
-from uniland.utils.uxhandler import UXTree
-from uniland.utils.uxhandler import UXTree
 from uniland.utils.filters import user_step, exact_match
 from copy import deepcopy
 
