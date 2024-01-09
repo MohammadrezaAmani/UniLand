@@ -17,7 +17,7 @@ from uniland.utils.uxhandler import UXTree
 async def admin_panel(client, message):
     """
     This function handles the admin panel functionality.
-    
+
     Args:
         client: The client object.
         message: The message object.

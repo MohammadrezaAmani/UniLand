@@ -16,6 +16,17 @@ staged_editted_subs = {}
 
 
 async def send_submission(client, message, submission):
+    """
+    Sends a submission to a client.
+
+    Args:
+        client (Client): The client to send the submission to.
+        message (Message): The message object to reply to.
+        submission (Submission): The submission to send.
+
+    Returns:
+        None
+    """
     if submission:
         if submission.submission_type == "document":
             await message.reply_document(
@@ -31,6 +42,16 @@ async def send_submission(client, message, submission):
 
 
 async def check_sub(client, message):
+    """
+    Check if the user's ID is in the list of staged edited subs.
+
+    Parameters:
+    - client: The client object.
+    - message: The message object.
+
+    Returns:
+    - True if the user's ID is in the list of staged edited subs, False otherwise.
+    """
     global staged_editted_subs
     if message.from_user.id not in staged_editted_subs:
         await message.reply(text="خطای گم شدن اطلاعات، لطفا دوباره تلاش کنید.")
@@ -40,6 +61,16 @@ async def check_sub(client, message):
 
 
 async def go_back(client, message):
+    """
+    Go back to the previous step.
+
+    Args:
+        client (TelegramClient): The Telegram client.
+        message (Message): The message object.
+
+    Returns:
+        None
+    """
     # Going back to previous step
     step = usercache.get_last_step(message.from_user.id)
     user_step = UXTree.nodes[step]
@@ -59,6 +90,16 @@ async def start_editing_subs(
     client,
     message,
 ):
+    """
+    Starts the process of editing submissions for the admin panel.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     #! edit this part
     user_step = UXTree.nodes[UserSteps.EDIT_SUBMISSION.value]
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
@@ -74,6 +115,11 @@ async def get_submission_id(
     client,
     message,
 ):
+    """
+    Retrieves the submission ID from the user's message and performs necessary checks.
+    If the submission ID is valid, it retrieves the submission and stores it in the global variable.
+    Then, it sends the submission to the user and updates the user's next step based on the submission type.
+    """
     submission = None
     sub_id = -1
     try:
@@ -114,7 +160,12 @@ async def choose_document_field(
     client,
     message,
 ):
-    # Routing the user to input file data fields
+    """
+    This function is triggered when a user selects a document field to edit during the document submission process.
+    It handles the routing of the user to input file data fields based on their selection.
+    If the user selects the "Done" button, it saves the edited document and sends it to the storage chat.
+    If the user selects the "Cancel" button, it cancels the document submission process.
+    """
     user_step = UXTree.nodes[UserSteps.EDIT_DOCUMENT_SUBMISSION.value]
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -164,7 +215,14 @@ async def choose_document_field(
 
 @Client.on_message(filters.text & user_step(UserSteps.EDIT_PROFILE_SUBMISSION.value))
 async def choose_profile_field(client, message):
-    # Routing the user to input file data fields
+    """
+    This function is triggered when a user sends a text message and is in the process of editing their profile submission.
+    It routes the user to input file data fields based on their selection.
+
+    Parameters:
+        client (TelegramClient): The Telegram client instance.
+        message (Message): The message object containing the user's text message.
+    """
     user_step = UXTree.nodes[UserSteps.EDIT_PROFILE_SUBMISSION.value]
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -214,6 +272,16 @@ async def delete_submission(
     client,
     message,
 ):
+    """
+    Deletes a submission from the database if the user confirms.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Deleting the submission if the user confirms
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -247,6 +315,16 @@ async def submission_faculty(
     client,
     message,
 ):
+    """
+    Handles the submission of faculty information for editing a document or profile.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Editting the faculty of the document
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -270,7 +348,16 @@ async def submission_university(
     client,
     message,
 ):
-    # Editting the university of the document
+    """
+    Edits the university of the document submission or profile submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -293,7 +380,16 @@ async def submission_owner_title(
     client,
     message,
 ):
-    # Editting the owner title of the document
+    """
+    Edits the owner title of the document.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -316,7 +412,16 @@ async def submission_description(
     client,
     message,
 ):
-    # Editting the description of the document
+    """
+    Edits the description of a document submission or profile submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -336,6 +441,16 @@ async def document_course(
     client,
     message,
 ):
+    """
+    Edits the course name of a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Editting course name
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -356,7 +471,16 @@ async def document_professor(
     client,
     message,
 ):
-    # Editting professor name
+    """
+    Edit the professor name for a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -376,7 +500,16 @@ async def document_writer(
     client,
     message,
 ):
-    # Editting the writer of the document
+    """
+    Edits the writer of a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -396,6 +529,16 @@ async def document_year(
     client,
     message,
 ):
+    """
+    Edits the semester year of a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Editting the semester if its number, show error otherwise
     if not await check_sub(client, message):
         return
@@ -422,6 +565,16 @@ async def document_file_type(
     client,
     message,
 ):
+    """
+    This function handles the editing of the file type of a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Editting the faculty of the document
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -447,6 +600,16 @@ async def profile_title(
     client,
     message,
 ):
+    """
+    Updates the profile title for a user's submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting new profile title
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -467,7 +630,16 @@ async def profile_phone(
     client,
     message,
 ):
-    # Inputting profile phone number
+    """
+    Handles the user's input for updating the profile phone number.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_editted_subs
     if not await check_sub(client, message):
         return
@@ -487,6 +659,16 @@ async def profile_email(
     client,
     message,
 ):
+    """
+    Handles the user's input for changing the profile email.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting profile email
     global staged_editted_subs
     if not await check_sub(client, message):
@@ -504,6 +686,16 @@ async def profile_email(
     & ~exact_match(Triggers.BACK.value)
 )
 async def profile_photo_by_text(client, message):
+    """
+    Handles the profile photo submission by text.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if not await check_sub(client, message):
         return
     global staged_editted_subs
@@ -539,6 +731,16 @@ async def profile_photo_by_text(client, message):
     & ~exact_match(Triggers.BACK.value)
 )
 async def profile_photo(client, message):
+    """
+    Handles the profile photo update process.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if not await check_sub(client, message):
         return
     # Downloading photo and uploading as document on telegram
@@ -566,6 +768,16 @@ async def profile_photo(client, message):
     & ~exact_match(Triggers.BACK.value)
 )
 async def profile_photo_document(client, message):
+    """
+    Handles the profile photo document message.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if not await check_sub(client, message):
         return
     if "image" in message.document.mime_type or usercache.has_permission(
