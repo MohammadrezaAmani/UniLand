@@ -29,6 +29,18 @@ bookmarks_association = Table(
 # When a user is deleted, not null constraint for submissions.owner_id
 # will raise error
 class User(BASE):
+    """
+    Represents a user in the system.
+
+    Attributes:
+        user_id (int): The ID of the user in Telegram.
+        access_level (UserLevel): The access level of the user.
+        last_step (str): The last step the user performed.
+        signup_date (datetime): The date and time when the user signed up.
+        last_active (datetime): The date and time when the user was last active.
+        bookmarks (list): The submissions that the user has bookmarked.
+    """
+
     __tablename__ = "users"
 
     user_id = Column(Integer, nullable=False, primary_key=True)  # user_id in telegram
@@ -38,7 +50,7 @@ class User(BASE):
     signup_date = Column(DateTime, default=datetime.utcnow)
     last_active = Column(DateTime, default=datetime.utcnow)
 
-    # user_submissions : list -> one-to_many with Submission.owner
+    # user_submissions : list -> one-to-many with Submission.owner
 
     # confirmations : list -> one-to-many with Submission.admin
 
@@ -63,6 +75,36 @@ class User(BASE):
 
 
 class Submission(BASE):
+    """
+    Represents a submission in the system.
+
+    Attributes:
+        id (int): The unique identifier of the submission.
+        submission_date (datetime): The date and time when the submission was made.
+        is_confirmed (bool): Indicates whether the submission has been confirmed.
+        owner_id (int): The ID of the user who owns the submission.
+        owner (User): The user who owns the submission.
+        admin_id (int): The ID of the admin who confirmed the submission.
+        admin (User): The admin who confirmed the submission.
+        liked_users (list): The list of users who have liked the submission.
+        university (str): The university associated with the submission.
+        faculty (str): The faculty associated with the submission.
+        owner_title (str): The title of the owner of the submission.
+        search_text (str): The search text associated with the submission.
+        description (str): The description of the submission.
+        search_times (int): The number of times the submission has been searched.
+        submission_type (str): The type of the submission.
+
+    Methods:
+        __init__(owner, is_confirmed, correspondent_admin, university, faculty, owner_title, description):
+            Initializes a new instance of the Submission class.
+        update_search_text():
+            Updates the search text of the submission.
+        confirm(user):
+            Confirms the submission with the specified user as the admin.
+
+    """
+
     __tablename__ = "submissions"
 
     id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
@@ -120,12 +162,26 @@ class Submission(BASE):
         self.description = description
 
     def update_search_text(self):
-        # This method is implemented in each subclass of Submission
+        """
+        Update the search text for the submission.
+
+        This method is implemented in each subclass of Submission.
+        It should not be called from the Submission class directly.
+        """
         raise NotImplementedError(
             "This method should not be called from Submission class"
         )
 
     def confirm(self, user: User):
+        """
+        Confirms the submission by updating the admin, confirmation status, and search text.
+
+        Args:
+            user (User): The user confirming the submission.
+
+        Raises:
+            RuntimeError: If the user doesn't have permission to confirm the submission.
+        """
         if user == None or user.access_level.value < 2:  # 2 is Editor access
             raise RuntimeError(
                 "User doesn't have permission to confirm this submission"
@@ -136,6 +192,26 @@ class Submission(BASE):
 
 
 # ---------------------------------------------------------------------
+
+
+class Document(Submission):
+    """
+    Represents a document submission in the database.
+
+    Attributes:
+        id (int): The unique identifier of the document.
+        file_id (str): The ID of the file associated with the document.
+        unique_id (str): The unique identifier of the document.
+        file_type (DocType): The type of the document.
+        course (str): The course associated with the document.
+        professor (str): The professor associated with the document.
+        writer (str): The writer of the document.
+        semester_year (int): The semester year of the document.
+    """
+
+    __tablename__ = "documents"
+
+    # Rest of the code...
 
 
 class Document(Submission):
@@ -183,7 +259,16 @@ class Document(Submission):
         self.writer = writer
         self.semester_year = semester_year
 
-    def update_search_text(self):
+    def update_search_text(self) -> None:
+        """
+        Updates the search_text attribute based on the values of the object's properties.
+
+        The search_text attribute is a string that represents the searchable text for the object.
+        It includes information about the file type, course, professor, writer, semester year, faculty, and university.
+
+        Returns:
+            None
+        """
         self.search_text = f"{self.file_type.value}"
         if self.course != "نامشخص":
             self.search_text += f" درس {self.course}"
@@ -198,7 +283,13 @@ class Document(Submission):
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
-    def user_display(self):
+    def user_display(self) -> str:
+        """
+        Returns a formatted string representation of the object.
+
+        Returns:
+            str: The formatted string representation of the object.
+        """
         out = f"نوع فایل: {self.file_type.value}\n"
         if self.course != "نامشخص":
             out += f"درس: {self.course}\n"
@@ -218,7 +309,13 @@ class Document(Submission):
         out += f"شماره فایل: {self.id}\n"
         return out
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        Returns a string representation of the object.
+
+        Returns:
+            str: A string representation of the object.
+        """
         out = f"نوع فایل: {self.file_type.value}\n"
         out += f"درس: {self.course}\n"
         out += f"استاد: {self.professor}\n"
@@ -239,6 +336,29 @@ class Document(Submission):
 
 
 class Profile(Submission):
+    """
+    Represents a user profile.
+
+    Attributes:
+        id (int): The unique identifier of the profile.
+        title (str): The title of the profile.
+        email (str): The email address associated with the profile.
+        phone_number (str): The phone number associated with the profile.
+        image_id (str): The ID of the profile image.
+        is_confirmed (bool): Indicates whether the profile is confirmed.
+        correspondent_admin: The correspondent admin for the profile.
+        university (str): The university associated with the profile.
+        faculty (str): The faculty associated with the profile.
+        owner_title (str): The title of the profile owner.
+        description (str): The description of the profile.
+
+    Methods:
+        __init__: Initializes a new instance of the Profile class.
+        update_search_text: Updates the search text for the profile.
+        user_display: Returns a formatted string for displaying the profile information.
+        __repr__: Returns a string representation of the profile.
+    """
+
     __tablename__ = "profiles"
 
     id = Column(Integer, ForeignKey("submissions.id"), primary_key=True)
@@ -274,14 +394,33 @@ class Profile(Submission):
         self.phone_number = phone_number
         self.image_id = image_id
 
-    def update_search_text(self):
+    def update_search_text(self) -> None:
+        """
+        Updates the search_text attribute based on the title, faculty, and university attributes.
+
+        The search_text attribute is a string that represents the searchable text for the object.
+        It is constructed by concatenating the title, faculty, and university attributes with appropriate labels.
+
+        Example:
+        If the title is "Computer Science", faculty is "Engineering", and university is "ABC University",
+        the search_text will be "اطلاعات Computer Science دانشکده Engineering دانشگاه ABC University".
+
+        Returns:
+        None
+        """
         self.search_text = f"اطلاعات {self.title}"
         if self.faculty != "نامشخص":
             self.search_text += f" دانشکده {self.faculty}"
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
-    def user_display(self):
+    def user_display(self) -> str:
+        """
+        Returns a formatted string representing the user's information.
+
+        Returns:
+            str: Formatted string containing the user's information.
+        """
         out = f"عنوان: {self.title}\n"
         if self.email != "":
             out += f"ایمیل: {self.email}\n"
@@ -302,7 +441,13 @@ class Profile(Submission):
         out += f"شماره پروفایل: {self.id}\n"
         return out
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        Returns a string representation of the object.
+
+        Returns:
+            str: A string representation of the object.
+        """
         out = f"عنوان: {self.title}\n"
         out += f"ایمیل: {self.email}\n"
         out += f"شماره تماس: {self.phone_number}\n"
@@ -318,6 +463,24 @@ class Profile(Submission):
 
 
 # ---------------------------------------------------------------------
+
+
+class Media(Submission):
+    """
+    Represents a media submission in the UniLand system.
+
+    Attributes:
+        id (int): The unique identifier of the media.
+        url (str): The URL of the media.
+        media_type (str): The type of the media.
+        course (str): The course associated with the media.
+        professor (str): The professor associated with the media.
+        semester_year (int): The year of the semester when the media was submitted.
+    """
+
+    __tablename__ = "medias"
+
+    # Rest of the code...
 
 
 class Media(Submission):
@@ -359,7 +522,10 @@ class Media(Submission):
         self.professor = professor
         self.semester_year = semester_year
 
-    def update_search_text(self):
+    def update_search_text(self) -> None:
+        """
+        Updates the search text based on the course, professor, faculty, semester year, and university.
+        """
         self.search_text = f"فیلم درس {self.course} استاد {self.professor}"
         if self.faculty != "نامشخص":
             self.search_text += f" دانشکده {self.faculty}"
@@ -368,7 +534,14 @@ class Media(Submission):
         if self.university != "نامشخص":
             self.search_text += f" دانشگاه {self.university}"
 
-    def user_display(self):
+    def user_display(self) -> str:
+        """
+        Returns a formatted string representation of the user's information.
+
+        Returns:
+            str: A formatted string containing the user's course, professor, semester year,
+                 faculty, university, owner title, description, and ID.
+        """
         out = f"عنوان: {self.course} استاد {self.professor}\n"
         if self.semester_year != 0:
             out += f"سال: {self.semester_year}\n"
@@ -382,7 +555,13 @@ class Media(Submission):
         out += f"شماره رسانه: {self.id}\n"
         return out
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        Returns a string representation of the object.
+
+        Returns:
+            str: A string representation of the object.
+        """
         out = f"لینک: {self.url}\n"
         out += f"نوع: {self.media_type}\n"
         out += f"درس: {self.course}\n"
@@ -397,6 +576,15 @@ class Media(Submission):
     }
 
 
-def create_tables(engine):
+def create_tables(engine) -> None:
+    """
+    Create database tables.
+
+    Args:
+        engine: SQLAlchemy engine object.
+
+    Returns:
+        None
+    """
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine, checkfirst=True)
