@@ -17,6 +17,16 @@ from uniland.utils.triggers import Triggers
     & exact_match(Triggers.MY_PROFILE.value)
 )
 async def show_user_profile(client, message):
+    """
+    Show the user's profile information including score, submissions count, bookmarks count, and access level.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     buttons = [
         [
             InlineKeyboardButton(

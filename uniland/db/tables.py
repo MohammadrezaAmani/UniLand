@@ -107,7 +107,8 @@ class Submission(BASE):
         submission_type (str): The type of the submission.
 
     Methods:
-        __init__(owner, is_confirmed, correspondent_admin, university, faculty, owner_title, description):
+        __init__(owner, is_confirmed, correspondent_admin, university,
+            faculty, owner_title, description):
             Initializes a new instance of the Submission class.
         update_search_text():
             Updates the search text of the submission.
@@ -153,7 +154,7 @@ class Submission(BASE):
         "polymorphic_identity": "submission",
         "polymorphic_on": submission_type,
     }
-
+    
     def __init__(
         self,
         owner,
@@ -204,8 +205,8 @@ class Submission(BASE):
 
 # ---------------------------------------------------------------------
 
-
 class Document(Submission):
+    
     """
     Represents a document submission in the database.
 
@@ -219,13 +220,6 @@ class Document(Submission):
         writer (str): The writer of the document.
         semester_year (int): The semester year of the document.
     """
-
-    __tablename__ = "documents"
-
-    # Rest of the code...
-
-
-class Document(Submission):
     __tablename__ = "documents"
 
     id = Column(Integer, ForeignKey("submissions.id"), primary_key=True)
@@ -274,8 +268,10 @@ class Document(Submission):
         """
         Updates the search_text attribute based on the values of the object's properties.
 
-        The search_text attribute is a string that represents the searchable text for the object.
-        It includes information about the file type, course, professor, writer, semester year, faculty, and university.
+        The search_text attribute is a string that represents the searchable text
+            for the object.
+        It includes information about the file type, course, professor,
+            writer, semester year, faculty, and university.
 
         Returns:
             None
