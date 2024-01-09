@@ -12,6 +12,15 @@ from uniland.utils.uxhandler import UXTree
 
 
 def get_keyboard(submission_id):
+    """
+    Returns a list of InlineKeyboardButton objects representing the keyboard options for confirmation.
+
+    Parameters:
+    - submission_id (int): The ID of the submission.
+
+    Returns:
+    - buttons (list): A list of InlineKeyboardButton objects representing the keyboard options.
+    """
     buttons = [
         [
             InlineKeyboardButton(  # accepts
@@ -40,6 +49,16 @@ reviewing_subs = {}  # dictionary of submission id to admin id
     & access_level(min=2)
 )
 async def admin_confirmation(client, message):
+    """
+    This function handles the admin confirmation process for submissions in the UniLand application.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global reviewing_subs
     admin_id = message.from_user.id
     sub_id = 0
@@ -83,6 +102,16 @@ async def admin_confirmation(client, message):
 
 @Client.on_callback_query(filters.regex("^confirmation:accept"))
 async def accept_submission(client, callback_query):
+    """
+    Accepts a submission and updates the database and cache accordingly.
+
+    Args:
+        client (TelegramClient): The Telegram client.
+        callback_query (CallbackQuery): The callback query.
+
+    Returns:
+        None
+    """
     await callback_query.edit_message_reply_markup([])
     global reviewing_subs
     sub_id = int(callback_query.data.split(":")[2])
@@ -99,6 +128,16 @@ async def accept_submission(client, callback_query):
 
 @Client.on_callback_query(filters.regex("^confirmation:reject"))
 async def get_rejection_reason(client, callback_query):
+    """
+    Retrieves the rejection reason for a submission.
+
+    Args:
+        client: The client object.
+        callback_query: The callback query object.
+
+    Returns:
+        None
+    """
     global reviewing_subs
     sub_id = int(callback_query.data.split(":")[2])
     if sub_id not in reviewing_subs.keys():  # already reviewed
@@ -123,6 +162,16 @@ async def get_rejection_reason(client, callback_query):
     & access_level(min=2)
 )
 async def reject_submission(client, message):
+    """
+    Rejects a submission and sends a rejection message to the owner.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global reviewing_subs
     admin_id = message.from_user.id
     sub_id = 0
@@ -150,6 +199,16 @@ async def reject_submission(client, message):
 
 @Client.on_callback_query(filters.regex("^confirmation:edit"))
 async def edit_submission(client, callback_query):
+    """
+    Edit the description of a file.
+
+    Args:
+        client: The client object.
+        callback_query: The callback query object.
+
+    Returns:
+        None
+    """
     db_sub_id = int(callback_query.data.split(":")[2])
     submission = subs_db.get_submission(db_sub_id)
     await callback_query.answer("Coming Soon!", show_alert=True)
