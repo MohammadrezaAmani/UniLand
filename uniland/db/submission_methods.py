@@ -1,25 +1,69 @@
+"""
+This module contains functions for managing submissions in the UniLand database.
+
+Submission Class Properties:
+    - id (int): The ID of the submission.
+    - submission_data (datetime): The date and time of the submission.
+    - is_confirmed (bool): Indicates whether the submission is confirmed or not.
+    - faculty (str): The faculty associated with the submission.
+    - search_text (str): The search text associated with the submission.
+    - description (str): The description of the submission.
+    - correspondent_admin (int): The ID of the correspondent admin (foreign key to user.user_id).
+    - owner (int): The ID of the owner (foreign key to user.user_id).
+    
+Functions:
+    - add_submission(user_id: int, submission_type: SubmissionType, faculty: str, search_text: str, description: str) -> None:
+        Adds a new submission to the database.
+        
+    - get_submission(id: int) -> Submission:
+        Retrieves a submission from the database by its ID.
+        
+    - list_submissions() -> List[Submission]:
+        Retrieves a list of all submissions in the database.
+        
+    - increase_search_times(id: int) -> None:
+        Increase the search times for a submission with the given ID.
+        
+    - confirm_user_submission(admin_id: int, submission_id: int) -> None:
+        Confirms a user submission by an admin.
+        
+    - delete_submission(submission_id: int) -> bool:
+        Deletes a submission from the database.
+        
+    - get_unconfirmed_submissions() -> List[Submission]:
+        Retrieves a list of unconfirmed submissions.
+        
+    - is_pending(submission_id: int) -> bool:
+        Check if a submission is pending.
+        
+    - count_total_submissions() -> int:
+        Counts the total number of submissions.
+        
+    - count_confirmed_submissions() -> int:
+        Counts the number of confirmed submissions.
+"""
+
 import threading
+from typing import List
 
 from uniland import SESSION, search_engine, usercache
 from uniland.db import user_methods as user_db
 from uniland.db.tables import Submission
 
-"""
-Submission Class Properties:
-	- id: int
-	- submission_data: datetime
-	- is_confirmed: bool
-	- faculty: str
-	- search_text: str
-	- description: str
-	- correspondent_admin: int - -> fk user.user_id
-	- owner: int - -> fk user.user_id
-"""
 
 SUBMISSION_INSERTION_LOCK = threading.RLock()
 
 
-def increase_search_times(id: int):
+def increase_search_times(id: int) -> None:
+    """
+    Increase the search times for a submission with the given ID.
+
+    Args:
+        id (int): The ID of the submission.
+
+    Returns:
+        None
+    """
     with SUBMISSION_INSERTION_LOCK:
         submission = SESSION.query(Submission).filter(Submission.id == id).first()
         if submission:
@@ -29,7 +73,17 @@ def increase_search_times(id: int):
         SESSION.close()
 
 
-def confirm_user_submission(admin_id: int, submission_id: int):
+def confirm_user_submission(admin_id: int, submission_id: int) -> None:
+    """
+    Confirms a user submission by an admin.
+
+    Args:
+        admin_id (int): The ID of the admin confirming the submission.
+        submission_id (int): The ID of the submission to be confirmed.
+
+    Returns:
+        None
+    """
     admin = user_db.get_user(admin_id)
     if admin == None:
         return
@@ -50,6 +104,15 @@ def confirm_user_submission(admin_id: int, submission_id: int):
 
 
 def delete_submission(submission_id: int) -> bool:
+    """
+    Deletes a submission from the database.
+
+    Args:
+        submission_id (int): The ID of the submission to be deleted.
+
+    Returns:
+        bool: True if the submission is successfully deleted, False otherwise.
+    """
     with SUBMISSION_INSERTION_LOCK:
         target_submission = (
             SESSION.query(Submission).filter(Submission.id == submission_id).first()
@@ -87,14 +150,15 @@ def delete_submission(submission_id: int) -> bool:
         return True
 
 
-def get_submission(submission_id: int):
-    """search in database for a submission with given id and return it
+def get_submission(submission_id: int) -> Submission:
+    """
+    Search in the database for a submission with the given id and return it.
 
     Args:
-        submission_id (int): id of the submission
+        submission_id (int): The id of the submission.
 
     Returns:
-        tuple: (Submission, bool) -> (submission, is_confirmed)
+        Submission: The submission object.
     """
     submission = (
         SESSION.query(Submission).filter(Submission.id == submission_id).first()
@@ -105,7 +169,13 @@ def get_submission(submission_id: int):
     return submission
 
 
-def get_unconfirmed_submissions():
+def get_unconfirmed_submissions() -> List[Submission]:
+    """
+    Retrieves a list of unconfirmed submissions.
+
+    Returns:
+        List[Submission]: A list of unconfirmed submissions.
+    """
     subs = (
         SESSION.query(Submission)
         .filter(Submission.is_confirmed == False)
@@ -117,7 +187,16 @@ def get_unconfirmed_submissions():
     return subs
 
 
-def is_pending(submission_id: int):
+def is_pending(submission_id: int) -> bool:
+    """
+    Check if a submission is pending.
+
+    Args:
+        submission_id (int): The ID of the submission.
+
+    Returns:
+        bool: True if the submission is pending, False otherwise.
+    """
     submission = (
         SESSION.query(Submission).filter(Submission.id == submission_id).first()
     )
@@ -126,9 +205,21 @@ def is_pending(submission_id: int):
     return False
 
 
-def count_total_submissions():
+def count_total_submissions() -> int:
+    """
+    Counts the total number of submissions.
+
+    Returns:
+        int: The total number of submissions.
+    """
     return SESSION.query(Submission).count()
 
 
-def count_confirmed_submissions():
+def count_confirmed_submissions() -> int:
+    """
+    Counts the number of confirmed submissions.
+
+    Returns:
+        int: The number of confirmed submissions.
+    """
     return len(search_engine.subs)
