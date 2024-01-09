@@ -5,6 +5,18 @@ from uniland.utils.triggers import Triggers
 
 
 class UXNode:
+    """
+    Represents a node in the UX (User Experience) tree.
+
+    Args:
+        step (str): The step associated with the node.
+        parent (UXNode, optional): The parent node. Defaults to None.
+        trigger (str, optional): The trigger associated with the node. Defaults to None.
+        keyboard (list, optional): The keyboard options associated with the node. Defaults to None.
+        description (str, optional): The description of the node. Defaults to "".
+        required_permission (int, optional): The required permission level for accessing the node. Defaults to 1.
+    """
+
     def __init__(
         self,
         step: str,
@@ -25,6 +37,12 @@ class UXNode:
         self.children = set()
 
     def set_parent(self, parent: "UXNode"):
+        """
+        Sets the parent node of the current node.
+
+        Args:
+            parent (UXNode): The parent node to set.
+        """
         self.parent = parent
         parent.children.add(self)
 
@@ -39,6 +57,10 @@ class UXNode:
 
 
 class UXTree:
+    """
+    Represents a tree structure for managing user experience nodes in the UniLand application.
+    """
+
     nodes = {}
 
     # initializing ux nodes

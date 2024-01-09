@@ -6,6 +6,29 @@ from uniland.utils.triggers import Triggers
 
 
 class Pages:
+    """
+    A class that defines different keyboard layouts for different pages in the application.
+
+    Attributes:
+        HOME: ReplyKeyboardMarkup - Keyboard layout for the home page.
+        ADMIN_HOME: ReplyKeyboardMarkup - Keyboard layout for the admin home page.
+        ADMIN_PANEL: ReplyKeyboardMarkup - Keyboard layout for the admin panel page.
+        ADMIN_PANEL_CHOOSE_NEW_ACCESS_LEVEL: ReplyKeyboardMarkup - Keyboard layout for choosing a new access level in the admin panel.
+        EDITOR_PANEL: ReplyKeyboardMarkup - Keyboard layout for the editor panel page.
+        BACK: ReplyKeyboardMarkup - Keyboard layout for the back button.
+        EMPTY: ReplyKeyboardMarkup - Keyboard layout for an empty keyboard.
+        CHOOSE_SUBMISSION_TYPE: ReplyKeyboardMarkup - Keyboard layout for choosing a submission type.
+        DOCUMENT_SUBMISSION: ReplyKeyboardMarkup - Keyboard layout for the document submission page.
+        DOCUMENT_SUBMISSION_FILE_TYPE: ReplyKeyboardMarkup - Keyboard layout for choosing a file type in the document submission page.
+        PROFILE_SUBMISSION: ReplyKeyboardMarkup - Keyboard layout for the profile submission page.
+        EDIT_PROFILE_SUBMISSION_PHOTO: ReplyKeyboardMarkup - Keyboard layout for editing the profile submission photo.
+        MEDIA_SUBMISSION: InlineKeyboardMarkup - Keyboard layout for the media submission page.
+        EDIT_DOCUMENT_SUBMISSION: ReplyKeyboardMarkup - Keyboard layout for editing the document submission page.
+        EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION: ReplyKeyboardMarkup - Keyboard layout for the caution message when removing a document submission.
+        EDIT_PROFILE_SUBMISSION: ReplyKeyboardMarkup - Keyboard layout for editing the profile submission page.
+        EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION: ReplyKeyboardMarkup - Keyboard layout for the caution message when removing a profile submission.
+    """
+
     HOME = ReplyKeyboardMarkup(
         [
             [Triggers.SEARCH.value, Triggers.CHOOSE_SUBMISSION_TYPE.value],

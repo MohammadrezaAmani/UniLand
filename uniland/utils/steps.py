@@ -2,6 +2,86 @@ import enum
 
 
 class UserSteps(enum.Enum):
+    """
+    Enum class representing the different steps in the user workflow.
+
+    Each step is represented by a unique string value.
+
+    Attributes:
+        START: The starting stage of the workflow.
+        SEARCH: The search branch of the workflow.
+        SEARCH_SHOW_RESULTS: The search show results stage of the workflow.
+        CHOOSE_SUBMISSION_TYPE: The choose submission type stage of the workflow.
+        DOCUMENT_SUBMISSION_FILE: The document submission file stage of the workflow.
+        DOCUMENT_SUBMISSION: The document submission process stage of the workflow.
+        DOCUMENT_SUBMISSION_CANCEL: The document submission cancel stage of the workflow.
+        DOCUMENT_SUBMISSION_FILE_TYPE: The document submission file type stage of the workflow.
+        DOCUMENT_SUBMISSION_UNIVERSITY: The document submission university stage of the workflow.
+        DOCUMENT_SUBMISSION_FACULTY: The document submission faculty stage of the workflow.
+        DOCUMENT_SUBMISSION_OWNER_TITLE: The document submission owner title stage of the workflow.
+        DOCUMENT_SUBMISSION_DESCRIPTION: The document submission description stage of the workflow.
+        DOCUMENT_SUBMISSION_COURSE: The document submission course stage of the workflow.
+        DOCUMENT_SUBMISSION_PROFESSOR: The document submission professor stage of the workflow.
+        DOCUMENT_SUBMISSION_WRITER: The document submission writer stage of the workflow.
+        DOCUMENT_SUBMISSION_SEMESTER_YEAR: The document submission semester year stage of the workflow.
+        DOCUMENT_SUBMISSION_DONE: The document submission done stage of the workflow.
+        PROFILE_SUBMISSION_INPUT_TITLE: The profile submission input title stage of the workflow.
+        PROFILE_SUBMISSION: The profile submission process stage of the workflow.
+        PROFILE_SUBMISSION_CANCEL: The profile submission cancel stage of the workflow.
+        PROFILE_SUBMISSION_EDIT_TITLE: The profile submission edit title stage of the workflow.
+        PROFILE_SUBMISSION_PHOTO: The profile submission photo stage of the workflow.
+        PROFILE_SUBMISSION_UNIVERSITY: The profile submission university stage of the workflow.
+        PROFILE_SUBMISSION_FACULTY: The profile submission faculty stage of the workflow.
+        PROFILE_SUBMISSION_OWNER_TITLE: The profile submission owner title stage of the workflow.
+        PROFILE_SUBMISSION_DESCRIPTION: The profile submission description stage of the workflow.
+        PROFILE_SUBMISSION_EMAIL: The profile submission email stage of the workflow.
+        PROFILE_SUBMISSION_PHONE: The profile submission phone stage of the workflow.
+        PROFILE_SUBMISSION_DONE: The profile submission done stage of the workflow.
+        MEDIA_SUBMISSION: The media submission process stage of the workflow.
+        MEDIA_SUBMISSION_UNIVERSITY: The media submission university stage of the workflow.
+        MEDIA_SUBMISSION_FACULTY: The media submission faculty stage of the workflow.
+        MEDIA_SUBMISSION_OWNER_TITLE: The media submission owner title stage of the workflow.
+        MEDIA_SUBMISSION_DESCRIPTION: The media submission description stage of the workflow.
+        MEDIA_SUBMISSION_URL: The media submission URL stage of the workflow.
+        MEDIA_SUBMISSION_MEDIA_TYPE: The media submission media type stage of the workflow.
+        MEDIA_SUBMISSION_COURSE: The media submission course stage of the workflow.
+        MEDIA_SUBMISSION_PROFESSOR: The media submission professor stage of the workflow.
+        MEDIA_SUBMISSION_SEMESTER_YEAR: The media submission semester year stage of the workflow.
+        ADMIN_PANEL: The admin panel stage of the workflow.
+        SHOW_STATISTICS: The show statistics stage of the workflow.
+        GET_SUBMISSION_TO_APPROVE: The get files to approve stage of the workflow.
+        GET_REJECTION_REASON: The get rejection reason stage of the workflow.
+        UPDATE_USER_ACCESS: The update user access stage of the workflow.
+        CHOOSE_USER_TO_UPDATE: The choose user to update stage of the workflow.
+        CHOOSE_USER_ACCESS_LEVEL: The choose user access level stage of the workflow.
+        EDIT_SUBMISSION: The edit submission stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION: The edit document submission stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_REMOVE_CAUTION: The edit document submission remove caution stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_FILE: The edit document submission file stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_FILE_TYPE: The edit document submission file type stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_UNIVERSITY: The edit document submission university stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_FACULTY: The edit document submission faculty stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_OWNER_TITLE: The edit document submission owner title stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_DESCRIPTION: The edit document submission description stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_COURSE: The edit document submission course stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_PROFESSOR: The edit document submission professor stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_WRITER: The edit document submission writer stage of the workflow.
+        EDIT_DOCUMENT_SUBMISSION_SEMESTER_YEAR: The edit document submission semester year stage of the workflow.
+        EDIT_PROFILE_SUBMISSION: The edit profile submission stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_REMOVE_CAUTION: The edit profile submission remove caution stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_TITLE: The edit profile submission title stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_CANCEL: The edit profile submission cancel stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_EDIT_TITLE: The edit profile submission edit title stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_PHOTO: The edit profile submission photo stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_UNIVERSITY: The edit profile submission university stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_FACULTY: The edit profile submission faculty stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_OWNER_TITLE: The edit profile submission owner title stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_DESCRIPTION: The edit profile submission description stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_EMAIL: The edit profile submission email stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_PHONE: The edit profile submission phone stage of the workflow.
+        EDIT_PROFILE_SUBMISSION_DONE: The edit profile submission done stage of the workflow.
+    """
+
     # ----------------- Start -----------------
     START = "start_stage"
 

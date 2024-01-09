@@ -2,6 +2,10 @@ import enum
 
 
 class Triggers(enum.Enum):
+    """
+    Enum class representing the triggers used in the application.
+    """
+
     # ----------------- Start -----------------
     START = "/start"
     BACK = "🔙 برگشت"
