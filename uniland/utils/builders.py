@@ -12,8 +12,29 @@ from uniland.utils.uxhandler import UXTree
 
 
 class Builder:
-    # TODO use this function
+    """
+    A class that provides various utility functions for building and manipulating data.
+
+    Attributes:
+        None
+
+    Methods:
+        display_panel(user_id): Display the admin panel or editor panel based on the user's permissions.
+        get_submission_child(submission_id, submission_type): Retrieves the child object associated with a submission.
+        file_message_generator(submission): Generates a message for a file submission.
+        get_navigation(submissions, page, page_size, total_size, page_title, text_generator, callback_generator): Generates navigation buttons and display text for a paginated list of submissions.
+    """
+
     def display_panel(user_id):
+        """
+        Display the admin panel or editor panel based on the user's permissions.
+
+        Args:
+            user_id (int): The ID of the user.
+
+        Returns:
+            tuple: A tuple containing the output message and the keyboard layout.
+        """
         user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
         if usercache.has_permission(user_id, min_permission=3, max_permission=3):
             output = "🔐 پنل ادمین\n\n"
@@ -39,6 +60,16 @@ class Builder:
         return (output, keyboard)
 
     def get_submission_child(submission_id: int, submission_type: str):
+        """
+        Retrieves the child object associated with a submission.
+
+        Args:
+            submission_id (int): The ID of the submission.
+            submission_type (str): The type of the submission.
+
+        Returns:
+            object: The child object associated with the submission, or None if not found.
+        """
         if submission_type == "document":
             return doc_db.get_document(submission_id)
         elif submission_type == "profile":
@@ -48,6 +79,15 @@ class Builder:
         return None
 
     def file_message_generator(submission):
+        """
+        Generates a message for a file submission.
+
+        Args:
+            submission: The submission object.
+
+        Returns:
+            A tuple containing the file ID, text, and keyboard markup.
+        """
         if submission == None:
             return (None, None, None)
         keyboard = InlineKeyboardMarkup(
@@ -75,6 +115,21 @@ class Builder:
         text_generator,  # lambda sub
         callback_generator,  # lambda sub, page, page_size
     ):
+        """
+        Generates navigation buttons and display text for a paginated list of submissions.
+
+        Args:
+            submissions (list): List of submissions.
+            page (int): Current page number.
+            page_size (int): Number of submissions per page.
+            total_size (int): Total number of submissions.
+            page_title (str): Title of the page.
+            text_generator (function): Lambda function to generate text for each submission.
+            callback_generator (function): Lambda function to generate callback data for navigation buttons.
+
+        Returns:
+            tuple: A tuple containing the display text and navigation buttons.
+        """
         buttons = [
             [
                 InlineKeyboardButton(

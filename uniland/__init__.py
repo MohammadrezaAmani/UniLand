@@ -10,6 +10,12 @@ from .config import DB_URI
 
 
 def start() -> scoped_session:
+    """
+    Initializes the database engine, creates tables, and populates user cache and search engine.
+
+    Returns:
+        A tuple containing the session, search engine, and user cache.
+    """
     # Creating db engine and session
     engine = create_engine(DB_URI)
     create_tables(engine)
