@@ -1,29 +1,36 @@
+"""
+This module contains functions for managing media objects in the UniLand database.
+
+Classes:
+    - Submission: Represents a submission in the UniLand system.
+    - Profile: Represents a user profile in the UniLand system.
+
+Functions:
+    - add_media(user_id: int) -> None: Adds media for a user.
+    - get_media(id: int) -> Media: Retrieves a media object by its ID.
+    - list_medias() -> List[Media]: Retrieves a list of all media objects from the database.
+"""
+
 import threading
+from typing import List
 
 from uniland import SESSION
 from uniland.db import user_methods as user_db
 from uniland.db.tables import Media
 
-"""
-	Submission Class Properties:
-		- id: int
-		- submission_data : datetime
-		- is_confirmed : bool
-		- faculty : str
-		- search_text : str
-		- description : str
-		- correspondent_admin : int --> fk user.user_id
-		- owner : int --> fk user.user_id
-
-	Profile Class Properties:
-		* Inherits from Submissions with type='media'
-		- url: str --> nullable=False
-"""
-
 MEDIA_INSERTION_LOCK = threading.RLock()
 
 
-def add_media(user_id):
+def add_media(user_id: int) -> None:
+    """
+    Add media for a user.
+
+    Args:
+        `user_id (int)`: The ID of the user.
+
+    Returns:
+        `None`
+    """
     global cnt
     user = user_db.add_user(user_id)
 
@@ -35,12 +42,27 @@ def add_media(user_id):
         SESSION.close()
 
 
-def get_media(id: int):
+def get_media(id: int) -> Media:
+    """
+    Retrieve a media object by its ID.
+
+    Args:
+        `id (int)`: The ID of the media object to retrieve.
+
+    Returns:
+        `Media`:` The retrieved media object.
+    """
     media = SESSION.query(Media).filter(Media.id == id).first()
     SESSION.expunge(media)
     SESSION.close()
     return media
 
 
-def list_medias():
+def list_medias() -> List[Media]:
+    """
+    Retrieve a list of all media objects from the database.
+
+    Returns:
+        `List[Media]`: A list of Media objects.
+    """
     return SESSION.query(Media).all()
