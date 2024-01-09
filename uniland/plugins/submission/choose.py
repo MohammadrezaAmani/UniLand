@@ -13,7 +13,16 @@ from uniland.utils.uxhandler import UXTree
     & user_step(UserSteps.START.value)
 )
 async def submission_type(client, message):
-    # Asks user to choose submission type
+    """
+    Handles the submission type selection by asking the user to choose the submission type and updating the user's step in the database.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     user_step = UXTree.nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value]
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
     user_db.update_user_step(message.from_user.id, user_step.step)

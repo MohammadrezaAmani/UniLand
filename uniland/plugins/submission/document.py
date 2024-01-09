@@ -22,6 +22,17 @@ staged_docs = {}
     & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value)
 )
 async def get_file(client, message):
+    """
+    This function is triggered when a user sends a text message that matches the DOCUMENT_SUBMISSION_FILE trigger,
+    and the user is in the CHOOSE_SUBMISSION_TYPE step. It handles the process of getting a file from the user.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Getting file from user
     user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION_FILE.value]
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
@@ -37,6 +48,17 @@ async def start_getting_data(
     client,
     message,
 ):
+    """
+    This function is triggered when a document is received from the user for submission.
+    It checks if the document already exists in the database and handles the submission process.
+
+    Args:
+        client: The Telegram client.
+        message: The message containing the document.
+
+    Returns:
+        None
+    """
     # User has sent the file, now it can change the file data
     if doc_db.unique_id_exists(message.document.file_unique_id):
         await message.reply(
@@ -55,6 +77,16 @@ async def start_getting_data(
 
 @Client.on_message(user_step(UserSteps.DOCUMENT_SUBMISSION.value) & filters.text)
 async def choose_doc_field(client, message):
+    """
+    This function handles the user's selection of document fields during the document submission process.
+
+    Parameters:
+    - client: The Telegram client.
+    - message: The message object containing the user's input.
+
+    Returns:
+    None
+    """
     # Routing the user to input file data fields
     user_step = UXTree.nodes[UserSteps.DOCUMENT_SUBMISSION.value]
     global staged_docs
@@ -124,6 +156,16 @@ async def doc_course(
     client,
     message,
 ):
+    """
+    Handles the submission of a document for a specific course.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting course name
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -142,6 +184,16 @@ async def doc_professor(
     client,
     message,
 ):
+    """
+    Handles the submission of a document by a professor.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting professor name
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -160,6 +212,16 @@ async def doc_writer(
     client,
     message,
 ):
+    """
+    Function to handle document submission by the writer.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the writer of the document
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -178,6 +240,16 @@ async def doc_faculty(
     client,
     message,
 ):
+    """
+    Function to handle the submission of the faculty for a document.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the faculty of the document
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -196,6 +268,16 @@ async def doc_university(
     client,
     message,
 ):
+    """
+    Handles the submission of a document's university.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the university of the document
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -214,7 +296,16 @@ async def doc_owner_title(
     client,
     message,
 ):
-    # Inputting the owner title of the document
+    """
+    Sets the owner title of the document.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_docs
     doc = staged_docs[message.from_user.id]
     doc.owner_title = message.text.strip()
@@ -232,6 +323,16 @@ async def doc_description(
     client,
     message,
 ):
+    """
+    Handles the input of the description for a document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the description of the document
     global staged_docs
     doc = staged_docs[message.from_user.id]
@@ -250,6 +351,16 @@ async def doc_year(
     client,
     message,
 ):
+    """
+    Sets the semester year for the document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the semester if its number, show error otherwise
     sem = 0
     try:
@@ -274,6 +385,16 @@ async def doc_file_type(
     client,
     message,
 ):
+    """
+    Handles the document file type selection step in the document submission process.
+
+    Args:
+        client: The client instance.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting the faculty of the document
     global staged_docs
     doc = staged_docs[message.from_user.id]
