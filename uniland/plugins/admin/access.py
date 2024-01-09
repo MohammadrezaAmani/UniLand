@@ -19,7 +19,17 @@ user_id_input = {}
     & exact_match(Triggers.UPDATE_USER_ACCESS.value)
     & access_level(min=3)
 )
-async def edit_access_level(client, message):
+async def edit_access_level(client, message) -> None:
+    """
+    Edit the access level of a user.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     user_step = UXTree.nodes[UserSteps.UPDATE_USER_ACCESS.value]
     messager_user_id = message.from_user.id
     await message.reply(
@@ -34,7 +44,17 @@ async def edit_access_level(client, message):
     & access_level(min=3)
     & ~exact_match(Triggers.BACK.value)
 )
-async def get_access_level(client, message):
+async def get_access_level(client, message) -> None:
+    """
+    Retrieves the access level for a user.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global user_id_input
     if message.forward_from == None and not message.forward_sender_name == None:
         await message.reply(
@@ -72,7 +92,17 @@ async def get_access_level(client, message):
         | exact_match(Triggers.USER_ACCESS_LEVEL_BASIC.value)
     )
 )
-async def change_access_level(client, message):
+async def change_access_level(client, message) -> None:
+    """
+    Change the access level of a user based on the received message.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
     global user_id_input
     output = ""
