@@ -154,7 +154,7 @@ class Submission(BASE):
         "polymorphic_identity": "submission",
         "polymorphic_on": submission_type,
     }
-    
+
     def __init__(
         self,
         owner,
@@ -205,8 +205,9 @@ class Submission(BASE):
 
 # ---------------------------------------------------------------------
 
+
 class Document(Submission):
-    
+
     """
     Represents a document submission in the database.
 
@@ -220,6 +221,7 @@ class Document(Submission):
         writer (str): The writer of the document.
         semester_year (int): The semester year of the document.
     """
+
     __tablename__ = "documents"
 
     id = Column(Integer, ForeignKey("submissions.id"), primary_key=True)
