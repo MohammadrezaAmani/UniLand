@@ -1,3 +1,14 @@
+"""
+This module contains the definition of the database tables used in the UniLand system.
+
+The module includes the following classes:
+- User: Represents a user in the system.
+- Submission: Represents a submission in the system.
+- Document: Represents a document submission in the database.
+
+Each class has its own attributes and methods, which are documented in their respective docstrings.
+"""
+
 from datetime import datetime
 
 from sqlalchemy import (
