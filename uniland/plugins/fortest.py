@@ -1,3 +1,5 @@
+"This module is for testing purposes only."
+
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 

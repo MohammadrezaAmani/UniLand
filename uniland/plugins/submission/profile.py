@@ -16,6 +16,16 @@ staged_profs = {}
 
 
 async def check_profile(client, message):
+    """
+    Check if the user's profile is staged.
+
+    Args:
+        client (TelegramClient): The Telegram client.
+        message (Message): The message object.
+
+    Returns:
+        bool: True if the user's profile is staged, False otherwise.
+    """
     global staged_profs
     if message.from_user.id not in staged_profs:
         await message.reply(text="خطای گم شدن اطلاعات، لطفا دوباره تلاش کنید.")
@@ -25,6 +35,17 @@ async def check_profile(client, message):
 
 
 async def display_profile(client, message, profile):
+    """
+    Display the profile information.
+
+    Args:
+        client (TelegramClient): The Telegram client.
+        message (Message): The message object.
+        profile (Profile): The profile object to display.
+
+    Returns:
+        None
+    """
     # Displaying the profile
     global staged_profs
     profile = staged_profs[message.from_user.id]
@@ -40,7 +61,15 @@ async def display_profile(client, message, profile):
     & user_step(UserSteps.CHOOSE_SUBMISSION_TYPE.value)
 )
 async def get_title(client, message):
-    # Getting profile title from user
+    """
+    This function is triggered when a user sends a message with a specific text,
+    matches a specific trigger, and is at a specific step in the user flow.
+    It prompts the user to enter a profile title and updates the user's step in the database.
+
+    Parameters:
+        client (TelegramClient): The Telegram client instance.
+        message (Message): The message object containing the user's input.
+    """
     user_step = UXTree.nodes[UserSteps.PROFILE_SUBMISSION_INPUT_TITLE.value]
     await message.reply(text=user_step.description, reply_markup=user_step.keyboard)
     user_db.update_user_step(
@@ -54,6 +83,16 @@ async def get_title(client, message):
     & user_step(UserSteps.PROFILE_SUBMISSION_INPUT_TITLE.value)
 )
 async def start_getting_data(client, message):
+    """
+    Function to start getting data for profile submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # User has sent the file, now it can change the file data
     profile = Profile(None, title=message.text)
     global staged_profs
@@ -66,6 +105,16 @@ async def start_getting_data(client, message):
 
 @Client.on_message(user_step(UserSteps.PROFILE_SUBMISSION.value) & filters.text)
 async def choose_profile_field(client, message):
+    """
+    Function to handle user input for profile field selection.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Routing the user to input file data fields
     user_step = UXTree.nodes[UserSteps.PROFILE_SUBMISSION.value]
     global staged_profs
@@ -125,6 +174,16 @@ async def update_profile_title(
     client,
     message,
 ):
+    """
+    Updates the profile title based on the user's input.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting new profile title
     global staged_profs
     if not await check_profile(client, message):
@@ -145,6 +204,16 @@ async def profile_phone(
     client,
     message,
 ):
+    """
+    Updates the phone number in the user's profile.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting profile phone number
     global staged_profs
     if not await check_profile(client, message):
@@ -165,6 +234,16 @@ async def profile_email(
     client,
     message,
 ):
+    """
+    Handles the submission of a user's profile email.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting profile email
     global staged_profs
     if not await check_profile(client, message):
@@ -185,6 +264,16 @@ async def profile_university(
     client,
     message,
 ):
+    """
+    Updates the university name in the user's profile.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting university name
     global staged_profs
     if not await check_profile(client, message):
@@ -205,6 +294,16 @@ async def profile_faculty(
     client,
     message,
 ):
+    """
+    Handles the submission of faculty information in the profile submission process.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting faculty name
     global staged_profs
     if not await check_profile(client, message):
@@ -225,7 +324,16 @@ async def profile_owner_title(
     client,
     message,
 ):
-    # Inputting owner title
+    """
+    Sets the owner title for a profile submission.
+
+    Args:
+        client: The client instance.
+        message: The message object.
+
+    Returns:
+        None
+    """
     global staged_profs
     if not await check_profile(client, message):
         return
@@ -245,6 +353,16 @@ async def profile_description(
     client,
     message,
 ):
+    """
+    Handles the submission of a profile description.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     # Inputting description
     global staged_profs
     if not await check_profile(client, message):
@@ -262,6 +380,16 @@ async def profile_description(
     & ~exact_match(Triggers.BACK.value)
 )
 async def change_profile_photo(client, message):
+    """
+    Changes the profile photo based on the user's input.
+
+    Args:
+        client: The Telegram client.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if not await check_profile(client, message):
         return
     global staged_profs
@@ -297,6 +425,16 @@ async def change_profile_photo(client, message):
     & ~exact_match(Triggers.BACK.value)
 )
 async def profile_photo(client, message):
+    """
+    Handles the profile photo submission.
+
+    Args:
+        client: The Telegram client.
+        message: The message containing the photo.
+
+    Returns:
+        None
+    """
     if not await check_profile(client, message):
         return
     # Downloading photo and uploading as document on telegram
@@ -324,6 +462,16 @@ async def profile_photo(client, message):
     & ~exact_match(Triggers.BACK.value)
 )
 async def profile_photo_document(client, message):
+    """
+    Handles the profile photo document submission.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if not await check_profile(client, message):
         return
     if "image" in message.document.mime_type or usercache.has_permission(

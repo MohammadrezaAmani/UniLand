@@ -11,6 +11,16 @@ async def submmition_handler(
     client,
     message,
 ):
+    """
+    Handles the submission message from the client.
+
+    Args:
+        client: The Telegram client.
+        message: The message received from the client.
+
+    Returns:
+        None
+    """
     step = UXTree.nodes[UserSteps.CHOOSE_SUBMISSION_TYPE.value]
     user_db.update_user_step(
         message.from_user.id, UserSteps.CHOOSE_SUBMISSION_TYPE.value
