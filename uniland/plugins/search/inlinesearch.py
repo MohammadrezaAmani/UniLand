@@ -1,4 +1,7 @@
-# Implementing functionality of bot's inline search
+"""
+Implementation of the inline search feature.
+
+"""
 
 from pyrogram import Client, filters
 from pyrogram.types import (
@@ -23,6 +26,16 @@ from uniland.utils.steps import UserSteps
 
 @Client.on_inline_query(~filters.bot)
 async def answer(client, inline_query):
+    """
+    Handles the inline query and returns the search results.
+
+    Args:
+        client: The pyrogram Client instance.
+        inline_query: The inline query object.
+
+    Returns:
+        None
+    """
     ignored, records = search_engine.search(inline_query.query)
 
     if len(records) > 50:
@@ -157,6 +170,16 @@ async def answer(client, inline_query):
 
 @Client.on_chosen_inline_result()
 async def update_search_stats(client, chosen_inline_result):
+    """
+    Updates the search statistics when an inline result is chosen.
+
+    Args:
+        client: The pyrogram Client instance.
+        chosen_inline_result: The chosen inline result object.
+
+    Returns:
+        None
+    """
     if not usercache.has_user(chosen_inline_result.from_user.id):
         user_db.add_user(
             chosen_inline_result.from_user.id, last_step=UserSteps.START.value
@@ -168,6 +191,16 @@ async def update_search_stats(client, chosen_inline_result):
 
 @Client.on_callback_query(filters.regex("^bookmark:"))
 async def toggle_user_bookmark(client, callback_query):
+    """
+    Toggles the user's bookmark for a submission.
+
+    Args:
+        client: The pyrogram Client instance.
+        callback_query: The callback query object.
+
+    Returns:
+        None
+    """
     if not usercache.has_user(callback_query.from_user.id):
         user_db.add_user(callback_query.from_user.id, last_step=UserSteps.START.value)
 

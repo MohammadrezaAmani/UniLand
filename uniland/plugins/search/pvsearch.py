@@ -28,6 +28,16 @@ async def get_pv_search_text(client, message):
     filters.text & user_step(UserSteps.SEARCH.value) & ~exact_match(Triggers.BACK.value)
 )
 async def display_search_result(client, message):
+    """
+    Display search results based on the user's input.
+
+    Args:
+        client: The client object.
+        message: The message object.
+
+    Returns:
+        None
+    """
     if len(message.text) > 100:
         await message.reply(text=".متن جستجو بیش از حد طولانی است")
         return
@@ -87,6 +97,16 @@ async def display_search_result(client, message):
 
 @Client.on_callback_query(filters.regex("^pvsearch:"))
 async def pvsearch_callback(client, callback_query):
+    """
+    Callback function for handling the 'pvsearch' command.
+
+    Args:
+        client (telegram.Client): The Telegram client.
+        callback_query (telegram.CallbackQuery): The callback query object.
+
+    Returns:
+        None
+    """
     page, page_size, search_text = callback_query.data.split(":")[1:]
     page, page_size = int(page), int(page_size)
 
@@ -123,6 +143,17 @@ async def pvsearch_callback(client, callback_query):
 
 @Client.on_message(filters.text & filters.regex("^/get_") & ~filters.bot)
 async def get_submission(client, message):
+    """
+    Retrieves a submission based on the provided submission type and ID,
+    and sends it as a message to the user.
+
+    Args:
+        client: The client instance.
+        message: The message object.
+
+    Returns:
+        None
+    """
     submission_type, submission_id = message.text.split("_")[1:]
     submission = Builder.get_submission_child(submission_id, submission_type)
     if submission == None or not submission.is_confirmed:
