@@ -15,6 +15,13 @@ from uniland.utils.uxhandler import UXTree
     & access_level(min=2)
 )
 async def admin_panel(client, message):
+    """
+    This function handles the admin panel functionality.
+    
+    Args:
+        client: The client object.
+        message: The message object.
+    """
     user_step = UXTree.nodes[UserSteps.ADMIN_PANEL.value]
     text, keyboard = Builder.display_panel(message.from_user.id)
     await message.reply(text, reply_markup=keyboard)
