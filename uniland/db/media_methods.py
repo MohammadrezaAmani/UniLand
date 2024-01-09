@@ -50,7 +50,7 @@ def get_media(id: int) -> Media:
         `id (int)`: The ID of the media object to retrieve.
 
     Returns:
-        `Media`:` The retrieved media object.
+        `Media`: The retrieved media object.
     """
     media = SESSION.query(Media).filter(Media.id == id).first()
     SESSION.expunge(media)
