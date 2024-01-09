@@ -1,11 +1,11 @@
-
 try:
     import uvloop
 except:
     print("uvloop is not installed")
 
 from pyrogram import Client
-from .config import API_ID, API_HASH, BOT_TOKEN
+
+from .config import API_HASH, API_ID, BOT_TOKEN
 from .utils import keep_alive
 
 if __name__ == "__main__":

@@ -1,13 +1,8 @@
-from uniland.utils.triggers import Triggers
-from uniland.utils.enums import DocType
+from pyrogram.types import InlineKeyboardButton as IKB
+from pyrogram.types import InlineKeyboardMarkup, ReplyKeyboardMarkup
 
-from pyrogram.types import (
-    ReplyKeyboardMarkup,
-    InlineKeyboardMarkup,
-)
-from pyrogram.types import (
-    InlineKeyboardButton as IKB,
-)
+from uniland.utils.enums import DocType
+from uniland.utils.triggers import Triggers
 
 
 class Pages:

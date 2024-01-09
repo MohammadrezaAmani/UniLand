@@ -1,16 +1,17 @@
 # Implementing finctionality of users' document submission
 
 from pyrogram import Client, filters
-from uniland.utils.triggers import Triggers
-import uniland.db.user_methods as user_db
+
 import uniland.db.doc_methods as doc_db
+import uniland.db.user_methods as user_db
+from uniland.config import STORAGE_CHAT_ID
 from uniland.db.tables import Document
-from uniland.utils.steps import UserSteps
-from uniland.utils.uxhandler import UXTree
-from uniland.utils.filters import user_step, exact_match
 from uniland.plugins.start.start import start_stage
 from uniland.utils.enums import DocType
-from uniland.config import STORAGE_CHAT_ID
+from uniland.utils.filters import exact_match, user_step
+from uniland.utils.steps import UserSteps
+from uniland.utils.triggers import Triggers
+from uniland.utils.uxhandler import UXTree
 
 staged_docs = {}
 

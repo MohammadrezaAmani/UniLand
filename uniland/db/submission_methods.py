@@ -1,7 +1,8 @@
 import threading
+
 from uniland import SESSION, search_engine, usercache
-from uniland.db.tables import Submission
 from uniland.db import user_methods as user_db
+from uniland.db.tables import Submission
 
 """
 Submission Class Properties:

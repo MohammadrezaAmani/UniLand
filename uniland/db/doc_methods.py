@@ -1,8 +1,9 @@
 import threading
-from uniland import SESSION
-from uniland.db.tables import Document, DocType
-from uniland.db import user_methods as user_db
 from random import randint
+
+from uniland import SESSION
+from uniland.db import user_methods as user_db
+from uniland.db.tables import DocType, Document
 
 """
 	Submission Class Properties:

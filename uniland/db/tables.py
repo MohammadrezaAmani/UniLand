@@ -1,16 +1,18 @@
+from datetime import datetime
+
 from sqlalchemy import (
+    Boolean,
     Column,
-    Integer,
-    String,
     DateTime,
     Enum,
-    Table,
-    Boolean,
     ForeignKey,
+    Integer,
+    String,
+    Table,
 )
-from sqlalchemy.orm import relationship, declarative_base
-from datetime import datetime
-from uniland.utils.enums import UserLevel, DocType
+from sqlalchemy.orm import declarative_base, relationship
+
+from uniland.utils.enums import DocType, UserLevel
 
 BASE = declarative_base()
 

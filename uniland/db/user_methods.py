@@ -1,10 +1,10 @@
 import threading
-from uniland import SESSION
-from uniland.db.tables import User, Submission, bookmarks_association
-from uniland import usercache, search_engine
+from datetime import datetime, timedelta
+
+from uniland import SESSION, search_engine, usercache
+from uniland.db.tables import Submission, User, bookmarks_association
 from uniland.utils.enums import UserLevel
 from uniland.utils.steps import UserSteps
-from datetime import datetime, timedelta
 
 USER_INSERTION_LOCK = threading.RLock()
 

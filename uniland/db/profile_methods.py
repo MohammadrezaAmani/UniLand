@@ -1,7 +1,8 @@
 import threading
+
 from uniland import SESSION
-from uniland.db.tables import Profile
 from uniland.db import user_methods as user_db
+from uniland.db.tables import Profile
 
 """
 	Submission Class Properties:

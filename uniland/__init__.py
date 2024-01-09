@@ -1,9 +1,11 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-from uniland.db.tables import User, Submission, create_tables
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+from uniland.db.tables import Submission, User, create_tables
 from uniland.utils.search import SearchEngine
 from uniland.utils.usercache import UserCache
 from uniland.utils.uxhandler import UXTree
+
 from .config import DB_URI
 
 
