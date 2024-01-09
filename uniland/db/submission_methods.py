@@ -50,7 +50,6 @@ from uniland import SESSION, search_engine, usercache
 from uniland.db import user_methods as user_db
 from uniland.db.tables import Submission
 
-
 SUBMISSION_INSERTION_LOCK = threading.RLock()
 
 
