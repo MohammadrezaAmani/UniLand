@@ -71,7 +71,7 @@ def get_user(user_id: int) -> User:
 
 
 def filter_users_by_access_level(
-    access_levels: list = [UserLevel.Admin, UserLevel.Editor, UserLevel.Ordinary]
+    access_levels: list = [UserLevel.Admin, UserLevel.Editor, UserLevel.Ordinary],
 ) -> List[User]:
     """
     Filter users by access levels.
@@ -125,7 +125,7 @@ def toggle_bookmark(user_id: int, submission_id: int) -> int:
             SESSION.query(Submission).filter(Submission.id == submission_id).first()
         )
         result = 0
-        if user == None or submission == None:
+        if user is None or submission is None:
             result = 0  # Something went wrong
         elif submission in user.bookmarks:
             user.bookmarks.remove(submission)
@@ -162,7 +162,7 @@ def add_user_submission(user_id: int, submission: Submission) -> Submission:
     """
     with USER_INSERTION_LOCK:
         user = SESSION.query(User).filter(User.user_id == user_id).first()
-        if user == None or submission == None or submission in user.user_submissions:
+        if user is None or submission is None or submission in user.user_submissions:
             SESSION.close()
             return None
         submission.owner = user
@@ -200,7 +200,7 @@ def edit_admin_submission(admin_id: int, submission: Submission) -> bool:
             .filter(User.user_id == admin_id, User.access_level == UserLevel.Admin)
             .first()
         )
-        if admin == None:
+        if admin is None:
             SESSION.close()
             return False
         likes = search_engine.get_likes(submission.id)
@@ -232,7 +232,7 @@ def remove_user_submission(user_id: int, submission: Submission) -> bool:
     """
     with USER_INSERTION_LOCK:
         user = SESSION.query(User).filter(User.user_id == user_id).first()
-        if user == None or submission not in user.user_submissions:
+        if user is None or submission not in user.user_submissions:
             SESSION.close()
             return False
         user.user_submissions.remove(submission)
@@ -278,9 +278,6 @@ def update_user_activity(user_id: int) -> None:
             )
             SESSION.commit()
             SESSION.close()
-
-
-from typing import List
 
 
 def get_user_bookmarks(user_id: int) -> List:
@@ -339,9 +336,6 @@ def count_user_bookmarks(user_id: int) -> int:
     )
 
 
-from datetime import datetime, timedelta
-
-
 def count_active_users(minutes: int) -> int:
     """
     Count the number of active users within the specified time frame.
@@ -384,40 +378,6 @@ def list_users() -> List[User]:
     Returns:
         List[User]: A list of User objects.
     """
-    return SESSION.query(User).all()
-
-
-def list_users() -> List[User]:
-    """
-    Retrieve a list of all users from the database.
-
-    Returns:
-        List[User]: A list of User objects.
-    """
-    return SESSION.query(User).all()
-
-
-def list_users() -> List[User]:
-    """
-    Retrieve a list of all users from the database.
-
-    Returns:
-        List[User]: A list of User objects representing all users in the database.
-    """
-    return SESSION.query(User).all()
-
-
-def list_users() -> List[User]:
-    """
-    Retrieve a list of all users from the database.
-
-    Returns:
-        List[User]: A list of User objects.
-    """
-    return SESSION.query(User).all()
-
-
-def list_users() -> List[User]:
     return SESSION.query(User).all()
 
 

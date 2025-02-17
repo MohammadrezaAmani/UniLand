@@ -1,4 +1,4 @@
-""" Messages to be shown in the project. """
+"""Messages to be shown in the project."""
 
 import enum
 

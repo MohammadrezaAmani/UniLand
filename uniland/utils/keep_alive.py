@@ -57,7 +57,7 @@ def ping(target, debug):
     """
     while True:
         r = requests.get(target)
-        if debug == True:
+        if debug is True:
             print("Status Code: " + str(r.status_code))
         time.sleep(
             random.randint(180, 300)

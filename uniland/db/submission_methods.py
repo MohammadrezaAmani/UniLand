@@ -10,35 +10,35 @@ Submission Class Properties:
     - description (str): The description of the submission.
     - correspondent_admin (int): The ID of the correspondent admin (foreign key to user.user_id).
     - owner (int): The ID of the owner (foreign key to user.user_id).
-    
+
 Functions:
     - add_submission(user_id: int, submission_type: SubmissionType, faculty: str, search_text: str, description: str) -> None:
         Adds a new submission to the database.
-        
+
     - get_submission(id: int) -> Submission:
         Retrieves a submission from the database by its ID.
-        
+
     - list_submissions() -> List[Submission]:
         Retrieves a list of all submissions in the database.
-        
+
     - increase_search_times(id: int) -> None:
         Increase the search times for a submission with the given ID.
-        
+
     - confirm_user_submission(admin_id: int, submission_id: int) -> None:
         Confirms a user submission by an admin.
-        
+
     - delete_submission(submission_id: int) -> bool:
         Deletes a submission from the database.
-        
+
     - get_unconfirmed_submissions() -> List[Submission]:
         Retrieves a list of unconfirmed submissions.
-        
+
     - is_pending(submission_id: int) -> bool:
         Check if a submission is pending.
-        
+
     - count_total_submissions() -> int:
         Counts the total number of submissions.
-        
+
     - count_confirmed_submissions() -> int:
         Counts the number of confirmed submissions.
 """
@@ -84,7 +84,7 @@ def confirm_user_submission(admin_id: int, submission_id: int) -> None:
         None
     """
     admin = user_db.get_user(admin_id)
-    if admin == None:
+    if admin is None:
         return
     with SUBMISSION_INSERTION_LOCK:
         submission = (
@@ -134,7 +134,7 @@ def delete_submission(submission_id: int) -> bool:
         SESSION.commit()
 
         for submission in (
-            SESSION.query(Submission).filter(Submission.is_confirmed == True).all()
+            SESSION.query(Submission).filter(Submission.is_confirmed is True).all()
         ):
             if submission.search_times > 0:
                 submission.search_times += 1
@@ -177,7 +177,7 @@ def get_unconfirmed_submissions() -> List[Submission]:
     """
     subs = (
         SESSION.query(Submission)
-        .filter(Submission.is_confirmed == False)
+        .filter(Submission.is_confirmed is False)
         .order_by(Submission.submission_date.desc())
         .all()
     )

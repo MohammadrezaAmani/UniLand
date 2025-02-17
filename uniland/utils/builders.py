@@ -42,11 +42,11 @@ class Builder:
             output += f"🔎 تعداد کل جستجوها: {search_engine.total_searches}\n\n"
             output += f"👤 تعداد کل کاربران: {user_db.count_users()}\n"
             output += f"👤 تعداد کاربران فعال در یک ساعت اخیر: {user_db.count_active_users(60)}\n"
-            output += f"👤 تعداد کاربران فعال در ۲۴ ساعت اخیر: {user_db.count_active_users(60*24)}\n"
-            output += f"👤 تعداد کاربران فعال در ۷ روز اخیر: {user_db.count_active_users(60*24*7)}\n"
+            output += f"👤 تعداد کاربران فعال در ۲۴ ساعت اخیر: {user_db.count_active_users(60 * 24)}\n"
+            output += f"👤 تعداد کاربران فعال در ۷ روز اخیر: {user_db.count_active_users(60 * 24 * 7)}\n"
             output += f"👤 تعداد کاربران جدید در یک ساعت اخیر: {user_db.count_new_signups(60)}\n"
-            output += f"👤 تعداد کاربران جدید در ۲۴ ساعت اخیر: {user_db.count_new_signups(60*24)}\n"
-            output += f"👤 تعداد کاربران جدید در یک هفته اخیر: {user_db.count_new_signups(60*24*7)}\n\n"
+            output += f"👤 تعداد کاربران جدید در ۲۴ ساعت اخیر: {user_db.count_new_signups(60 * 24)}\n"
+            output += f"👤 تعداد کاربران جدید در یک هفته اخیر: {user_db.count_new_signups(60 * 24 * 7)}\n\n"
 
             output += f"👮 تعداد کل ادمین‌ها: {user_db.count_admins()}\n"
             output += f"🕵️ تعداد کل ویرایشگرها: {user_db.count_editors()}\n"
@@ -88,7 +88,7 @@ class Builder:
         Returns:
             A tuple containing the file ID, text, and keyboard markup.
         """
-        if submission == None:
+        if submission is None:
             return (None, None, None)
         keyboard = InlineKeyboardMarkup(
             [

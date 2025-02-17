@@ -59,10 +59,10 @@ async def public_announcement(client, message):
             await message.copy(chat_id=user_id, reply_markup=keyboard)
             good += 1
             # await client.send_message(user.user_id, text)
-        except:
+        except Exception as _:
             bad += 1
     await message.reply_text(
-        f"Total number of users : {good+bad}\nSuccessful: {good}\nFailed: {bad}"
+        f"Total number of users : {good + bad}\nSuccessful: {good}\nFailed: {bad}"
     )
 
 

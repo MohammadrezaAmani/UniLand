@@ -56,12 +56,12 @@ async def get_access_level(client, message) -> None:
         None
     """
     global user_id_input
-    if message.forward_from == None and not message.forward_sender_name == None:
+    if message.forward_from is None and message.forward_sender_name is not None:
         await message.reply(
             f"شما در حال فوروارد کردن پیامی از {message.forward_sender_name} .هستید. اما قابلیت فوروارد پیام‌ها توسط ایشان بسته شده است."
         )
         return
-    elif message.forward_from == None:
+    elif message.forward_from is None:
         # When message is not forwarded
         user_id_input[message.from_user.id] = message.text
         if not message.text.isnumeric():  # not int

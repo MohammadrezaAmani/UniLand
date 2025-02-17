@@ -1,6 +1,6 @@
 try:
     import uvloop
-except:
+except Exception as _:
     print("uvloop is not installed")
 
 from pyrogram import Client
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     try:
         uvloop.install()
-    except:
+    except Exception as _:
         print("Could not apply uvloop on project")
 
     Client(

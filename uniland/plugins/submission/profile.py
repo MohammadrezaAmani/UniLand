@@ -49,7 +49,7 @@ async def display_profile(client, message, profile):
     # Displaying the profile
     global staged_profs
     profile = staged_profs[message.from_user.id]
-    if profile.image_id == None or profile.image_id == "":
+    if profile.image_id is None or profile.image_id == "":
         await message.reply(text=str(profile))
     else:
         await message.reply_document(document=profile.image_id, caption=str(profile))
@@ -442,7 +442,7 @@ async def profile_photo(client, message):
     await message.reply("در حال تبدیل به فایل...")
     photo = await message.download(in_memory=True)
     sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID, document=photo)
-    if sent_message == None:
+    if sent_message is None:
         await message.reply(
             "دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد\n .لطفا مجددا تلاش کنید."
         )

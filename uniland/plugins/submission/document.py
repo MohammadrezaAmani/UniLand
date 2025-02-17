@@ -365,7 +365,7 @@ async def doc_year(
     sem = 0
     try:
         sem = int(message.text.strip())
-    except:
+    except Exception as _:
         await message.reply("لطفا یک عدد وارد کنید.")
         return
     global staged_docs

@@ -124,17 +124,17 @@ async def get_submission_id(
     sub_id = -1
     try:
         sub_id = int(message.text)
-    except:
+    except Exception as _:
         await message.reply(text="شماره فایل یا اطلاعات وارد شده نامعتبر است!")
         return
 
     try:
         submission = get_submission(sub_id)
-    except:
+    except Exception as _:
         await message.reply("محتوایی با شماره موردنظر یافت نشد!")
         return
 
-    if submission == None:
+    if submission is None:
         await message.reply("محتوایی با شماره موردنظر یافت نشد!")
         return
 
@@ -545,7 +545,7 @@ async def document_year(
     sem = 0
     try:
         sem = int(message.text.strip())
-    except:
+    except Exception as _:
         await message.reply("لطفا یک عدد وارد کنید.")
         return
     global staged_editted_subs
@@ -748,7 +748,7 @@ async def profile_photo(client, message):
     await message.reply("در حال تبدیل به فایل...")
     photo = await message.download(in_memory=True)
     sent_message = await client.send_document(chat_id=STORAGE_CHAT_ID, document=photo)
-    if sent_message == None:
+    if sent_message is None:
         await message.reply(
             "دریافت فایل تصویری ناموفق بود، ممکن است به دلیل حجم زیاد تصویر باشد\n .لطفا مجددا تلاش کنید."
         )

@@ -34,7 +34,6 @@ class SubmissionRecord:
 
 
 class SearchEngine:
-
     """
     A class representing a search engine for indexing and searching records.
 

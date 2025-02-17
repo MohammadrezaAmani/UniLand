@@ -56,7 +56,7 @@ async def user_existence_check(self, client, message):
     """
     try:
         return usercache.has_user(message.from_user.id)
-    except:
+    except Exception as _:
         return False
 
 

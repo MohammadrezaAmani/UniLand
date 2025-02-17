@@ -22,7 +22,7 @@ async def handle_new_user(client, message):
     """
     try:
         user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
-    except:
+    except Exception as _:
         pass
 
 
@@ -88,7 +88,7 @@ async def update_last_activity_on_message(client, message):
         if not usercache.has_user(message.from_user.id):
             user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
         user_db.update_user_activity(message.from_user.id)
-    except:
+    except Exception as _:
         pass
 
 
@@ -107,7 +107,7 @@ async def update_last_activity_on_callback(client, callback_query):
                 callback_query.from_user.id, last_step=UserSteps.START.value
             )
         user_db.update_user_activity(callback_query.from_user.id)
-    except:
+    except Exception as _:
         pass
 
 
@@ -124,5 +124,5 @@ async def update_last_activity_on_inline(client, inline_query):
         if not usercache.has_user(inline_query.from_user.id):
             user_db.add_user(inline_query.from_user.id, last_step=UserSteps.START.value)
         user_db.update_user_activity(inline_query.from_user.id)
-    except:
+    except Exception as _:
         pass

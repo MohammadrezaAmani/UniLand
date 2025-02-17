@@ -187,7 +187,7 @@ async def reject_submission(client, message):
     rejection_msg += message.text
     try:
         await client.send_message(sub.owner_id, rejection_msg)
-    except:
+    except Exception as _:
         pass
     reviewing_subs.pop(sub_id)  # pop from dictionary the rejected
     subs_db.delete_submission(sub_id)  # delete from db & cache
@@ -209,7 +209,7 @@ async def edit_submission(client, callback_query):
     Returns:
         None
     """
-    db_sub_id = int(callback_query.data.split(":")[2])
-    submission = subs_db.get_submission(db_sub_id)
+    # db_sub_id = int(callback_query.data.split(":")[2])
+    # submission = subs_db.get_submission(db_sub_id)
     await callback_query.answer("Coming Soon!", show_alert=True)
     # TODO: edit file's description

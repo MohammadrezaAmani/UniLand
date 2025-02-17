@@ -77,7 +77,7 @@ async def display_search_result(client, message):
         parse_mode=ParseMode.DISABLED,
         quote=True,
     )
-    new_step = UXTree.nodes[UserSteps.SEARCH.value].parent
+    # new_step = UXTree.nodes[UserSteps.SEARCH.value].parent
     if len(results) == 0:
         keyboard = InlineKeyboardMarkup(
             [
@@ -156,7 +156,7 @@ async def get_submission(client, message):
     """
     submission_type, submission_id = message.text.split("_")[1:]
     submission = Builder.get_submission_child(submission_id, submission_type)
-    if submission == None or not submission.is_confirmed:
+    if submission is None or not submission.is_confirmed:
         await message.reply(text="این رکورد وجود ندارد.")
         return
 
@@ -180,7 +180,7 @@ async def get_submission(client, message):
     try:
         if not usercache.has_user(message.from_user.id):
             user_db.add_user(message.from_user.id, last_step=UserSteps.START.value)
-    except:
+    except Exception as _:
         print("None user found in pvsearch")
 
     sub_db.increase_search_times(id=submission.id)

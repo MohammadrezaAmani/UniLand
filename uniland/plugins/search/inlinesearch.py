@@ -46,7 +46,7 @@ async def answer(client, inline_query):
         # ---------------------- Document ----------------------
         if record.type == "document":
             document = doc_db.get_document(record.id)
-            if document == None:
+            if document is None:
                 continue
             results.append(
                 InlineQueryResultCachedDocument(
@@ -70,10 +70,10 @@ async def answer(client, inline_query):
         # ---------------------- Profile ----------------------
         elif record.type == "profile":
             profile = profile_db.get_profile(record.id)
-            if profile == None:
+            if profile is None:
                 continue
             # ------------- Profile with Photo -------------
-            if profile.image_id != None and profile.image_id != "":
+            if profile.image_id is not None and profile.image_id != "":
                 results.append(
                     InlineQueryResultCachedDocument(
                         document_file_id=profile.image_id,
@@ -120,7 +120,7 @@ async def answer(client, inline_query):
         # ---------------------- Media ----------------------
         elif record.type == "media":
             media = media_db.get_media(record.id)
-            if media == None:
+            if media is None:
                 continue
             results.append(
                 InlineQueryResultArticle(

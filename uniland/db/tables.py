@@ -194,7 +194,7 @@ class Submission(BASE):
         Raises:
             RuntimeError: If the user doesn't have permission to confirm the submission.
         """
-        if user == None or user.access_level.value < 2:  # 2 is Editor access
+        if user is None or user.access_level.value < 2:  # 2 is Editor access
             raise RuntimeError(
                 "User doesn't have permission to confirm this submission"
             )
@@ -207,7 +207,6 @@ class Submission(BASE):
 
 
 class Document(Submission):
-
     """
     Represents a document submission in the database.
 
@@ -469,27 +468,6 @@ class Profile(Submission):
     __mapper_args__ = {
         "polymorphic_identity": "profile",
     }
-
-
-# ---------------------------------------------------------------------
-
-
-class Media(Submission):
-    """
-    Represents a media submission in the UniLand system.
-
-    Attributes:
-        id (int): The unique identifier of the media.
-        url (str): The URL of the media.
-        media_type (str): The type of the media.
-        course (str): The course associated with the media.
-        professor (str): The professor associated with the media.
-        semester_year (int): The year of the semester when the media was submitted.
-    """
-
-    __tablename__ = "medias"
-
-    # Rest of the code...
 
 
 class Media(Submission):
