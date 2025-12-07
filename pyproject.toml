@@ -1,0 +1,82 @@
+[project]
+name = "uniland"
+version = "3.0.0"
+description = "Advanced University Content Sharing Bot - Django + Pyrogram + DRF"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "django>=5.1",
+    "djangorestframework>=3.15.2",
+    "djangorestframework-simplejwt>=5.3.1",
+    "drf-spectacular>=0.27.2",
+    "django-filter>=24.3",
+    "django-cors-headers>=4.4.0",
+    "django-redis>=5.4.0",
+    "django-celery-beat>=2.7.0",
+    "django-modeltranslation>=0.19.7",
+    "pyrogram>=2.0.106",
+    "tgcrypto>=1.2.5",
+    "celery>=5.4.0",
+    "redis>=5.1.1",
+    "hiredis>=3.0.0",
+    "psycopg[binary]>=3.2.3",
+    "pillow>=11.0.0",
+    "python-decouple>=3.8",
+    "pydantic>=2.9.2",
+    "pydantic-settings>=2.6.0",
+    "injector>=0.22.0",
+    "structlog>=24.4.0",
+    "sentry-sdk>=2.17.0",
+    "gunicorn>=23.0.0",
+    "uvloop>=0.21.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "pytest-django>=4.9.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
+    "factory-boy>=3.3.1",
+    "faker>=30.8.2",
+    "black>=24.10.0",
+    "ruff>=0.7.4",
+    "mypy>=1.13.0",
+    "django-stubs>=5.1.0",
+    "djangorestframework-stubs>=3.15.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | migrations
+  | __pycache__
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = ["migrations", "__pycache__", ".venv"]
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=apps --cov-report=html --cov-report=term-missing --asyncio-mode=auto"
+asyncio_mode = "auto"
