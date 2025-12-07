@@ -1,0 +1,223 @@
+{
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "native_name": "English",
+      "flag_emoji": "🇬🇧",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "fa",
+      "name": "Persian",
+      "native_name": "فارسی",
+      "flag_emoji": "🇮🇷",
+      "is_rtl": true,
+      "is_active": true
+    },
+    {
+      "code": "ar",
+      "name": "Arabic",
+      "native_name": "العربية",
+      "flag_emoji": "🇸🇦",
+      "is_rtl": true,
+      "is_active": true
+    },
+    {
+      "code": "tr",
+      "name": "Turkish",
+      "native_name": "Türkçe",
+      "flag_emoji": "🇹🇷",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "ru",
+      "name": "Russian",
+      "native_name": "Русский",
+      "flag_emoji": "🇷🇺",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "native_name": "Deutsch",
+      "flag_emoji": "🇩🇪",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "native_name": "Français",
+      "flag_emoji": "🇫🇷",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "es",
+      "name": "Spanish",
+      "native_name": "Español",
+      "flag_emoji": "🇪🇸",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "zh",
+      "name": "Chinese",
+      "native_name": "中文",
+      "flag_emoji": "🇨🇳",
+      "is_rtl": false,
+      "is_active": true
+    },
+    {
+      "code": "ja",
+      "name": "Japanese",
+      "native_name": "日本語",
+      "flag_emoji": "🇯🇵",
+      "is_rtl": false,
+      "is_active": true
+    }
+  ],
+  "translations": {
+    "common": {
+      "welcome": {
+        "description": "Welcome message",
+        "en": "Hello {name}! 👋\n\nWelcome to UniLand bot.\n\nSelect an option from the menu below:",
+        "fa": "سلام {name} عزیز! 👋\n\nبه ربات یونیلند خوش آمدید.\n\nاز منوی زیر گزینه مورد نظر خود را انتخاب کنید:",
+        "ar": "مرحبا {name}! 👋\n\nمرحبا بك في بوت UniLand.\n\nاختر خيارًا من القائمة أدناه:",
+        "tr": "Merhaba {name}! 👋\n\nUniLand botuna hoş geldiniz.\n\nAşağıdaki menüden bir seçenek seçin:",
+        "ru": "Привет {name}! 👋\n\nДобро пожаловать в бот UniLand.\n\nВыберите опцию из меню ниже:",
+        "de": "Hallo {name}! 👋\n\nWillkommen beim UniLand-Bot.\n\nWählen Sie eine Option aus dem Menü unten:",
+        "fr": "Bonjour {name}! 👋\n\nBienvenue sur le bot UniLand.\n\nSélectionnez une option dans le menu ci-dessous:",
+        "es": "¡Hola {name}! 👋\n\nBienvenido al bot UniLand.\n\nSeleccione una opción del menú a continuación:",
+        "zh": "你好 {name}！👋\n\n欢迎使用 UniLand 机器人。\n\n从下面的菜单中选择一个选项：",
+        "ja": "こんにちは {name}！👋\n\nUniLand ボットへようこそ。\n\n以下のメニューからオプションを選択してください："
+      },
+      "back": {
+        "en": "🔙 Back",
+        "fa": "🔙 برگشت",
+        "ar": "🔙 رجوع",
+        "tr": "🔙 Geri",
+        "ru": "🔙 Назад",
+        "de": "🔙 Zurück",
+        "fr": "🔙 Retour",
+        "es": "🔙 Atrás",
+        "zh": "🔙 返回",
+        "ja": "🔙 戻る"
+      },
+      "cancel": {
+        "en": "❌ Cancel",
+        "fa": "❌ لغو",
+        "ar": "❌ إلغاء",
+        "tr": "❌ İptal",
+        "ru": "❌ Отмена",
+        "de": "❌ Abbrechen",
+        "fr": "❌ Annuler",
+        "es": "❌ Cancelar",
+        "zh": "❌ 取消",
+        "ja": "❌ キャンセル"
+      },
+      "done": {
+        "en": "✅ Done",
+        "fa": "✅ اتمام",
+        "ar": "✅ تم",
+        "tr": "✅ Tamam",
+        "ru": "✅ Готово",
+        "de": "✅ Fertig",
+        "fr": "✅ Terminé",
+        "es": "✅ Hecho",
+        "zh": "✅ 完成",
+        "ja": "✅ 完了"
+      },
+      "error": {
+        "en": "An error occurred. Please try again.",
+        "fa": "خطایی رخ داد. لطفاً دوباره تلاش کنید.",
+        "ar": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+        "tr": "Bir hata oluştu. Lütfen tekrar deneyin.",
+        "ru": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+        "de": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        "fr": "Une erreur s'est produite. Veuillez réessayer.",
+        "es": "Ocurrió un error. Por favor, inténtelo de nuevo.",
+        "zh": "发生错误。请重试。",
+        "ja": "エラーが発生しました。もう一度お試しください。"
+      }
+    },
+    "menu": {
+      "search": {
+        "en": "🔍 Search 🔎",
+        "fa": "🔍 جستجو 🔎",
+        "ar": "🔍 بحث 🔎",
+        "tr": "🔍 Ara 🔎",
+        "ru": "🔍 Поиск 🔎",
+        "de": "🔍 Suche 🔎",
+        "fr": "🔍 Recherche 🔎",
+        "es": "🔍 Buscar 🔎",
+        "zh": "🔍 搜索 🔎",
+        "ja": "🔍 検索 🔎"
+      },
+      "submit": {
+        "en": "📤 Submit Content 📤",
+        "fa": "📤 ارسال محتوا 📤",
+        "ar": "📤 إرسال المحتوى 📤",
+        "tr": "📤 İçerik Gönder 📤",
+        "ru": "📤 Отправить контент 📤",
+        "de": "📤 Inhalt einreichen 📤",
+        "fr": "📤 Soumettre du contenu 📤",
+        "es": "📤 Enviar contenido 📤",
+        "zh": "📤 提交内容 📤",
+        "ja": "📤 コンテンツを送信 📤"
+      },
+      "profile": {
+        "en": "👩‍💻 My Profile 👨‍💻",
+        "fa": "👩‍💻 پروفایل من 👨‍💻",
+        "ar": "👩‍💻 ملفي الشخصي 👨‍💻",
+        "tr": "👩‍💻 Profilim 👨‍💻",
+        "ru": "👩‍💻 Мой профиль 👨‍💻",
+        "de": "👩‍💻 Mein Profil 👨‍💻",
+        "fr": "👩‍💻 Mon profil 👨‍💻",
+        "es": "👩‍💻 Mi perfil 👨‍💻",
+        "zh": "👩‍💻 我的个人资料 👨‍💻",
+        "ja": "👩‍💻 マイプロフィール 👨‍💻"
+      },
+      "help": {
+        "en": "📜 Help 📜",
+        "fa": "📜 راهنما 📜",
+        "ar": "📜 مساعدة 📜",
+        "tr": "📜 Yardım 📜",
+        "ru": "📜 Помощь 📜",
+        "de": "📜 Hilfe 📜",
+        "fr": "📜 Aide 📜",
+        "es": "📜 Ayuda 📜",
+        "zh": "📜 帮助 📜",
+        "ja": "📜 ヘルプ 📜"
+      },
+      "settings": {
+        "en": "⚙️ Settings",
+        "fa": "⚙️ تنظیمات",
+        "ar": "⚙️ الإعدادات",
+        "tr": "⚙️ Ayarlar",
+        "ru": "⚙️ Настройки",
+        "de": "⚙️ Einstellungen",
+        "fr": "⚙️ Paramètres",
+        "es": "⚙️ Configuración",
+        "zh": "⚙️ 设置",
+        "ja": "⚙️ 設定"
+      },
+      "language": {
+        "en": "🌐 Language",
+        "fa": "🌐 زبان",
+        "ar": "🌐 اللغة",
+        "tr": "🌐 Dil",
+        "ru": "🌐 Язык",
+        "de": "🌐 Sprache",
+        "fr": "🌐 Langue",
+        "es": "🌐 Idioma",
+        "zh": "🌐 语言",
+        "ja": "🌐 言語"
+      }
+    }
+  }
+}
